@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import { copy, localPath, type Locale } from '../data/site';
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const t = copy[locale];
+const photos = [
+  { name: 'Iceland glacial lagoon', photographer: 'Matteo Max Putzolu', url: 'https://unsplash.com/photos/boat-navigating-through-icebergs-in-glacial-lagoon-6RLyWPHqPoo' },
+  { name: 'Kyoto temple', photographer: 'Andrea Fontalvo', url: 'https://unsplash.com/photos/kiyomizu-dera-temple-in-kyoto-forest-qStTtSA2W6o' },
+  { name: 'Iceland glacier', photographer: 'Joseph Corl', url: 'https://unsplash.com/photos/glacier-tongue-in-glacial-lake-JD5LvrCYmfQ' },
+  { name: 'Iceland coast', photographer: 'Bernd Dittrich', url: 'https://unsplash.com/photos/two-people-walking-on-a-beach-near-rocks-2_VbVQPUmcY' },
+];
+---
+<Base locale={locale} page="credits" title={`${t.credits} — Recap`}>
+  <article class="container legal-page"><p class="eyebrow">RECAP / CREDITS</p><h1>{t.credits}</h1>
+    <section><p>{locale === 'en' ? 'The travel photographs on this site are existing Recap onboarding assets, sourced from Unsplash. Thank you to the photographers whose work helps bring these moments to life.' : '网站中的旅行照片复用 Recap 已有引导页素材，来源为 Unsplash。感谢摄影师们，让这些时刻有了具体的模样。'}</p><ul>{photos.map((photo) => <li><a href={photo.url}>{photo.name} — {photo.photographer}</a></li>)}</ul><p><a href="https://unsplash.com/license">Unsplash License</a></p></section>
+    <section><h2>{locale === 'en' ? 'App screens' : 'App 界面'}</h2><p>{locale === 'en' ? 'Screenshots are captured from a real Recap development build running in an iOS simulator. They use demonstration photos and location labels. They are not AI-generated interfaces or screenshots of a user’s private library.' : '截图来自 iOS 模拟器中真实运行的 Recap 开发构建，照片与地点标签为演示数据，不是 AI 合成界面，也不展示用户的私人相册。'}</p></section>
+    <a class="button button-secondary" href={localPath(locale)}>{t.back}<span aria-hidden="true">↗</span></a>
+  </article>
+</Base>

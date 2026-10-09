@@ -1,0 +1,6 @@
+---
+import Base from '../layouts/Base.astro';
+import { copy } from '../data/site';
+const t = copy.en;
+---
+<Base locale="en" title="Page not found — Recap" noindex><section class="container legal-page"><p class="eyebrow">404 / RECAP</p><h1>{t.notFound}</h1><p>{t.notFoundBody}</p><a class="button button-primary" href="/">{t.back}</a></section></Base>

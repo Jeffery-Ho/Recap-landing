@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import { legal } from '../data/legal';
+import { copy, site, localPath, type Locale } from '../data/site';
+interface Props { locale: Locale; kind: 'privacy' | 'terms'; }
+const { locale, kind } = Astro.props;
+const t = copy[locale];
+const content = legal[locale][kind];
+---
+<Base locale={locale} page={kind} title={`${content.title} — Recap`} noindex={!site.legalApproved}>
+  <article class="container legal-page">
+    <p class="eyebrow">RECAP / {kind.toUpperCase()}</p><h1>{content.title}</h1><p class="updated">{t.updated}</p>
+    {!site.legalApproved && <aside class="draft-notice"><strong>{t.legalDraft}</strong><p>{content.intro}</p></aside>}
+    {content.sections.map((section) => <section><h2>{section.title}</h2><p>{section.text}</p></section>)}
+    <section><h2>{t.contact}</h2>{site.contactEmail ? <p><a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a></p> : <p>{t.questions.find((item) => item.id === 'contact')?.answer}</p>}</section>
+    {kind === 'privacy' && <section><h2>{locale === 'en' ? 'Related policies' : '相关政策'}</h2><ul><li><a href="https://www.apple.com/legal/privacy/">Apple Privacy Policy</a></li><li><a href="https://www.cloudflare.com/privacypolicy/">Cloudflare Privacy Policy</a></li></ul></section>}
+    {kind === 'terms' && <p style="margin-top: 28px"><a href="https://testflight.apple.com/">{locale === 'en' ? 'Apple’s TestFlight guide' : 'Apple TestFlight 说明'}</a></p>}
+    <a class="button button-secondary" href={localPath(locale)}>{t.back}<span aria-hidden="true">↗</span></a>
+  </article>
+</Base>

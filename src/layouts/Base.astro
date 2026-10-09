@@ -1,0 +1,83 @@
+---
+import '../styles/global.css';
+import BetaButton from '../components/BetaButton.astro';
+import { copy, localPath, site, type Locale } from '../data/site';
+interface Props { locale: Locale; page?: string; title?: string; description?: string; noindex?: boolean; }
+const { locale, page = '', title, description, noindex = false } = Astro.props;
+const t = copy[locale];
+const home = localPath(locale);
+const canonical = new URL(localPath(locale, page), site.origin).href;
+const otherLocale = locale === 'en' ? 'zh' : 'en';
+const contactHref = site.contactEmail ? `mailto:${site.contactEmail}` : `${home}#contact`;
+const pageTitle = title ?? t.title;
+const pageDescription = description ?? t.description;
+---
+<!doctype html>
+<html lang={t.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#faf9f6" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="en" href={new URL(localPath('en', page), site.origin).href} />
+    <link rel="alternate" hreflang="zh-Hans" href={new URL(localPath('zh', page), site.origin).href} />
+    <link rel="alternate" hreflang="x-default" href={new URL(localPath('en', page), site.origin).href} />
+    <link rel="icon" type="image/png" href="/app-icon.png" />
+    <link rel="apple-touch-icon" href="/app-icon.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Recap" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={locale === 'en' ? 'en_US' : 'zh_CN'} />
+    <meta property="og:locale:alternate" content={locale === 'en' ? 'zh_CN' : 'en_US'} />
+    <meta property="og:image" content={`${site.origin}/app-icon.png`} />
+    <meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="1024" />
+    <meta property="og:image:alt" content="Recap — a white fish on a black app icon" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <meta name="twitter:image" content={`${site.origin}/app-icon.png`} />
+  </head>
+  <body class:list={[{ 'locale-zh': locale === 'zh' }]}>
+    <a class="skip-link" href="#main">{t.skip}</a>
+    <header class="site-header">
+      <div class="container nav-inner">
+        <a class="brand" href={home} aria-label="Recap">
+          <img src="/app-icon.png" width="34" height="34" alt="" />
+          <span>Recap<span class="brand-period">.</span></span>
+        </a>
+        <nav aria-label={locale === 'en' ? 'Main navigation' : '主导航'}>
+          <a class="nav-section" href={`${home}#features`}>{t.features}</a>
+          <a class="nav-section" href={`${home}#faq`}>{t.faq}</a>
+          <a class="language-link" href={localPath(otherLocale, page)} lang={copy[otherLocale].lang} hreflang={copy[otherLocale].lang} aria-label={t.languageLabel} data-language-switch>{t.otherLanguage}</a>
+        </nav>
+        <div class="nav-beta"><BetaButton locale={locale} compact /></div>
+      </div>
+    </header>
+    <main id="main" tabindex="-1"><slot /></main>
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div><a class="footer-brand" href={home}>Recap.</a><p>{t.footerLine}</p></div>
+        <nav aria-label={locale === 'en' ? 'Footer navigation' : '页脚导航'}>
+          <a href={localPath(locale, 'privacy')}>{t.privacy}</a>
+          <a href={localPath(locale, 'terms')}>{t.terms}</a>
+          <a href={contactHref}>{t.contact}</a>
+          <a href={localPath(locale, 'credits')}>{t.credits}</a>
+        </nav>
+      </div>
+      <div class="container footer-bottom"><span>© 2026 Recap</span><a href={localPath(otherLocale, page)} lang={copy[otherLocale].lang} data-language-switch>{t.otherLanguage}</a></div>
+    </footer>
+    <script>
+      // Standard links remain usable without JavaScript. Preserve the selected
+      // section when switching languages without client-side routing.
+      for (const link of document.querySelectorAll<HTMLAnchorElement>('[data-language-switch]')) {
+        link.addEventListener('click', () => { link.hash = window.location.hash; });
+      }
+    </script>
+  </body>
+</html>

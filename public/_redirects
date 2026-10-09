@@ -1,0 +1,2 @@
+# Both hostnames must first be attached in Cloudflare Pages.
+https://www.recapmoments.app/* https://recapmoments.app/:splat 301
