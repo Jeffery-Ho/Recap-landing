@@ -19,6 +19,8 @@
 
 完整生成提示词保存在 `handheld-phone-prompt.txt`。主视觉要求自然手部握持、正面平行手机、屏幕无遮挡、柔和影棚光线、无文字或虚构 UI。首页通过 CSS 单独嵌入 `screens/home.png`，模型原图和 App 截图均未重新绘制。
 
+截图使用 `object-fit: cover` 按原比例铺满模型的屏幕开口，并向顶部对齐以保留状态栏；仅裁去底部少量内容，避免两侧出现黑边。
+
 ## 摄影
 
 复用 App 已收录的 Unsplash 演示照片，来源记录在 App 的 `Recap/Doc/initial-onboarding-unsplash-sources.md`。网站同时提供中英文素材来源页。

@@ -1,12 +1,13 @@
 ---
 import { copy, site, type Locale } from '../data/site';
+import { ArrowUpRight } from '@lucide/astro';
 interface Props { locale: Locale; compact?: boolean; }
 const { locale, compact = false } = Astro.props;
 const t = copy[locale];
 ---
 {site.testflightUrl ? (
   <a class:list={['button', 'button-primary', { 'button-small': compact }]} href={site.testflightUrl} data-beta-cta>
-    {t.join}<span aria-hidden="true">↗</span>
+    {t.join}<ArrowUpRight size={17} aria-hidden="true" />
   </a>
 ) : (
   <span class:list={['button', 'button-primary', 'button-pending', { 'button-small': compact }]} role="status" data-beta-cta data-beta-pending>

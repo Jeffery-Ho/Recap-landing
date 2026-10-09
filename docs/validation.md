@@ -47,3 +47,12 @@ Standards 与 Spec 两个只读审查分别执行：Spec 未发现需修复缺�
 - 类型检查、生产构建及 98 个本地链接检查再次通过；最终输出包含 24 个优化图片资源。
 - Standards 审查提出的截图拉伸问题已用 `contain` 修复；Spec 审查无缺陷。
 - 生成资产：`src/assets/mockups/handheld-phone-v1.png`；完整提示词：`docs/handheld-phone-prompt.txt`。内置工具没有模型版本参数，未宣称使用 image-2.5。
+
+## AirBuild 细节对齐与屏幕填充修复
+
+- 参考 `https://air.build/` 对齐轻字重标题、浅灰底色、紧凑吸顶导航、胶囊按钮、留白与 FAQ 卡片；保留 Recap 的素材和业务文案。
+- 首屏截图由第二轮的 `contain` 改为 `cover`、顶部对齐，按原比例铺满模型开口；底部少量裁切，桌面与手机近景确认没有两侧黑边。
+- 中英文检查 375、390、768、1440px 的宽度、CTA 和核心截图。发现并修复移动导航隐藏规则被覆盖的问题，随后复查 375px 中文、390px 中英文与 1174px 桌面。
+- 功能锚点、带锚点语言切换、FAQ 键盘展开/关闭与加减图标正常。summary 焦点轮廓 3px；控制台没有 error/warn。
+- 类型检查、最终生产构建及静态验证通过：9 个页面、24 个优化图片资源、8 个路由、98 个本地链接。没有 Xcode Build。
+- 同屏来源对比、修复历史和最终截图见根目录 `design-qa.md`；图片保存在未提交的 `artifacts/air-alignment/`。
