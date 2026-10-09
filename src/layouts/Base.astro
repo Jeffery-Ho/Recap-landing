@@ -62,7 +62,7 @@ const pageDescription = description ?? t.description;
     <main id="main" tabindex="-1"><slot /></main>
     <footer class="site-footer">
       <div class="container footer-inner">
-        <div><a class="footer-brand" href={home}>Recap.</a><p>{t.footerLine}</p></div>
+        <div><a class="footer-brand" href={home}>Recap.</a></div>
         <nav aria-label={locale === 'en' ? 'Footer navigation' : '页脚导航'}>
           <a href={localPath(locale, 'privacy')}>{t.privacy}</a>
           <a href={localPath(locale, 'terms')}>{t.terms}</a>

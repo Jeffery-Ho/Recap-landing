@@ -13,6 +13,12 @@
 
 截图保持原图，由 Astro 在构建时生成不同宽度的 WebP。没有生成或重画 App 界面，未将开发验证等同于 TestFlight 验证。
 
+## 手握手机模型
+
+`src/assets/mockups/handheld-phone-v1.png` 使用内置 imagegen 生成，是含真实透明通道的 1024×1536 PNG。当前工具没有模型版本选择参数，不能确认用户提出的 image-2.5 版本；本轮未使用 CLI 或 API fallback。
+
+完整生成提示词保存在 `handheld-phone-prompt.txt`。主视觉要求自然手部握持、正面平行手机、屏幕无遮挡、柔和影棚光线、无文字或虚构 UI。首页通过 CSS 单独嵌入 `screens/home.png`，模型原图和 App 截图均未重新绘制。
+
 ## 摄影
 
 复用 App 已收录的 Unsplash 演示照片，来源记录在 App 的 `Recap/Doc/initial-onboarding-unsplash-sources.md`。网站同时提供中英文素材来源页。
