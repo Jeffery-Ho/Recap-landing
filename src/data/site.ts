@@ -28,7 +28,7 @@ export const copy = {
     explore: 'Explore Recap',
     heroLines: ['Relive the moments', 'you almost forgot.'],
     heroDescription: 'Rediscover your photo library through weekly recaps, city memories, and familiar themes.',
-    heroAlt: 'A hand holding a front-facing phone displaying Recap’s real home screen, with a weekly photo card and theme collections.',
+    heroAlt: 'A hand holding a front-facing phone displaying Recap’s real home screen and this week’s photo card.',
     weekly: {
       title: 'Your days deserve\na second look.',
       body: 'The walk. The weekend. The photo you took for no particular reason. Browse your photos week by week, and find the life between the highlights.',
@@ -79,7 +79,7 @@ export const copy = {
     explore: '看看 Recap',
     heroLines: ['把拍过的日子，', '再过一遍。'],
     heroDescription: '按周回看生活，从城市和主题里，重新发现值得记住的时刻。',
-    heroAlt: '手握正面手机，屏幕展示 Recap 真实首页，包括本周照片卡和主题集合。',
+    heroAlt: '手握正面手机，屏幕展示 Recap 真实首页和本周照片卡片。',
     weekly: {
       title: '日子值得，\n再看一遍。',
       body: '散步、周末，还有那张没有特别理由拍下的照片。按周翻看相册，重新发现那些大事之间的小日子。',

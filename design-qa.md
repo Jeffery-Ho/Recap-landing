@@ -47,4 +47,9 @@
 - [x] 手机与桌面视觉、原生 FAQ 与语言切换验证。
 - [x] 更新 changelog 和素材说明。
 
+## 截图本地化补充
+
+- 截图本地化补充复核（2026-10-09）：英文首屏、周回顾、城市、主题使用独立英文素材，中文使用原中文截图；城市封面均为 Unsplash 实景照片。1174px 与 390px 两种语言均无横向溢出，四处 App 图片全部加载，首屏填充保持 `cover`。
+- 本地化补充证据：`artifacts/localized-screens/en-cities-desktop.png`、`zh-cities-desktop.png`、`en-mobile.png`、`zh-mobile.png`、`en-cities-mobile.png`。检查英文目录标题、地名、日期、数量及照片封面通过，构建与路由验证通过。
+
 final result: passed

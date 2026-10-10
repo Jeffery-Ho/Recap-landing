@@ -56,3 +56,12 @@ Standards 与 Spec 两个只读审查分别执行：Spec 未发现需修复缺�
 - 功能锚点、带锚点语言切换、FAQ 键盘展开/关闭与加减图标正常。summary 焦点轮廓 3px；控制台没有 error/warn。
 - 类型检查、最终生产构建及静态验证通过：9 个页面、24 个优化图片资源、8 个路由、98 个本地链接。没有 Xcode Build。
 - 同屏来源对比、修复历史和最终截图见根目录 `design-qa.md`；图片保存在未提交的 `artifacts/air-alignment/`。
+## 第四轮：双语截图与整页摄影素材去重
+
+- 首页、周回顾和城市目录按页面语言使用真实 App 开发构建截图；城市目录包含哥本哈根、斯德哥尔摩、赫尔辛基、奥斯陆、东京和首尔。
+- 主题展示采用独立的六张 Unsplash 照片卡，不复用首页截图。页面首页、周回顾、城市卡、主题卡和背景装饰共列出 26 个不同摄影来源，见 `src/data/photography-sources.json`。
+- `npm run check`：21 个文件、0 errors / warnings / hints。
+- `npm run build`：9 个页面、54 个响应式图片输出。
+- `npm run verify`：通过 8 个静态路由及 98 个本地链接、SEO 和 FAQ 检查。
+- `git diff --check`：通过。未重新编译 App。
+- 中英文城市目录与周回顾截图已从指定模拟器采集并目视复核：英文截图包含英文标题和六座城市，中文截图包含对应中文名称；周回顾的封面与下方可见照片墙没有重复照片。原件位于未提交的 `artifacts/localized-screens/`。本轮未重新执行浏览器宽度检查；公开 TestFlight 和线上发布不在本轮验收范围内。

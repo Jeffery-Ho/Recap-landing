@@ -62,6 +62,14 @@ h1 { font-size: clamp(48px, 5.4vw, 72px); font-weight: 400; letter-spacing: -.05
 .handheld-screen img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
 .phone { background: #222725; padding: 5px; border-radius: 39px; border: 1px solid #393f39; box-shadow: 0 0 0 3px #c1c3ba, 0 22px 45px -18px #33362c44; position: relative; }
 .phone img { width: 100%; border-radius: 34px; }
+.theme-gallery-phone { height: 510px; padding: 14px 11px 12px; background: #f7f6f1; border-radius: 34px; }
+.theme-gallery-heading { height: 39px; display: flex; justify-content: space-between; align-items: center; padding: 0 4px; color: #20211f; font-size: 15px; font-weight: 600; }
+.theme-gallery-heading span:last-child { color: #8b8d82; font-size: 17px; }
+.theme-gallery-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.theme-photo-card { aspect-ratio: .78; position: relative; overflow: hidden; border-radius: 17px; background: #deded5; }
+.theme-photo-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 0; }
+.theme-photo-card::after { content: ''; position: absolute; inset: 38% 0 0; background: linear-gradient(transparent, #10120fc9); }
+.theme-photo-card span { position: absolute; z-index: 1; inset-inline: 9px; bottom: 10px; color: white; font-size: 11px; line-height: 1.2; font-weight: 600; text-shadow: 0 1px 5px #0008; }
 .feature-section { padding-block: 72px; }
 .feature-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 64px; align-items: center; }
 .feature-copy { max-width: 490px; padding: 10px 0; }

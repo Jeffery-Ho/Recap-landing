@@ -6,18 +6,47 @@ import { copy, localPath, site, type Locale } from '../data/site';
 import homeScreen from '../assets/screens/home.png';
 import cityScreen from '../assets/screens/cities.png';
 import weekScreen from '../assets/screens/week.png';
+import homeScreenEn from '../assets/screens/en/home.png';
+import cityScreenEn from '../assets/screens/en/cities.png';
+import weekScreenEn from '../assets/screens/en/week.png';
 import handheldPhone from '../assets/mockups/handheld-phone-v1.png';
 import kyoto from '../assets/photos/kyoto.png';
 import glacier from '../assets/photos/glacier.png';
-import coast from '../assets/photos/coast.jpg';
+import iceland from '../assets/photos/iceland.png';
+import themePet from '../assets/theme-photos/pet.jpg';
+import themeFlowers from '../assets/theme-photos/flowers.jpg';
+import themeSea from '../assets/theme-photos/sea.jpg';
+import themeSunset from '../assets/theme-photos/sunset.jpg';
+import themeMountain from '../assets/theme-photos/mountain.jpg';
+import themeGathering from '../assets/theme-photos/gathering.jpg';
 interface Props { locale: Locale; }
 const { locale } = Astro.props;
 const t = copy[locale];
+const screens = locale === 'en'
+  ? { home: homeScreenEn, cities: cityScreenEn, week: weekScreenEn }
+  : { home: homeScreen, cities: cityScreen, week: weekScreen };
+const themePhotos = locale === 'en'
+  ? [
+      { image: themePet, label: 'Pet friends', alt: 'A golden dog outdoors' },
+      { image: themeFlowers, label: 'Flowers', alt: 'Fresh flowers in bloom' },
+      { image: themeSea, label: 'By the sea', alt: 'Ocean waves along the coast' },
+      { image: themeSunset, label: 'Sunset moments', alt: 'Sunset over the water' },
+      { image: themeMountain, label: 'Mountain air', alt: 'A mountain landscape' },
+      { image: themeGathering, label: 'Gatherings', alt: 'A lively evening gathering' },
+    ]
+  : [
+      { image: themePet, label: '宠物时光', alt: '户外的金毛犬' },
+      { image: themeFlowers, label: '花卉', alt: '盛开的鲜花' },
+      { image: themeSea, label: '海边', alt: '海岸边的海浪' },
+      { image: themeSunset, label: '日落时刻', alt: '水面上的日落' },
+      { image: themeMountain, label: '山野', alt: '山间风景' },
+      { image: themeGathering, label: '相聚', alt: '热闹的夜晚聚会' },
+    ];
 const icons = { random: Shuffle, share: Frame, assistant: MessageCircle };
 const features = [
-  { id: 'weekly', content: t.weekly, image: weekScreen },
-  { id: 'cities', content: t.cities, image: cityScreen },
-  { id: 'themes', content: t.themes, image: homeScreen },
+  { id: 'weekly', content: t.weekly, image: screens.week },
+  { id: 'cities', content: t.cities, image: screens.cities },
+  { id: 'themes', content: t.themes, image: screens.home },
 ];
 ---
 <section class="hero" aria-labelledby="hero-title">
@@ -29,7 +58,7 @@ const features = [
   <div class="container hero-visual">
     <div class="handheld-phone">
       <Image class="handheld-model" src={handheldPhone} alt="" widths={[512, 768, 1024]} sizes="(max-width: 700px) 520px, 620px" format="webp" loading="eager" fetchpriority="high" />
-      <div class="handheld-screen"><Image src={homeScreen} alt={t.heroAlt} widths={[320, 640, 960]} sizes="(max-width: 700px) 219px, 261px" format="webp" loading="eager" fetchpriority="high" /></div>
+      <div class="handheld-screen"><Image src={screens.home} alt={t.heroAlt} widths={[320, 640, 960]} sizes="(max-width: 700px) 219px, 261px" format="webp" loading="eager" fetchpriority="high" /></div>
     </div>
   </div>
 </section>
@@ -45,8 +74,15 @@ const features = [
         <figure class="feature-visual">
           {id === 'weekly' && <div class="back-photo back-photo-week"><Image src={glacier} alt="" widths={[240, 480]} sizes="184px" format="webp" /></div>}
           {id === 'cities' && <div class="back-photo back-photo-city"><Image src={kyoto} alt="" widths={[240, 480]} sizes="184px" format="webp" /></div>}
-          {id === 'themes' && <div class="back-photo back-photo-theme"><Image src={coast} alt="" widths={[240, 480]} sizes="184px" format="webp" /></div>}
-          <div class="phone feature-phone"><Image src={image} alt={content.alt} widths={[320, 640, 960]} sizes="(max-width: 700px) 228px, (max-width: 1000px) 210px, 231px" format="webp" /></div>
+          {id === 'themes' && <div class="back-photo back-photo-theme"><Image src={iceland} alt="" widths={[240, 480]} sizes="184px" format="webp" /></div>}
+          {id === 'themes' ? (
+            <div class="phone feature-phone theme-gallery-phone" aria-label={locale === 'en' ? 'Unique Unsplash theme photographs' : '不重复的 Unsplash 主题照片'}>
+              <div class="theme-gallery-heading"><span>{locale === 'en' ? 'For You' : '为你推荐'}</span><span aria-hidden="true">✦</span></div>
+              <div class="theme-gallery-grid">
+                {themePhotos.map(({ image: photo, label, alt }) => <article class="theme-photo-card"><Image src={photo} alt={alt} widths={[240, 480]} sizes="(max-width: 700px) 100px, 112px" format="webp" /><span>{label}</span></article>)}
+              </div>
+            </div>
+          ) : <div class="phone feature-phone"><Image src={image} alt={content.alt} widths={[320, 640, 960]} sizes="(max-width: 700px) 228px, (max-width: 1000px) 210px, 231px" format="webp" /></div>}
         </figure>
       </div>
     </section>

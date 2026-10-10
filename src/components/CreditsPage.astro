@@ -1,20 +1,15 @@
 ---
 import Base from '../layouts/Base.astro';
 import { copy, localPath, type Locale } from '../data/site';
+import photos from '../data/photography-sources.json';
 interface Props { locale: Locale; }
 const { locale } = Astro.props;
 const t = copy[locale];
-const photos = [
-  { name: 'Iceland glacial lagoon', photographer: 'Matteo Max Putzolu', url: 'https://unsplash.com/photos/boat-navigating-through-icebergs-in-glacial-lagoon-6RLyWPHqPoo' },
-  { name: 'Kyoto temple', photographer: 'Andrea Fontalvo', url: 'https://unsplash.com/photos/kiyomizu-dera-temple-in-kyoto-forest-qStTtSA2W6o' },
-  { name: 'Iceland glacier', photographer: 'Joseph Corl', url: 'https://unsplash.com/photos/glacier-tongue-in-glacial-lake-JD5LvrCYmfQ' },
-  { name: 'Iceland coast', photographer: 'Bernd Dittrich', url: 'https://unsplash.com/photos/two-people-walking-on-a-beach-near-rocks-2_VbVQPUmcY' },
-];
 ---
 <Base locale={locale} page="credits" title={`${t.credits} — Recap`}>
   <article class="container legal-page"><p class="eyebrow">RECAP / CREDITS</p><h1>{t.credits}</h1>
-    <section><p>{locale === 'en' ? 'The travel photographs on this site are existing Recap onboarding assets, sourced from Unsplash. Thank you to the photographers whose work helps bring these moments to life.' : '网站中的旅行照片复用 Recap 已有引导页素材，来源为 Unsplash。感谢摄影师们，让这些时刻有了具体的模样。'}</p><ul>{photos.map((photo) => <li><a href={photo.url}>{photo.name} — {photo.photographer}</a></li>)}</ul><p><a href="https://unsplash.com/license">Unsplash License</a></p></section>
-    <section><h2>{locale === 'en' ? 'App screens' : 'App 界面'}</h2><p>{locale === 'en' ? 'Screenshots are captured from a real Recap development build running in an iOS simulator. They use demonstration photos and location labels. They are not AI-generated interfaces or screenshots of a user’s private library.' : '截图来自 iOS 模拟器中真实运行的 Recap 开发构建，照片与地点标签为演示数据，不是 AI 合成界面，也不展示用户的私人相册。'}</p></section>
+    <section><p>{locale === 'en' ? 'Every travel, theme, and demo photograph on this page is sourced from Unsplash. The city, weekly, home, theme, and decorative photographs use separate images with no repeats.' : '本页旅行、主题和演示照片均来自 Unsplash。城市、周回顾、首页、主题和装饰使用彼此不同的照片，没有重复素材。'}</p><ul>{photos.map((photo) => <li><a href={photo.source}>{locale === 'en' ? photo.name : photo.nameZh} — {photo.photographer}</a></li>)}</ul><p><a href="https://unsplash.com/license">Unsplash License</a></p></section>
+    <section><h2>{locale === 'en' ? 'App screens' : 'App 界面'}</h2><p>{locale === 'en' ? 'Home, weekly recap, and city directory screenshots are captured from a real Recap development build running in an iOS simulator. They use demonstration photos and location labels. The theme panel arranges separate Unsplash photographs to illustrate the kinds of collections Recap can surface; it is not an App screenshot. No screen shows a user’s private library.' : '首页、周回顾和城市目录截图来自 iOS 模拟器中真实运行的 Recap 开发构建，照片与地点标签为演示数据。主题区域使用独立的 Unsplash 照片展示可能的主题分类，并非 App 截图。没有展示用户的私人相册。'}</p></section>
     <section><h2>{locale === 'en' ? 'Hand-held phone model' : '手握手机模型'}</h2><p>{locale === 'en' ? 'The hand and physical phone in the hero are AI-generated. The screen uses the real Recap screenshot as a separate image layer, so the displayed app interface is preserved.' : '首屏的手部和手机外观由 AI 生成。屏幕使用独立图层嵌入真实 Recap 截图，保留原有 App 界面。'}</p></section>
     <a class="button button-secondary" href={localPath(locale)}>{t.back}<span aria-hidden="true">↗</span></a>
   </article>
