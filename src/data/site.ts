@@ -21,8 +21,8 @@ export function localPath(locale: Locale, page = '') {
 export const copy = {
   en: {
     lang: 'en', otherLanguage: '简体中文', languageLabel: 'Switch to Simplified Chinese',
-    title: 'Recap — Relive the moments you almost forgot.',
-    description: 'Rediscover your photo library through weekly recaps, city memories, and familiar themes. Recap for iPhone and iPad. Join the TestFlight beta.',
+    title: 'Recap — Rediscover Your Photo Memories',
+    description: 'Rediscover the moments in your photo library with weekly recaps, city memories, and themed collections. Made for iPhone and iPad.',
     skip: 'Skip to content', features: 'The little things', faq: 'Questions',
     join: 'Join the TestFlight beta', pending: 'Beta invitations coming soon',
     explore: 'Explore Recap',
@@ -72,8 +72,8 @@ export const copy = {
   },
   zh: {
     lang: 'zh-Hans', otherLanguage: 'English', languageLabel: '切换为英文',
-    title: 'Recap — 把拍过的日子，再过一遍。',
-    description: '按周回看生活，从城市和主题里，重新发现值得记住的时刻。Recap 支持 iPhone 和 iPad，现处于 TestFlight 测试阶段。',
+    title: 'Recap — 重温照片里的生活',
+    description: '用 Recap 按周回看照片，重温城市回忆，通过主题发现值得记住的瞬间。适用于 iPhone 和 iPad。',
     skip: '跳到正文', features: '那些小事', faq: '常见问题',
     join: '加入 TestFlight 测试', pending: '测试邀请准备中',
     explore: '看看 Recap',
