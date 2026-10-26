@@ -31,7 +31,7 @@ npm run verify
 | `LEGAL_CONTENT_APPROVED` | 当前中英文法律文件已获准发布，默认 `true`；需要审阅新草稿时显式设为 `false` |
 | `RECAP_RELEASE` | 正式生产构建设为 `true`，启用上线资料检查 |
 
-隐私政策与用户协议已补齐中英文正文、章节目录、联系信息及 Apple 官方链接。内容覆盖照片与本地助手、权限、诊断反馈、第三方服务、保留删除、会员订阅、测试交易及消费者权益。当前文件已按用户发布指示定稿，正常加入 sitemap。需要审阅后续草稿时设置 `LEGAL_CONTENT_APPROVED=false`，页面会显示待审阅并设置 `noindex`，同时从 sitemap 排除。公开测试邀请与功能核对仍由 `npm run release:check` 单独检查。
+隐私政策与服务条款已补齐中英文正文、章节目录、联系信息及 Apple 官方链接。内容覆盖照片与本地助手、权限、诊断反馈、第三方服务、保留删除、会员订阅、测试交易及消费者权益。当前文件已按用户发布指示定稿，正常加入 sitemap。需要审阅后续草稿时设置 `LEGAL_CONTENT_APPROVED=false`，页面会显示待审阅并设置 `noindex`，同时从 sitemap 排除。公开测试邀请与功能核对仍由 `npm run release:check` 单独检查。
 
 ## 当前生产部署
 
