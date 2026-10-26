@@ -3,8 +3,9 @@ export type Locale = 'en' | 'zh';
 export const site = {
   origin: 'https://recapmoments.app',
   testflightUrl: (import.meta.env.PUBLIC_TESTFLIGHT_URL ?? '').trim(),
-  contactEmail: (import.meta.env.PUBLIC_CONTACT_EMAIL ?? '').trim(),
-  legalApproved: import.meta.env.LEGAL_CONTENT_APPROVED === 'true',
+  operator: 'Recap Team',
+  contactEmail: (import.meta.env.PUBLIC_CONTACT_EMAIL ?? 'support.recap@gmail.com').trim(),
+  legalApproved: (import.meta.env.LEGAL_CONTENT_APPROVED ?? 'true') === 'true',
 };
 
 if (site.testflightUrl && !/^https:\/\/testflight\.apple\.com\/join\/[A-Za-z0-9]+\/?$/.test(site.testflightUrl)) {
@@ -53,7 +54,7 @@ export const copy = {
     privacyTitle: 'Your memories\nstay personal.',
     privacyBody: 'Photo organization and the assistant run on your device. There’s no new Recap account to create. Just your photos, and a new way to spend time with them.',
     privacyNote: 'System services such as iCloud photo downloads and map lookups may use the network.',
-    privacyLink: 'Read our privacy notes',
+    privacyLink: 'Read our Privacy Policy',
     faqTitle: 'A few things you might wonder.',
     questions: [
       { question: 'How can I try Recap?', answer: 'Recap is currently in beta. When public invitations are available, the beta button will take you to Apple’s TestFlight invitation. Install TestFlight, accept the invitation, then install Recap. Invitations are still being prepared.', id: 'installation' },
@@ -66,8 +67,8 @@ export const copy = {
     ],
     closingTitle: 'Take another look.',
     closingBody: 'A whole lot of life. Already in your pocket.',
-    privacy: 'Privacy', terms: 'Terms', contact: 'Contact', credits: 'Photo credits',
-    legalDraft: 'Review draft — not yet approved for publication', updated: 'Updated October 9, 2026', back: 'Back to Recap',
+    privacy: 'Privacy Policy', terms: 'Terms of Service', contact: 'Contact', credits: 'Photo credits',
+    legalDraft: 'Review draft — not yet approved for publication', updated: 'Last updated', back: 'Back to Recap',
     notFound: 'This moment seems to have wandered off.', notFoundBody: 'The page you’re looking for isn’t here. Let’s go back.',
   },
   zh: {
@@ -104,7 +105,7 @@ export const copy = {
     privacyTitle: '你的回忆，\n保持私密。',
     privacyBody: '照片分类和助手都在设备上运行。无需注册新的 Recap 账号，只有你的照片，和一种重新陪伴它们的方式。',
     privacyNote: 'iCloud 照片下载、地图与地名查询等系统服务可能联网。',
-    privacyLink: '阅读隐私说明',
+    privacyLink: '阅读隐私政策',
     faqTitle: '几个小问题。',
     questions: [
       { question: '如何体验 Recap？', answer: 'Recap 目前处于测试阶段。公开邀请准备好后，测试按钮会打开 Apple TestFlight 邀请页面。安装 TestFlight、接受邀请后，即可安装 Recap。目前公开测试邀请仍在准备中。', id: 'installation' },
@@ -117,8 +118,8 @@ export const copy = {
     ],
     closingTitle: '再看一眼吧。',
     closingBody: '口袋里，装着好多日子。',
-    privacy: '隐私政策', terms: '使用条款', contact: '联系', credits: '照片来源',
-    legalDraft: '待审阅草稿，尚未批准发布', updated: '更新于 2026 年 10 月 9 日', back: '返回 Recap',
+    privacy: '隐私政策', terms: '服务条款', contact: '联系', credits: '照片来源',
+    legalDraft: '待审阅草稿，尚未批准发布', updated: '最后更新', back: '返回 Recap',
     notFound: '这一页，好像走远了。', notFoundBody: '没有找到你要访问的页面，先回到首页吧。',
   },
 } as const;

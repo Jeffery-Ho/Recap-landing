@@ -1,20 +1,55 @@
 ---
 import Base from '../layouts/Base.astro';
-import { legal } from '../data/legal';
+import { legal, legalUpdated } from '../data/legal';
 import { copy, site, localPath, type Locale } from '../data/site';
 interface Props { locale: Locale; kind: 'privacy' | 'terms'; }
 const { locale, kind } = Astro.props;
 const t = copy[locale];
 const content = legal[locale][kind];
+const contactTitle = locale === 'en' ? 'Contact us' : '联系我们';
+const contentsTitle = locale === 'en' ? 'On this page' : '本页内容';
+const updatedDate = new Intl.DateTimeFormat(locale === 'en' ? 'en-US' : 'zh-CN', {
+  dateStyle: 'long', timeZone: 'UTC',
+}).format(new Date(`${legalUpdated}T00:00:00Z`));
 ---
-<Base locale={locale} page={kind} title={`${content.title} — Recap`} noindex={!site.legalApproved}>
-  <article class="container legal-page">
-    <p class="eyebrow">RECAP / {kind.toUpperCase()}</p><h1>{content.title}</h1><p class="updated">{t.updated}</p>
-    {!site.legalApproved && <aside class="draft-notice"><strong>{t.legalDraft}</strong><p>{content.intro}</p></aside>}
-    {content.sections.map((section) => <section><h2>{section.title}</h2><p>{section.text}</p></section>)}
-    <section><h2>{t.contact}</h2>{site.contactEmail ? <p><a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a></p> : <p>{t.questions.find((item) => item.id === 'contact')?.answer}</p>}</section>
-    {kind === 'privacy' && <section><h2>{locale === 'en' ? 'Related policies' : '相关政策'}</h2><ul><li><a href="https://www.apple.com/legal/privacy/">Apple Privacy Policy</a></li><li><a href="https://www.cloudflare.com/privacypolicy/">Cloudflare Privacy Policy</a></li></ul></section>}
-    {kind === 'terms' && <p style="margin-top: 28px"><a href="https://testflight.apple.com/">{locale === 'en' ? 'Apple’s TestFlight guide' : 'Apple TestFlight 说明'}</a></p>}
+<Base locale={locale} page={kind} title={`${content.title} — Recap`} description={content.description} noindex={!site.legalApproved}>
+  <article class="container legal-page legal-document">
+    <nav class="legal-switch" aria-label={locale === 'en' ? 'Legal documents' : '法律文件'}>
+      <a href={localPath(locale, 'privacy')} aria-current={kind === 'privacy' ? 'page' : undefined}>{t.privacy}</a>
+      <a href={localPath(locale, 'terms')} aria-current={kind === 'terms' ? 'page' : undefined}>{t.terms}</a>
+    </nav>
+    <header class="legal-heading">
+      <p class="eyebrow">RECAP / {kind.toUpperCase()}</p>
+      <h1>{content.title}</h1>
+      <p class="updated">{t.updated}{locale === 'en' ? ': ' : '：'}<time datetime={legalUpdated}>{updatedDate}</time></p>
+      <p class="legal-intro">{content.intro}</p>
+    </header>
+    {!site.legalApproved && <aside class="draft-notice"><strong>{t.legalDraft}</strong></aside>}
+    <nav class="legal-toc" aria-labelledby="contents-title">
+      <h2 id="contents-title">{contentsTitle}</h2>
+      <ol>
+        {content.sections.map((section) => <li><a href={`#${section.id}`}>{section.title}</a></li>)}
+        <li><a href="#contact">{contactTitle}</a></li>
+      </ol>
+    </nav>
+    {content.sections.map((section, index) => (
+      <section id={section.id} aria-labelledby={`${section.id}-title`}>
+        <h2 id={`${section.id}-title`}>{index + 1}. {section.title}</h2>
+        {section.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+        {section.items && <ul>{section.items.map((item) => <li>{item}</li>)}</ul>}
+        {section.links && <ul class="legal-references">{section.links.map((link) => <li><a href={link.href}>{link.label}</a></li>)}</ul>}
+      </section>
+    ))}
+    <section id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">{content.sections.length + 1}. {contactTitle}</h2>
+      <p>{locale === 'en' ? `Recap is provided by ${site.operator}.` : `Recap 由 ${site.operator} 提供。`}{kind === 'privacy' && (locale === 'en' ? ' We are responsible for the personal information we receive as described in this policy.' : '对于本政策所述由我们收到的个人信息，我们为处理负责人。')}</p>
+      <p>{locale === 'en' ? 'For questions, support, or privacy requests, contact:' : '如有使用问题、支持需求或个人信息相关请求，请联系：'}</p>
+      {site.contactEmail ? <p><a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a></p> : <p>{t.questions.find((item) => item.id === 'contact')?.answer}</p>}
+      <p>{locale === 'en' ? 'Include enough detail to locate your request or prior message. Do not send private photos, passwords, or payment details unless strictly necessary; we will never ask for your Apple Account password.' : '请提供足以查找请求或原有邮件的信息。除确有必要外，不要发送私人照片、密码或支付资料；我们不会索取你的 Apple 账户密码。'}</p>
+    </section>
+    <nav class="legal-related" aria-label={locale === 'en' ? 'Related document' : '相关文件'}>
+      <a href={localPath(locale, kind === 'privacy' ? 'terms' : 'privacy')}>{kind === 'privacy' ? t.terms : t.privacy}<span aria-hidden="true"> →</span></a>
+    </nav>
     <a class="button button-secondary" href={localPath(locale)}>{t.back}<span aria-hidden="true">↗</span></a>
   </article>
 </Base>

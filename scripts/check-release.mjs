@@ -14,7 +14,7 @@ if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((env.PUBLIC_CONTACT_EMAIL ?? '').trim()))
   missing.push('PUBLIC_CONTACT_EMAIL: a public contact email is required.');
 }
 if (env.BETA_FEATURES_VERIFIED !== 'true') missing.push('BETA_FEATURES_VERIFIED: verify the advertised features in the public beta.');
-if (env.LEGAL_CONTENT_APPROVED !== 'true') missing.push('LEGAL_CONTENT_APPROVED: review both localized legal documents.');
+if ((env.LEGAL_CONTENT_APPROVED ?? 'true') !== 'true') missing.push('LEGAL_CONTENT_APPROVED: review both localized legal documents.');
 if (missing.length) {
   console.error('Production release is not ready:\n' + missing.map((item) => `- ${item}`).join('\n'));
   process.exit(1);

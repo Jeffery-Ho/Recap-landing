@@ -132,6 +132,25 @@ h2 span { display: block; }
 .legal-page a:not(.button) { text-decoration: underline; text-underline-offset: 4px; }
 .legal-page ul { padding-left: 20px; }
 .legal-page .button { margin-top: 37px; }
+.legal-switch { display: flex; flex-wrap: wrap; gap: 12px 28px; padding-bottom: 30px; margin-bottom: 34px; border-bottom: 1px solid var(--line); }
+.legal-document .legal-switch a { font-size: 14px; padding-block: 10px; color: var(--secondary); text-decoration: none; }
+.legal-document .legal-switch a[aria-current="page"] { color: var(--ink); text-decoration: underline; text-underline-offset: 8px; }
+.legal-heading { margin-bottom: 30px; }
+.legal-document .legal-intro { font-size: 17px; line-height: 1.85; }
+.legal-document .draft-notice { margin-bottom: 30px; }
+.legal-toc { padding: 24px 28px; background: var(--surface); border-radius: 12px; margin-bottom: 44px; }
+.legal-toc h2 { font-size: 16px; margin-bottom: 14px; }
+.legal-toc ol { columns: 2; column-gap: 40px; margin: 0; padding-left: 22px; }
+.legal-toc li { break-inside: avoid; padding: 4px 0; }
+.legal-document .legal-toc a { text-decoration: none; }
+.legal-document .legal-toc a:hover { text-decoration: underline; }
+.legal-document section { scroll-margin-top: 16px; }
+.legal-document section + section { margin-top: 40px; }
+.legal-document section p + p, .legal-document section ul { margin-top: 14px; }
+.legal-document section p, .legal-document section li { font-size: 15px; }
+.legal-document section li + li { margin-top: 8px; }
+.legal-document section a { overflow-wrap: anywhere; }
+.legal-related { margin-top: 40px; border-top: 1px solid var(--line); padding-top: 24px; font-size: 15px; }
 .locale-zh h1 { letter-spacing: -.035em; line-height: 1.25; font-weight: 400; }
 .locale-zh h2 { letter-spacing: -.035em; line-height: 1.25; }
 .locale-zh .eyebrow { letter-spacing: .09em; }
@@ -196,6 +215,8 @@ h2 span { display: block; }
   .footer-bottom { padding-top: 31px; }
   .legal-page { padding-top: 45px; }
   .legal-page h1 { font-size: 38px; }
+  .legal-toc { padding: 22px 24px; }
+  .legal-toc ol { columns: 1; }
   .locale-zh h1 { font-size: clamp(35px, 9.1vw, 56px); }
 }
 @media (prefers-reduced-motion: reduce) {
