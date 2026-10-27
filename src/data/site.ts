@@ -4,7 +4,7 @@ export const site = {
   origin: 'https://recapmoments.app',
   testflightUrl: (import.meta.env.PUBLIC_TESTFLIGHT_URL ?? '').trim(),
   operator: 'Recap Team',
-  contactEmail: (import.meta.env.PUBLIC_CONTACT_EMAIL ?? 'support.recap@gmail.com').trim(),
+  contactEmail: (import.meta.env.PUBLIC_CONTACT_EMAIL ?? 'support@recapmoments.app').trim(),
   legalApproved: (import.meta.env.LEGAL_CONTENT_APPROVED ?? 'true') === 'true',
 };
 

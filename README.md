@@ -1,6 +1,6 @@
 # Recap landing page
 
-Recap 的独立静态网站，使用 Astro、TypeScript 和原生 CSS。英文 `/`，简体中文 `/zh/`。官网通过 Vercel 发布，Cloudflare 提供内容分发与安全保护；测试邀请仍待配置。服务提供方为 Recap Team，默认隐私及支持邮箱为 support.recap@gmail.com。
+Recap 的独立静态网站，使用 Astro、TypeScript 和原生 CSS。英文 `/`，简体中文 `/zh/`。官网通过 Vercel 发布，Cloudflare 提供内容分发与安全保护；测试邀请仍待配置。服务提供方为 Recap Team，默认隐私及支持邮箱为 support@recapmoments.app。
 
 ## 本地预览
 
@@ -26,7 +26,7 @@ npm run verify
 | 配置 | 用途 |
 | --- | --- |
 | `PUBLIC_TESTFLIGHT_URL` | 真实公开邀请，格式为 `https://testflight.apple.com/join/…` |
-| `PUBLIC_CONTACT_EMAIL` | 隐私及支持邮箱；默认 support.recap@gmail.com，生产环境需显式配置，空值隐藏邮箱入口 |
+| `PUBLIC_CONTACT_EMAIL` | 隐私及支持邮箱；默认 support@recapmoments.app，生产环境需显式配置，空值隐藏邮箱入口 |
 | `BETA_FEATURES_VERIFIED` | 对照公开 TestFlight 构建核对全部卖点后设为 `true` |
 | `LEGAL_CONTENT_APPROVED` | 当前中英文法律文件已获准发布，默认 `true`；需要审阅新草稿时显式设为 `false` |
 | `RECAP_RELEASE` | 正式生产构建设为 `true`，启用上线资料检查 |

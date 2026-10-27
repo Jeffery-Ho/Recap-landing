@@ -15,7 +15,7 @@ interface LegalDocument {
   sections: LegalSection[];
 }
 
-export const legalUpdated = '2026-10-26';
+export const legalUpdated = '2026-10-27';
 
 export const legal: Record<Locale, Record<'privacy' | 'terms', LegalDocument>> = {
   en: {
