@@ -1,0 +1,14 @@
+---
+// The This Week flow on iPhone Air (mock branch build): Home, this week, last year, then the gallery's week filter.
+// The recording sits under Apple's official Cloud White bezel; the screen inset matches the bezel's 1260×2736 cut-out.
+import { Image } from 'astro:assets';
+import OnboardingVideo from './OnboardingVideo.astro';
+import bezel from '../assets/mockups/air-frame.png';
+import type { Locale } from '../data/site';
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+---
+<div class="week-phone" data-enter>
+  <div class="week-phone-screen"><OnboardingVideo name={`week-${locale}`} /></div>
+  <Image class="week-phone-bezel" src={bezel} alt="" widths={[320, 640, 960]} sizes="(max-width: 640px) 64vw, 300px" format="webp" loading="lazy" />
+</div>

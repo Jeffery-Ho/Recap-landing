@@ -9,6 +9,8 @@
 | `public/app-icon.png` | `Recap/Assets.xcassets/AppIconFish.appiconset/AppIconFishDefault.png` | 当前项目配置使用的主图标 |
 | `src/assets/mockups/duo-open-{zh,en}.png` | iPhone Duo 模拟器展开内屏（2853×2007）截图，合成进官方外框 `iPhone Duo - Star White - Inner Open Landscape.png` | Recap `mock` 分支 Debug 构建，2026-11-07 采集，状态栏 9:41；中英文各一张 |
 | `src/assets/mockups/air-home-{zh,en}.png` | iPhone Air 模拟器（1260×2736）首页截图，合成进官方 iPhone Air Cloud White 外框 | 同一构建，临时 Air 模拟器采集后已删除 |
+| `src/assets/mockups/air-frame.png` | Apple Design Resources 的 iPhone Air Cloud White 竖屏外框（屏幕区 60,72 起 1260×2736） | 用于“本周”录屏，CSS 叠加 |
+| `public/onboarding/week-{zh,en}.{mp4,jpg}` | iPhone Air 模拟器“本周”流程录屏，剪去静止段后 630 宽 H.264 | `mock` 分支构建，`-recap-website-photos` 演示数据 |
 
 首屏两台设备的演示数据（2026-11-07 采集）：用 Recap 仓库 `mock` 分支的官网截图模式 `-recap-website-photos`（`WebsiteScreenshotFixture`）启动，本周为 18 张 Retro 风格、不露人脸的无分类生活照，42 张分类照片整体前移一周（均为内置 onboarding 照片），城市归入京都、镰仓、河口湖并指定封面，智能分类解锁，跳过引导页；步骤见 Recap 仓库 `Recap/Doc/App Store Screenshot Capture.md`。Duo 用本机已展开的模拟器采集，采集前备份 App 与数据、采集后装回原构建并恢复；Air 使用临时模拟器，采集后已删除。
 | `src/assets/library/strip/remote-*.jpg` | App 演示图库（`UnsplashMockPhotoLibraryProvider.swift` 中的 Unsplash 链接），长边缩至 900px | 功能区照片条：本周区块的第 44、43 周，地点区块的雷克雅未克，以及部分智能分类 |
