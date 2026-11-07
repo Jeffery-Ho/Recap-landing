@@ -62,7 +62,7 @@ for (const route of ['/', '/zh/']) {
   assert(nodes.some((node) => node.tagName === 'img' && attr(node, 'loading') === 'lazy'), `${route}: lazy secondary images`);
   // Every photograph appears once per page (the brand icon is exempt), like hive.ink's one-image-per-slot rule.
   const photoUses = new Map();
-  // Device frames (data-frame) are not photographs and may repeat; the hero wall's loop copies (data-loop-copy) repeat by design.
+  // Device frames (data-frame) are not photographs and may repeat; the hero wall's loop copies and week-card thumbnails (data-loop-copy) repeat its own photos by design.
   for (const image of nodes.filter((node) => node.tagName === 'img' && attr(node, 'src').startsWith('/_astro/') && attr(node, 'data-frame') === undefined && attr(node, 'data-loop-copy') === undefined)) {
     const key = attr(image, 'src').replace(/_[^_]+$/, '');
     photoUses.set(key, (photoUses.get(key) ?? 0) + 1);

@@ -104,16 +104,19 @@ const videoObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.4 });
 document.querySelectorAll<HTMLVideoElement>('[data-loop-video]').forEach((video) => videoObserver.observe(video));
 
-// Hero photo wall: the columns loop on their own while on screen, and one week at a time lights up (every 3 s).
+// Hero photo wall: the columns loop on their own while on screen, and one week at a time lights up (every 3 s):
+// its photos get a ring and its card pops up over the wall.
 const wall = document.querySelector<HTMLElement>('[data-wall]');
 if (wall) {
   const tiles = [...wall.querySelectorAll<HTMLElement>('[data-week]')];
+  const pops = [...document.querySelectorAll<HTMLElement>('[data-pop]')];
   const weeks = new Set(tiles.map((tile) => tile.dataset.week)).size;
   let week = 0;
   let timer = 0;
   const show = (next: number) => {
     week = next;
     tiles.forEach((tile) => tile.classList.toggle('is-active', tile.dataset.week === String(week)));
+    pops.forEach((pop) => pop.classList.toggle('is-on', pop.dataset.pop === String(week)));
   };
   wall.classList.add('has-week');
   new IntersectionObserver(([entry]) => {
