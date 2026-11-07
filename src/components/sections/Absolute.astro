@@ -1,0 +1,19 @@
+---
+// Shuffle Mode as a full-width feature block, after savee.com's "Give your AI agents taste.":
+// a two-part title, one line, a button with a small availability note, then a large recording of the onboarding page.
+import { ArrowRight } from '@lucide/astro';
+import OnboardingVideo from '../OnboardingVideo.astro';
+import { copy, type Locale } from '../../data/site';
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const h = copy[locale].more.hero;
+---
+<section id="absolute" class="section feature-block container" aria-labelledby="absolute-title">
+  <h2 id="absolute-title" class="section-title" data-enter><span>{h.title[0]}</span> <span class="muted">{h.title[1]}</span></h2>
+  <p class="feature-body" data-enter>{h.body}</p>
+  <div class="block-action" data-enter>
+    <a class="button button-outline-neutral" href="#pricing">{h.cta}<ArrowRight size={16} aria-hidden="true" /></a>
+    <p class="block-note">{h.note}</p>
+  </div>
+  <div class="block-visual video-frame" data-enter><OnboardingVideo name="random" /></div>
+</section>

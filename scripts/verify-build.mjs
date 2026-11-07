@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import { parse } from 'parse5';
 
 const root = 'dist';
-const routes = ['/', '/zh/', '/privacy/', '/zh/privacy/', '/terms/', '/zh/terms/', '/credits/', '/zh/credits/'];
+const routes = ['/', '/zh/', '/privacy/', '/zh/privacy/', '/terms/', '/zh/terms/', '/credits/', '/zh/credits/', '/changelog/', '/zh/changelog/'];
 const pathFor = (url) => join(root, url, 'index.html');
 const documents = new Map();
 const all = (node) => [node, ...(node.childNodes ?? []).flatMap(all)];
@@ -45,8 +45,9 @@ for (const [route, nodes] of documents) {
 
 const englishCtas = documents.get('/').filter((node) => attr(node, 'data-beta-cta') !== undefined);
 const chineseCtas = documents.get('/zh/').filter((node) => attr(node, 'data-beta-cta') !== undefined);
-assert.equal(englishCtas.length, 3);
-assert.equal(chineseCtas.length, 3);
+// Header, hero, install and closing.
+assert.equal(englishCtas.length, 4);
+assert.equal(chineseCtas.length, 4);
 const ctas = [...englishCtas, ...chineseCtas];
 assert.equal(new Set(ctas.map((node) => node.tagName === 'a' ? attr(node, 'href') : 'pending')).size, 1, 'All beta CTAs must have the same destination/state');
 for (const node of ctas) {
@@ -55,9 +56,18 @@ for (const node of ctas) {
 }
 for (const route of ['/', '/zh/']) {
   const nodes = documents.get(route);
-  assert.equal(nodes.filter((node) => node.tagName === 'details').length, 7, `${route}: native, script-free FAQ`);
+  for (const id of ['features', 'pricing', 'install', 'faq', 'updates', 'privacy']) assert(nodes.some((node) => attr(node, 'id') === id), `${route}: #${id} section`);
+  assert.equal(nodes.filter((node) => node.tagName === 'details' && attr(node, 'class') !== 'menu').length, 7, `${route}: native, script-free FAQ`);
   assert(nodes.some((node) => node.tagName === 'img' && attr(node, 'fetchpriority') === 'high'), `${route}: prioritized hero image`);
   assert(nodes.some((node) => node.tagName === 'img' && attr(node, 'loading') === 'lazy'), `${route}: lazy secondary images`);
+  // Every photograph appears once per page (the brand icon is exempt), like hive.ink's one-image-per-slot rule.
+  const photoUses = new Map();
+  // Device frames (data-frame) are not photographs and may repeat; the hero wall's loop copies (data-loop-copy) repeat by design.
+  for (const image of nodes.filter((node) => node.tagName === 'img' && attr(node, 'src').startsWith('/_astro/') && attr(node, 'data-frame') === undefined && attr(node, 'data-loop-copy') === undefined)) {
+    const key = attr(image, 'src').replace(/_[^_]+$/, '');
+    photoUses.set(key, (photoUses.get(key) ?? 0) + 1);
+  }
+  for (const [key, count] of photoUses) assert.equal(count, 1, `${route}: photo ${key} is used ${count} times`);
   for (const image of nodes.filter((node) => node.tagName === 'img' && attr(node, 'src').startsWith('/_astro/'))) {
     assert(attr(image, 'srcset') && attr(image, 'sizes'), `${route}: responsive image`);
   }

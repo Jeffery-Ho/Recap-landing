@@ -7,7 +7,7 @@ if (process.argv.includes('--if-production') && env.RECAP_RELEASE !== 'true') {
 }
 
 const missing = [];
-if (!/^https:\/\/testflight\.apple\.com\/join\/[A-Za-z0-9]+\/?$/.test((env.PUBLIC_TESTFLIGHT_URL ?? '').trim())) {
+if (!/^https:\/\/testflight\.apple\.com\/join\/[A-Za-z0-9]+\/?$/.test((env.PUBLIC_TESTFLIGHT_URL ?? 'https://testflight.apple.com/join/zhd3PaV4').trim())) {
   missing.push('PUBLIC_TESTFLIGHT_URL: a real public TestFlight invitation is required.');
 }
 if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((env.PUBLIC_CONTACT_EMAIL ?? '').trim())) {

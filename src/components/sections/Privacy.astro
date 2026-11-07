@@ -1,0 +1,16 @@
+---
+// Privacy as a 2 × 2 list of short statements, after savee.com's team section: no cards, no icon tiles.
+import { ArrowRight } from '@lucide/astro';
+import { copy, localPath, type Locale } from '../../data/site';
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const p = copy[locale].privacySection;
+---
+<section id="privacy" class="section container" aria-labelledby="privacy-title">
+  <h2 id="privacy-title" class="section-title" data-enter><span>{p.title[0]}</span> <span class="muted">{p.title[1]}</span></h2>
+  <p class="feature-body" data-enter>{p.lead}</p>
+  <ul class="point-grid" data-enter>
+    {p.items.map((item) => <li><h3>{item.title}</h3><p>{item.body}</p></li>)}
+  </ul>
+  <p class="block-link"><a class="accent-link" href={localPath(locale, 'privacy')}>{p.link}<ArrowRight size={16} aria-hidden="true" /></a></p>
+</section>

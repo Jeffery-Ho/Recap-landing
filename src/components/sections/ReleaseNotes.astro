@@ -1,0 +1,13 @@
+---
+import { ArrowRight } from '@lucide/astro';
+import ReleaseList from './ReleaseList.astro';
+import { copy, localPath, type Locale } from '../../data/site';
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const u = copy[locale].updates;
+---
+<section id="updates" class="section container" aria-labelledby="updates-title">
+  <h2 id="updates-title" class="section-title" data-enter>{u.sectionTitle}</h2>
+  <div data-enter><ReleaseList locale={locale} limit={5} compact /></div>
+  <div class="release-more"><a class="button button-outline-neutral button-small" href={localPath(locale, 'changelog')}>{u.seeAll}<ArrowRight size={15} aria-hidden="true" /></a></div>
+</section>

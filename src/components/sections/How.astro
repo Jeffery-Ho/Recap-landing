@@ -1,0 +1,43 @@
+---
+// Feature introduction after savee.com: one centred block per feature, a two-part title (the problem in ink,
+// Recap's answer in grey), a short line, then a pill and a full-bleed photo strip that changes with it.
+import type { ImageMetadata } from 'astro';
+import PhotoStrip from '../PhotoStrip.astro';
+import { copy, type Locale } from '../../data/site';
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const features = copy[locale].features;
+
+// Strip photos, registered in src/data/photography-sources.json. Each appears once on the page.
+const files = import.meta.glob<{ default: ImageMetadata }>('../../assets/library/strip/*.jpg', { eager: true });
+const strip = (name: string) => files[`../../assets/library/strip/${name}.jpg`].default;
+const set = (...names: string[]) => names.map(strip);
+const photos: Record<string, ImageMetadata[][]> = {
+  // Candid, low-light everyday photos after retro.app, with no faces: this week, Week 44 and Week 43.
+  week: [
+    set('OnboardingHistory01', 'OnboardingPaywall09', 'OnboardingHistory06', 'OnboardingCategory16', 'OnboardingWeekly01', 'remote-kyoto-party-02'),
+    set('OnboardingCategory14', 'OnboardingHistory02', 'OnboardingHistory03', 'OnboardingPaywall16', 'OnboardingPaywall04', 'OnboardingHistory09'),
+    set('OnboardingWelcome08', 'OnboardingWelcome17', 'OnboardingHistory04', 'OnboardingWeekly02', 'OnboardingPaywall05', 'remote-party-people-03'),
+  ],
+  places: [
+    set('OnboardingPlaces01', 'OnboardingWelcome03', 'OnboardingPlaces04', 'OnboardingWelcome05', 'OnboardingWelcome14', 'OnboardingWelcome16'),
+    set('OnboardingRandom03', 'OnboardingRandom09', 'OnboardingRandom04', 'OnboardingRandom08', 'OnboardingRandom12', 'OnboardingRandom11'),
+    set('remote-iceland-sea-06', 'remote-iceland-mountain-06', 'remote-iceland-sunset-06', 'remote-iceland-sea-07', 'remote-iceland-mountain-07', 'remote-iceland-sunset-07'),
+  ],
+  categories: [
+    set('OnboardingCategory01', 'remote-pet-dog-02', 'OnboardingCategory03', 'remote-pet-dog-03', 'OnboardingCategory02', 'remote-pet-cat-01'),
+    set('OnboardingCategory04', 'OnboardingCategory06', 'OnboardingPaywall07', 'OnboardingCategory05', 'OnboardingPaywall17', 'remote-kyoto-sakura-01'),
+    set('OnboardingCategory09', 'OnboardingRandom06', 'OnboardingRandom05', 'remote-iceland-sea-03', 'OnboardingRandom07', 'OnboardingPaywall01'),
+    set('OnboardingCategory07', 'OnboardingRandom14', 'OnboardingCategory08', 'remote-iceland-sunset-03', 'OnboardingRandom10', 'OnboardingPaywall18'),
+  ],
+};
+---
+{features.map((feature, i) => (
+  <section id={i === 0 ? 'features' : `feature-${feature.id}`} class="section feature-block" aria-labelledby={`feature-${feature.id}-title`}>
+    <div class="container">
+      <h2 id={`feature-${feature.id}-title`} class="section-title" data-enter><span>{feature.title[0]}</span> <span class="muted">{feature.title[1]}</span></h2>
+      <p class="feature-body" data-enter>{feature.body}</p>
+    </div>
+    <PhotoStrip states={feature.states} photos={photos[feature.id]} icon={feature.icon} />
+  </section>
+))}

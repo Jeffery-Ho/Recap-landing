@@ -1,0 +1,24 @@
+---
+import { releases } from '../../data/releases';
+import { localPath, type Locale } from '../../data/site';
+interface Props { locale: Locale; limit?: number; compact?: boolean; }
+const { locale, limit, compact = false } = Astro.props;
+const items = limit ? releases.slice(0, limit) : releases;
+const format = new Intl.DateTimeFormat(locale === 'en' ? 'en-US' : 'zh-CN', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+const anchor = (version: string) => `v${version.replace(/[^0-9]+/g, '-').replace(/-$/, '')}`;
+---
+<ol class:list={['release-list', { 'release-compact': compact }]}>
+  {items.map((release) => {
+    const inner = (
+      <>
+        <span class="release-version">v{release.version}</span>
+        <time class="release-date" datetime={release.date}>{format.format(new Date(`${release.date}T00:00:00Z`))}</time>
+        <span class="release-title">{release.title[locale]}</span>
+        <span class="release-summary">{release.body[locale]}</span>
+      </>
+    );
+    return compact
+      ? <li><a class="release-row" href={`${localPath(locale, 'changelog')}#${anchor(release.version)}`}>{inner}</a></li>
+      : <li id={anchor(release.version)} class="release-row">{inner}</li>;
+  })}
+</ol>

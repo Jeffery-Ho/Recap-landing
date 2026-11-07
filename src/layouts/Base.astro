@@ -11,13 +11,21 @@ const otherLocale = locale === 'en' ? 'zh' : 'en';
 const contactHref = site.contactEmail ? `mailto:${site.contactEmail}` : `${home}#contact`;
 const pageTitle = title ?? t.title;
 const pageDescription = description ?? t.description;
+const isHome = page === '';
+const navLinks = [
+  { href: `${home}#features`, label: t.nav.features },
+  { href: `${home}#pricing`, label: t.nav.pricing },
+  { href: `${home}#faq`, label: t.nav.faq },
+  { href: localPath(locale, 'changelog'), label: t.nav.updates },
+];
 ---
 <!doctype html>
-<html lang={t.lang}>
+<html lang={t.lang} data-past-hero={isHome ? undefined : "true"}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#fafafa" />
+    <meta name="theme-color" content="#f6f5f3" />
+    <script is:inline>document.documentElement.classList.add('js')</script>
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
@@ -46,38 +54,63 @@ const pageDescription = description ?? t.description;
   <body class:list={[{ 'locale-zh': locale === 'zh' }]}>
     <a class="skip-link" href="#main">{t.skip}</a>
     <header class="site-header">
-      <div class="container nav-inner">
+      <div class="nav-pill">
         <a class="brand" href={home} aria-label="Recap">
           <img src="/app-icon.png" width="34" height="34" alt="" />
-          <span>Recap<span class="brand-period">.</span></span>
+          <span class="brand-name">Recap</span>
         </a>
-        <nav aria-label={locale === 'en' ? 'Main navigation' : '主导航'}>
-          <a class="nav-section" href={`${home}#features`}>{t.features}</a>
-          <a class="nav-section" href={`${home}#faq`}>{t.faq}</a>
-          <a class="language-link" href={localPath(otherLocale, page)} lang={copy[otherLocale].lang} hreflang={copy[otherLocale].lang} aria-label={t.languageLabel} data-language-switch>{t.otherLanguage}</a>
+        <nav class="header-links" aria-label={t.nav.menu}>
+          {navLinks.map((link) => <a class="header-link" href={link.href}>{link.label}</a>)}
         </nav>
+      </div>
+      <div class="header-tools">
         <div class="nav-beta"><BetaButton locale={locale} compact /></div>
+        <div class="lang-toggle" role="group" aria-label={t.languageLabel}>
+          <a href={localPath('en', page)} lang="en" hreflang="en" aria-current={locale === 'en' ? 'true' : undefined} data-language-switch={locale === 'en' ? undefined : true}>EN</a>
+          <a href={localPath('zh', page)} lang="zh-Hans" hreflang="zh-Hans" aria-current={locale === 'zh' ? 'true' : undefined} data-language-switch={locale === 'zh' ? undefined : true}>中</a>
+        </div>
+        <details class="menu">
+          <summary aria-label={t.nav.menu}><span></span><span></span></summary>
+          <nav class="menu-panel" aria-label={t.nav.menu}>
+            {navLinks.map((link) => <a href={link.href}>{link.label}</a>)}
+          </nav>
+        </details>
       </div>
     </header>
     <main id="main" tabindex="-1"><slot /></main>
     <footer class="site-footer">
-      <div class="container footer-inner">
-        <div><a class="footer-brand" href={home}>Recap.</a></div>
-        <nav aria-label={locale === 'en' ? 'Footer navigation' : '页脚导航'}>
-          <a href={localPath(locale, 'privacy')}>{t.privacy}</a>
-          <a href={localPath(locale, 'terms')}>{t.terms}</a>
-          <a href={contactHref}>{t.contact}</a>
-          <a href={localPath(locale, 'credits')}>{t.credits}</a>
+      <div class="container footer-grid">
+        <div>
+          <a class="footer-brand" href={home}><img src="/app-icon.png" width="34" height="34" alt="" loading="lazy" />Recap</a>
+          <p class="footer-tagline">{t.footer.tagline}</p>
+        </div>
+        <nav class="footer-col" aria-labelledby="footer-product">
+          <h2 id="footer-product">{t.footer.product}</h2>
+          <ul>
+            <li><a href={`${home}#features`}>{t.nav.features}</a></li>
+            <li><a href={`${home}#pricing`}>{t.nav.pricing}</a></li>
+            <li><a href={localPath(locale, 'changelog')}>{t.updates.title}</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-col" aria-labelledby="footer-support">
+          <h2 id="footer-support">{t.footer.support}</h2>
+          <ul>
+            <li><a href={`${home}#install`}>{t.footer.install}</a></li>
+            <li><a href={`${home}#faq`}>{t.nav.faq}</a></li>
+            <li><a href={contactHref}>{t.contact}</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-col" aria-labelledby="footer-legal">
+          <h2 id="footer-legal">{t.footer.legal}</h2>
+          <ul>
+            <li><a href={localPath(locale, 'privacy')}>{t.privacy}</a></li>
+            <li><a href={localPath(locale, 'terms')}>{t.terms}</a></li>
+            <li><a href={localPath(locale, 'credits')}>{t.credits}</a></li>
+          </ul>
         </nav>
       </div>
-      <div class="container footer-bottom"><span>© 2026 Recap</span><a href={localPath(otherLocale, page)} lang={copy[otherLocale].lang} data-language-switch>{t.otherLanguage}</a></div>
+      <div class="container footer-bottom"><span>© 2026 Recap · {site.operator}</span><span>{t.footer.made}</span><a href={localPath(otherLocale, page)} lang={copy[otherLocale].lang} data-language-switch>{t.otherLanguage}</a></div>
     </footer>
-    <script>
-      // Standard links remain usable without JavaScript. Preserve the selected
-      // section when switching languages without client-side routing.
-      for (const link of document.querySelectorAll<HTMLAnchorElement>('[data-language-switch]')) {
-        link.addEventListener('click', () => { link.hash = window.location.hash; });
-      }
-    </script>
+    <script>import '../scripts/motion.ts';</script>
   </body>
 </html>

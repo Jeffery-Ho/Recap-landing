@@ -17,7 +17,7 @@ npm run build
 npm run verify
 ```
 
-不依赖运行中的 App，不需要 Xcode 编译。没有分析脚本、后台、账号或邮箱收集。FAQ 使用原生 `details`；关闭 JavaScript 后正文、语言切换、FAQ 和配置好的测试邀请仍可使用。
+不依赖运行中的 App，不需要 Xcode 编译。没有分析脚本、后台、账号或邮箱收集。FAQ 使用原生 `details`；关闭 JavaScript 后正文、语言切换、FAQ、功能轮播（可横向滚动）和配置好的测试邀请仍可使用，动效场景显示终帧。
 
 ## 对外资料
 
@@ -25,7 +25,7 @@ npm run verify
 
 | 配置 | 用途 |
 | --- | --- |
-| `PUBLIC_TESTFLIGHT_URL` | 真实公开邀请，格式为 `https://testflight.apple.com/join/…` |
+| `PUBLIC_TESTFLIGHT_URL` | 公开 TestFlight 邀请，默认 `https://testflight.apple.com/join/zhd3PaV4`；设为空字符串时显示“测试邀请准备中” |
 | `PUBLIC_CONTACT_EMAIL` | 隐私及支持邮箱；默认 support@recapmoments.app，生产环境需显式配置，空值隐藏邮箱入口 |
 | `BETA_FEATURES_VERIFIED` | 对照公开 TestFlight 构建核对全部卖点后设为 `true` |
 | `LEGAL_CONTENT_APPROVED` | 当前中英文法律文件已获准发布，默认 `true`；需要审阅新草稿时显式设为 `false` |
@@ -47,7 +47,7 @@ GitHub 仓库 `Jeffery-Ho/Recap-landing` 的 `main` 分支连接 Vercel 项目 `
 
 ## 内容与素材
 
-文案集中在 `src/data/site.ts`，法律正文与独立更新日期在 `src/data/legal.ts`。页面共享布局和组件，法律章节使用稳定的中英文对应锚点；启用 JavaScript 时语言切换保留当前章节。
+文案与 Absolute 价格集中在 `src/data/site.ts`，更新日志在 `src/data/releases.ts`，法律正文与独立更新日期在 `src/data/legal.ts`。首页由 `src/components/sections/` 中的区块编排，功能动效场景在 `src/components/scenes/`，动效脚本为 `src/scripts/motion.ts`。设计规范见 [design-tokens.md](docs/design-tokens.md)。法律章节使用稳定的中英文对应锚点；启用 JavaScript 时语言切换保留当前章节。
 
 - [实施 TODO](docs/landing-page-todo.md)
 - [素材来源与功能证据](docs/asset-sources.md)

@@ -1,16 +1,25 @@
 ---
 import { copy, site, type Locale } from '../data/site';
-import { ArrowUpRight } from '@lucide/astro';
-interface Props { locale: Locale; compact?: boolean; }
-const { locale, compact = false } = Astro.props;
+import { ArrowUpRight, Plane } from '@lucide/astro';
+interface Props { locale: Locale; compact?: boolean; size?: 'hero'; variant?: 'primary' | 'outline' | 'neutral' | 'badge'; }
+const { locale, compact = false, size, variant = 'primary' } = Astro.props;
 const t = copy[locale];
+const classes = ['button', `button-${variant}`, { 'button-small': compact, 'button-hero': size === 'hero' }];
+// `badge` reads like a store badge (after hive.ink's download badges), without Apple's marks.
 ---
 {site.testflightUrl ? (
-  <a class:list={['button', 'button-primary', { 'button-small': compact }]} href={site.testflightUrl} data-beta-cta>
-    {t.join}<ArrowUpRight size={17} aria-hidden="true" />
-  </a>
+  variant === 'badge' ? (
+    <a class="store-badge" href={site.testflightUrl} data-beta-cta>
+      <Plane size={26} stroke-width={1.6} aria-hidden="true" />
+      <span><small>{t.badge.join}</small><strong>{t.badge.joinMain}</strong></span>
+    </a>
+  ) : (
+    <a class:list={classes} href={site.testflightUrl} data-beta-cta>
+      {t.join}<ArrowUpRight size={17} aria-hidden="true" />
+    </a>
+  )
 ) : (
-  <span class:list={['button', 'button-primary', 'button-pending', { 'button-small': compact }]} role="status" data-beta-cta data-beta-pending>
+  <span class:list={[...classes, 'button-pending']} role="status" data-beta-cta data-beta-pending>
     {t.pending}<span class="pending-dot" aria-hidden="true"></span>
   </span>
 )}

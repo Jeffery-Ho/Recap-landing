@@ -7,25 +7,20 @@
 | 网站文件 | 来源 | 说明 |
 | --- | --- | --- |
 | `public/app-icon.png` | `Recap/Assets.xcassets/AppIconFish.appiconset/AppIconFishDefault.png` | 当前项目配置使用的主图标 |
-| `src/assets/screens/home.png` | 独立截图模拟器中实际运行的 App | 简体中文首页，含 3 张独立 Unsplash 周照片 |
-| `src/assets/screens/week.png` | 同一构建的中文周回顾 | 简体中文界面，8 张不同照片 |
-| `src/assets/screens/cities.png` | 同一构建的中文城市目录 | 哥本哈根、斯德哥尔摩、赫尔辛基、奥斯陆、东京、首尔，各用不同实景照片 |
-| `src/assets/screens/en/home.png` | App 切换为 English 后采集 | 英文首页，显示独立 Unsplash 周照片 |
-| `src/assets/screens/en/week.png` | 同一 App 的英文周回顾 | 英文标题与照片数量，8 张不同照片 |
-| `src/assets/screens/en/cities.png` | 同一 App 的英文城市目录 | Copenhagen、Stockholm、Helsinki、Oslo、Tokyo、Seoul；名称、日期和数量均为英文，每张封面均不同 |
-| `src/assets/theme-photos/` | Unsplash | 六类主题素材，整页不复用其他照片；由网页组件排成主题面板，并非 App 截图 |
+| `src/assets/mockups/duo-open-{zh,en}.png` | iPhone Duo 模拟器展开内屏（2853×2007）截图，合成进官方外框 `iPhone Duo - Star White - Inner Open Landscape.png` | Recap `mock` 分支 Debug 构建，2026-11-07 采集，状态栏 9:41；中英文各一张 |
+| `src/assets/mockups/air-home-{zh,en}.png` | iPhone Air 模拟器（1260×2736）首页截图，合成进官方 iPhone Air Cloud White 外框 | 同一构建，临时 Air 模拟器采集后已删除 |
 
-截图保持原图，由 Astro 在构建时生成不同宽度的 WebP。首页、周回顾、城市目录按页面语言选择对应截图；主题面板使用六张独立 Unsplash 摄影素材。没有重画 App 截图，未将开发构建等同于 TestFlight 验证。
+首屏两台设备的演示数据（2026-11-07 采集）：用 Recap 仓库 `mock` 分支的官网截图模式 `-recap-website-photos`（`WebsiteScreenshotFixture`）启动，本周为 18 张 Retro 风格、不露人脸的无分类生活照，42 张分类照片整体前移一周（均为内置 onboarding 照片），城市归入京都、镰仓、河口湖并指定封面，智能分类解锁，跳过引导页；步骤见 Recap 仓库 `Recap/Doc/App Store Screenshot Capture.md`。Duo 用本机已展开的模拟器采集，采集前备份 App 与数据、采集后装回原构建并恢复；Air 使用临时模拟器，采集后已删除。
+| `src/assets/library/strip/remote-*.jpg` | App 演示图库（`UnsplashMockPhotoLibraryProvider.swift` 中的 Unsplash 链接），长边缩至 900px | 功能区照片条：本周区块的第 44、43 周，地点区块的雷克雅未克，以及部分智能分类 |
+| `src/assets/library/strip/Onboarding*.jpg` | App 引导页照片（来源见 `Recap/Doc/onboarding-photo-sources.md`） | 功能区照片条：京都、河口湖与智能分类 |
+
+截图保持原图，由 Astro 在构建时生成不同宽度的 WebP。首屏按页面语言选择对应截图。功能区参考 savee.com，用通栏照片条展示内容本身，不使用截图或设备外框；胶囊里的周次、城市与数量为演示数据。未将开发构建等同于 TestFlight 验证。
 
 英文城市素材采集关闭 `-recap-ui-testing`，使用已有演示图库的 `remote-*.jpg` 实景照片。UI 测试模式生成的渐变封面不作为网站素材。
 
-## 手握手机模型
+## 设备外框
 
-`src/assets/mockups/handheld-phone-v1.png` 使用内置 imagegen 生成，是含真实透明通道的 1024×1536 PNG。当前工具没有模型版本选择参数，不能确认用户提出的 image-2.5 版本；本轮未使用 CLI 或 API fallback。
-
-完整生成提示词保存在 `handheld-phone-prompt.txt`。主视觉要求自然手部握持、正面平行手机、屏幕无遮挡、柔和影棚光线、无文字或虚构 UI。首页通过 CSS 单独嵌入对应语言的 `home.png`，模型原图和 App 截图均未重新绘制。
-
-截图使用 `object-fit: cover` 按原比例铺满模型的屏幕开口，并向顶部对齐以保留状态栏；仅裁去底部少量内容，避免两侧出现黑边。
+所有设备外框来自 Apple Design Resources 的官方 Product Bezels（`Bezel-iPhone-Duo.dmg` 的 Star White 展开横屏，以及 iPhone Air 竖屏），只用于首屏，按《Apple Design Resources 许可协议》用于展示 iOS App 界面的样机。截图通过 `composite.swift`（CoreGraphics）合成：以外框中心做泛洪找到透明屏幕区域，把截图画进去，再叠上外框。网页上不再用 CSS 绘制机身。
 
 ## 摄影
 
@@ -49,3 +44,11 @@
 - 普通浏览设备要求来自当前项目 iOS 18.6 部署设置；公开 beta 要求仍需上线前确认。
 
 以上为源码和开发构建证据。公开 TestFlight 功能核对仍为未完成事项。
+
+## 功能插画（2026-11-06）
+
+首页功能展示不再使用周回顾与城市目录截图，改为依据 App onboarding 页重绘的 HTML/CSS 场景，详见 `docs/design-tokens.md`。每个展示位使用一张专属照片，全站不重复（参照 hive.ink 的做法），`npm run verify` 会检查首页每张照片只出现一次。新增照片取自 `artifacts/localized-screens/photographs/` 中已登记来源的 Unsplash 图库，复制到 `src/assets/library/`；完整对应关系（照片、摄影师、来源、使用位置）见 `src/data/photography-sources.json`，并展示在双语照片来源页。首屏 App 截图中出现的三张周照片不再用于其他位置。地名、日期与周数为演示数据。首屏仍使用手握手机模型与真实首页截图。
+
+## 引导页录屏
+
+`public/onboarding/{random,live-zh,live-en,past}.{mp4,jpg}`：在临时 iPhone Air 模拟器上安装 Recap `mock` 分支 Debug 构建，以 `-recap-website-photos` 启动，从设置的“回顾使用介绍”进入引导页，用 `xcrun simctl io recordVideo` 录屏（2026-11-07）。每段截取一个完整动画周期（随机模式 14 秒、Live Photo 8 秒、往年同周 12 秒），逐帧找出与底色不同的像素，按动画内容的外接框（含阴影）裁剪，再在 RGB 下用同色补成正方形（随机模式顶部的返回、关闭按钮用底色盖掉），输出随机模式 960px、其余 720px 的 30fps H.264；封面帧取自循环内。网页容器同为 1:1，视频铺满容器，底色设为浏览器实际渲染的 `#f2f0ee`。照片均为 App 内置的引导页照片。临时模拟器录完已删除。

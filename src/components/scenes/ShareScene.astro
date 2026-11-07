@@ -1,0 +1,15 @@
+---
+import { Image } from 'astro:assets';
+import { copy, type Locale } from '../../data/site';
+import flowerDetail from '../../assets/library/weekly-flower-detail.jpg';
+interface Props { locale: Locale; owned?: boolean; }
+const { locale, owned = false } = Astro.props;
+const s = copy[locale].scenes;
+---
+<div class="scene scene-share" data-scene data-owned={owned || undefined} aria-hidden="true">
+  <div class="c-tabs s-glass"><i></i>{s.frames.map((frame, index) => <span class:list={{ 'is-selected': index === 1 }}>{frame}</span>)}<b class="s-click"></b></div>
+  <figure class="c-card">
+    <div class="s-photo"><Image src={flowerDetail} alt="" widths={[320, 640]} sizes="(max-width: 860px) 160px, 280px" format="webp" loading="lazy" /></div>
+    <figcaption class="c-sign"><img src="/app-icon.png" width="64" height="64" alt="" loading="lazy" />{s.signature}<small>{s.weekCaption}</small></figcaption>
+  </figure>
+</div>

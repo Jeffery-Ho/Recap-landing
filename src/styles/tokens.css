@@ -1,0 +1,74 @@
+/*
+ * Recap brand tokens. Values mirror the iOS app; see docs/design-tokens.md for each Swift source.
+ */
+:root {
+  color-scheme: light;
+
+  /* Color — RecapOnboardingAppearance */
+  --paper: #f6f5f3;
+  --paper-deep: #efede9;
+  --card: #fffefc;
+  --ink: #1c1b1a;
+  --ink-soft: #3a3835;
+  --muted: #66615c;
+  --subtle: #8b867f;
+  --forest: #2f5b45;
+  --forest-soft: #e2ece5;
+  --accent: var(--forest);
+  --accent-text: #2a5340;
+  --accent-subtle: #f0f5f1;
+  --accent-border: rgb(47 91 69 / .38);
+  --accent-wash: rgb(47 91 69 / .08);
+  --surface: #f1efeb;
+  --surface-strong: #eae8e3;
+  --border: #e2dfd9;
+  --border-strong: #cbc7c0;
+  --hairline: rgb(47 91 69 / .14);
+  --line: rgb(28 27 26 / .08);
+  --print: #1f2a29;
+  --shadow-color: 30 38 34;
+  --shadow-print: 0 14px 28px -10px rgb(var(--shadow-color) / .2);
+  --shadow-card: 0 1px 2px rgb(var(--shadow-color) / .04), 0 12px 32px -18px rgb(var(--shadow-color) / .18);
+  --shadow-window: 0 1px 2px rgb(0 0 0 / .04), 0 10px 24px -12px rgb(0 0 0 / .1), 0 24px 48px -24px rgb(0 0 0 / .12);
+  --shadow-cta: 0 12px 28px rgb(28 27 26 / .16);
+  --swatch-1: #ddd5c6; --swatch-2: #cbd0c4; --swatch-3: #e2d8c5; --swatch-4: #c3ccc6;
+  --swatch-5: #d8cec2; --swatch-6: #cfc5b3; --swatch-7: #e6dfd1; --swatch-8: #bfc8c1;
+  --swatch-9: #d4c8b4; --swatch-10: #dad2c4; --swatch-11: #b7c0b8; --swatch-12: #d9cdbb;
+
+  /* Color — PaywallAbsoluteAppearance */
+  --absolute-bg: #050308;
+  --absolute-surface: #14111a;
+  --absolute-text: #f4f2f7;
+  --absolute-muted: #a7a2b0;
+  --absolute-accent: #ff4d8d;
+
+  /* Type — RecapTypography (serif titles, SF body) and RecapOnboardingHeadline (rounded) */
+  --font-serif: ui-serif, 'New York', 'Iowan Old Style', 'Songti SC', 'Noto Serif SC', Georgia, serif;
+  --font-rounded: ui-rounded, 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', sans-serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', 'Noto Sans', sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Space — RecapSpacing */
+  --space-text: 4px;
+  --space-related: 8px;
+  --space-compact: 12px;
+  --space-container: 16px;
+  --space-section: 24px;
+  --space-spacious: 32px;
+  --hit-target: 44px;
+
+  /* Shape */
+  --radius-card: 20px;
+  --radius-panel: 16px;
+  --radius-print: 14px;
+  --radius-pill: 999px;
+
+  /* Motion — timing taken from polaris-ai.work/v2 */
+  --ease-enter: cubic-bezier(.87, 0, .13, 1);
+  --ease-slide: cubic-bezier(.65, 0, .35, 1);
+  --ease-out: cubic-bezier(.22, .8, .24, 1);
+  --dur-fast: 160ms;
+  --dur-fade: 300ms;
+  --dur-enter: 700ms;
+  --dur-slide: 650ms;
+}

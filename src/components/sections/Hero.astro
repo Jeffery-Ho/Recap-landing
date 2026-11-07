@@ -1,0 +1,40 @@
+---
+import { Image } from 'astro:assets';
+import BetaButton from '../BetaButton.astro';
+import { copy, type Locale } from '../../data/site';
+import PhotoWall from './PhotoWall.astro';
+import sunset from '../../assets/library/hero-sunset.jpg';
+import pet from '../../assets/library/hero-pet.jpg';
+import seoul from '../../assets/library/cities-seoul.jpg';
+import flowers from '../../assets/library/hero-flowers.jpg';
+import sea from '../../assets/library/hero-sea.jpg';
+import oslo from '../../assets/library/cities-oslo.jpg';
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const t = copy[locale];
+// Photo chips set between the words of the headline, like Polaris's inline platform icons.
+const chips = [[sunset, pet, seoul], [flowers, sea, oslo]];
+const parts = (line: string) => line.split(/(\{\d\})/).filter(Boolean);
+---
+<section class="hero" aria-labelledby="hero-title" data-hero>
+  <div class="container">
+    <h1 id="hero-title">
+      {t.heroLines.map((line, i) => (
+        <span class="hero-line" data-hero-line style={`--i:${i}`}>
+          {parts(line).map((part) => {
+            const match = part.match(/^\{(\d)\}$/);
+            if (!match) return <span>{part.trim()}</span>;
+            return (
+              <span class="hero-chip" aria-hidden="true" data-chip>
+                {chips[Number(match[1])].map((photo, index) => <Image class:list={{ 'is-current': index === 0 }} src={photo} alt="" widths={[96, 192]} sizes="64px" format="webp" loading="eager" />)}
+              </span>
+            );
+          })}
+        </span>
+      ))}
+    </h1>
+    <p class="hero-description" data-hero-line style="--i:2">{t.heroDescription}</p>
+    <div class="hero-actions" data-hero-line style="--i:3"><BetaButton locale={locale} size="hero" /></div>
+  </div>
+  <div class="hero-visual"><PhotoWall locale={locale} /></div>
+</section>

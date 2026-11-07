@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import ReleaseList from './sections/ReleaseList.astro';
+import { copy, localPath, type Locale } from '../data/site';
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const t = copy[locale];
+---
+<Base locale={locale} page="changelog" title={t.updates.pageTitle} description={t.updates.pageDescription}>
+  <article class="container legal-page changelog-page">
+    <p class="eyebrow">Recap / {t.nav.updates}</p>
+    <h1>{t.updates.title}</h1>
+    <p class="legal-intro">{t.updates.pageDescription}</p>
+    <ReleaseList locale={locale} />
+    <a class="button button-secondary" href={localPath(locale)}>{t.back}<span aria-hidden="true">↗</span></a>
+  </article>
+</Base>

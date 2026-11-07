@@ -1,0 +1,42 @@
+---
+// The hero visual, after savee.com's hero masonry: five staggered columns of photos, each slowly looping up or down.
+// The 30 photos form six weeks of five (one per column). Every few seconds one week lights up: its photos get a ring
+// and a floating week tag, the centre column's tag carrying dates and count, so "sorted by week" reads at a glance.
+// Columns hold their photos twice (second copy marked data-loop-copy) so the loop is seamless.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { copy, type Locale } from '../../data/site';
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const w = copy[locale].wall;
+const files = import.meta.glob<{ default: ImageMetadata }>('../../assets/library/wall/*.jpg', { eager: true });
+const photos = Object.keys(files).sort().map((key) => files[key].default);
+const columns = 5;
+// Height-to-width ratios in a repeating rhythm, so the columns stagger like a masonry board.
+const ratios = [1.25, 0.8, 1.4, 1, 1.15, 0.9, 1.3];
+const cols = Array.from({ length: columns }, (_, c) =>
+  w.weeks.map((week, weekIndex) => ({
+    src: photos[weekIndex * columns + c],
+    ratio: ratios[(weekIndex * 2 + c * 3) % ratios.length],
+    week: weekIndex,
+    name: week.name,
+    detail: c === 2 ? `${week.dates} · ${week.count}` : '',
+  })),
+);
+---
+<div class="photo-wall" role="img" aria-label={w.label} data-wall data-hero-line style="--i:4">
+  {cols.map((tiles, c) => (
+    <div class="wall-col" style={`--dir:${c % 2 ? 'reverse' : 'normal'};--speed:${[58, 70, 64, 74, 60][c]}s;--offset:${[0, 56, 18, 72, 30][c]}px`}>
+      <div class="wall-strip">
+        {[0, 1].map((loop) => tiles.map((tile) => (
+          <figure class:list={['wall-tile', { 'is-active': tile.week === 0 }]} style={`--r:${tile.ratio}`} data-week={tile.week}>
+            <Image src={tile.src} alt="" widths={[240, 480]} sizes="(max-width: 640px) 33vw, 220px" format="webp"
+              loading={tile.week < 2 ? 'eager' : 'lazy'} fetchpriority={c === 2 && tile.week === 0 && loop === 0 ? 'high' : undefined}
+              data-loop-copy={loop === 1 ? '' : undefined} />
+            <figcaption class:list={['wall-tag', { 'wall-tag-full': tile.detail }]}><strong>{tile.name}</strong>{tile.detail && <small>{tile.detail}</small>}</figcaption>
+          </figure>
+        )))}
+      </div>
+    </div>
+  ))}
+</div>
