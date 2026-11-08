@@ -71,8 +71,8 @@ export const copy = {
       },
       {
         id: 'places', label: 'Place Memories', icon: 'pin',
-        title: ['Same city, months apart.', 'Recap gathers it into one recap.'],
-        body: 'Trips, weekends and days passing through end up months apart in your library. Recap groups the places in your photos by city.',
+        title: ['The fun places you’ve been, memories scattered everywhere.', 'Recap sorts them by place for you.'],
+        body: 'Trips, weekends and days passing through end up scattered across your library. Recap groups the places in your photos by city on its own, one recap for each.',
         states: ['Kyoto · 42 photos', 'Lake Kawaguchi · 18 photos', 'Reykjavík · 21 photos'],
       },
       {
@@ -203,8 +203,8 @@ export const copy = {
       },
       {
         id: 'places', label: '地点回顾', icon: 'pin',
-        title: ['同一座城，散在好几个月里。', 'Recap 把它收成一份回顾。'],
-        body: '旅行、周末和路过，在相册里被几个月的时间隔开。Recap 按城市把照片里的地点收在一起。',
+        title: ['去过的好玩的地方，回忆随处散落。', 'Recap 帮你自动按照地点整理。'],
+        body: '旅行、周末和路过，照片散落在相册的各个角落。Recap 自动按城市把地点收在一起，每座城一份回顾。',
         states: ['京都 · 42 张', '河口湖 · 18 张', '雷克雅未克 · 21 张'],
       },
       {
