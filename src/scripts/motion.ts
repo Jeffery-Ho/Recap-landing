@@ -107,6 +107,76 @@ for (const strip of document.querySelectorAll<HTMLElement>('[data-strip]')) {
   }, { threshold: 0.35 }).observe(strip);
 }
 
+// Feature gallery, after Polaris v2: the current slide's dot fills over 8 s, then the next slide scrolls in. Clicking a
+// dot or a faded slide, swiping, or the arrow keys pick a slide and restart the bar. The bar pauses while the gallery
+// is off screen, hovered or focused, or the tab is hidden; under reduced motion nothing advances on its own.
+for (const gallery of document.querySelectorAll<HTMLElement>('[data-feature-gallery]')) {
+  const track = gallery.querySelector<HTMLElement>('[data-feature-track]');
+  const slides = [...gallery.querySelectorAll<HTMLElement>('[data-feature-slide]')];
+  const dots = [...gallery.querySelectorAll<HTMLElement>('[data-feature-dot]')];
+  if (!track || slides.length < 2) continue;
+  let current = 0;
+  let onScreen = false;
+  let held = false;
+  let settle = 0;
+
+  const updatePlaying = () => {
+    gallery.dataset.playing = String(onScreen && !held && !document.hidden && !reduceMotion.matches);
+  };
+  const restartBar = () => {
+    dots.forEach((dot) => dot.classList.remove('is-running'));
+    if (reduceMotion.matches) return;
+    const dot = dots[current];
+    void dot.offsetWidth; // restart the fill animation
+    dot.classList.add('is-running');
+  };
+  const mark = (index: number) => {
+    current = index;
+    slides.forEach((slide, i) => slide.classList.toggle('is-active', i === index));
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('is-current', i === index);
+      if (i === index) dot.setAttribute('aria-current', 'true');
+      else dot.removeAttribute('aria-current');
+    });
+    restartBar();
+  };
+  const go = (index: number) => {
+    const slide = slides[(index + slides.length) % slides.length];
+    mark(slides.indexOf(slide));
+    track.scrollTo({ left: slide.offsetLeft - (track.clientWidth - slide.offsetWidth) / 2, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+  };
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => go(i));
+    dot.querySelector('.feature-dot-fill')?.addEventListener('animationend', () => go(current + 1));
+  });
+  slides.forEach((slide, i) => slide.addEventListener('click', () => { if (i !== current) go(i); }));
+  track.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowRight') { event.preventDefault(); go(current + 1); }
+    if (event.key === 'ArrowLeft') { event.preventDefault(); go(current - 1); }
+  });
+  // After a swipe or trackpad scroll settles, the slide nearest the centre becomes current.
+  track.addEventListener('scroll', () => {
+    window.clearTimeout(settle);
+    settle = window.setTimeout(() => {
+      const centre = track.scrollLeft + track.clientWidth / 2;
+      const distance = (slide: HTMLElement) => Math.abs(slide.offsetLeft + slide.offsetWidth / 2 - centre);
+      const nearest = slides.reduce((best, slide, i) => (distance(slide) < distance(slides[best]) ? i : best), 0);
+      if (nearest !== current) mark(nearest);
+    }, 120);
+  }, { passive: true });
+
+  const hold = (value: boolean) => { held = value; updatePlaying(); };
+  gallery.addEventListener('pointerenter', (event) => { if (event.pointerType === 'mouse') hold(true); });
+  gallery.addEventListener('pointerleave', () => hold(false));
+  gallery.addEventListener('focusin', (event) => { if ((event.target as HTMLElement).matches(':focus-visible')) hold(true); });
+  gallery.addEventListener('focusout', (event) => { if (!gallery.contains(event.relatedTarget as Node)) hold(false); });
+  document.addEventListener('visibilitychange', updatePlaying);
+  new IntersectionObserver(([entry]) => { onScreen = entry.isIntersecting; updatePlaying(); }, { threshold: 0.4 }).observe(gallery);
+  mark(0);
+  updatePlaying();
+}
+
 // Onboarding recordings play only while on screen, and not at all under reduced motion (the poster stays).
 const videoObserver = new IntersectionObserver((entries) => {
   for (const entry of entries) {

@@ -1,14 +1,15 @@
 ---
 // A pill that cycles through a few states (typed out, like Savee's search field) above a full-bleed row of photos
 // that swap with each state. Each slot stacks one photo per state; the current state's photo is shown.
-// Without JavaScript, or with reduced motion, the first state stays on screen.
+// Without JavaScript, or with reduced motion, the first state stays on screen. `grid` lays the photos out 3 × 2 inside
+// a feature slide instead of a full-bleed row.
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
-interface Props { states: readonly string[]; photos: ImageMetadata[][]; icon: 'calendar' | 'pin' | 'sparkle'; }
-const { states, photos, icon } = Astro.props;
+interface Props { states: readonly string[]; photos: ImageMetadata[][]; icon: 'calendar' | 'pin' | 'sparkle'; layout?: 'row' | 'grid'; }
+const { states, photos, icon, layout = 'row' } = Astro.props;
 const slots = photos[0].length;
 ---
-<div class="strip" data-strip data-states={JSON.stringify(states)}>
+<div class:list={['strip', { 'strip--grid': layout === 'grid' }]} data-strip data-states={JSON.stringify(states)}>
   <p class="strip-pill">
     <svg class="strip-icon" viewBox="0 0 24 24" aria-hidden="true">
       {icon === 'calendar' && <><rect x="4" y="5" width="16" height="15" rx="3" /><path d="M4 10h16M9 3v4M15 3v4" /></>}
@@ -21,7 +22,7 @@ const slots = photos[0].length;
     {Array.from({ length: slots }, (_, i) => (
       <div class="strip-slot" style={`--i:${i}`}>
         {photos.map((set, s) => (
-          <Image class:list={['strip-layer strip-photo', { 'is-current': s === 0 }]} data-s={s} src={set[i]} alt="" widths={[240, 480]} sizes="(max-width: 640px) 120px, 200px" format="webp" loading="lazy" />
+          <Image class:list={['strip-layer strip-photo', { 'is-current': s === 0 }]} data-s={s} src={set[i]} alt="" widths={[240, 480]} sizes={layout === 'grid' ? '(max-width: 800px) 30vw, 180px' : '(max-width: 640px) 120px, 200px'} format="webp" loading="lazy" />
         ))}
       </div>
     ))}

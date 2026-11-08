@@ -62,15 +62,21 @@ export const copy = {
     heroNote: 'For iPhone and iPad. Your photos stay on your device.',
     heroAlt: 'Recap’s latest home screen on iPhone Duo, unfolded with the sidebar beside this week’s photos.',
     heroAltPhone: 'Recap’s latest home screen on iPhone: this week’s photo card, favorites and media types.',
+    featuresIntro: {
+      title: ['Tens of thousands of photos, and the one you want is lost.', 'Recap sorts them for you.'],
+      body: 'By week, by place and by what’s in them, all on its own, so there are no albums to build.',
+      label: 'How Recap sorts your photos',
+      choose: 'Choose a way to sort',
+    },
     features: [
       {
-        id: 'week', label: 'Auto-sorted', icon: 'calendar',
-        title: ['Tens of thousands of photos, and the one you want is lost.', 'Recap sorts them for you.'],
-        body: 'Recap sorts your photos by week, city and theme on its own, so there are no albums to build. Home starts with this week; go back, and every week has a card of its own.',
+        id: 'week', label: 'By week', icon: 'calendar',
+        title: ['Every week gets a card of its own.', 'Home opens on this one.'],
+        body: 'The photos from these few days sit in one card at the top of Home. Go back, and every week has a card of its own.',
         states: ['This Week · 18 photos', 'Week 44 · 12 photos', 'Week 43 · 12 photos'],
       },
       {
-        id: 'places', label: 'Place Memories', icon: 'pin',
+        id: 'places', label: 'By place', icon: 'pin',
         title: ['The fun places you’ve been, memories scattered everywhere.', 'Recap sorts them by place for you.'],
         body: 'Trips, weekends and days passing through end up scattered across your library. Recap groups the places in your photos by city on its own, one recap for each.',
         states: ['Kyoto · 42 photos', 'Lake Kawaguchi · 18 photos', 'Reykjavík · 21 photos'],
@@ -194,15 +200,21 @@ export const copy = {
     heroNote: '适用于 iPhone 与 iPad，照片只留在你的设备上。',
     heroAlt: 'iPhone Duo 展开后的 Recap 最新首页：侧栏与本周照片并排显示。',
     heroAltPhone: 'iPhone 上的 Recap 最新首页：本周照片卡片、个人收藏与媒体类型。',
+    featuresIntro: {
+      title: ['几万张照片里，找不到想要的照片。', 'Recap 帮你自动分类。'],
+      body: '按周、按地点、按内容，全部自动整理，不用自己建相册。',
+      label: 'Recap 如何整理照片',
+      choose: '选择一种整理方式',
+    },
     features: [
       {
-        id: 'week', label: '自动整理', icon: 'calendar',
-        title: ['几万张照片里，找不到想要的照片。', 'Recap 帮你自动分类。'],
-        body: 'Recap 会按周、城市和主题自动整理照片，不用自己建相册。主页从这一周开始，往前翻，每一周都有自己的一张卡片。',
+        id: 'week', label: '按周分类', icon: 'calendar',
+        title: ['每一周，都有一张卡片。', '打开就从这一周开始。'],
+        body: '这几天拍下的照片收在主页最上面的一张卡片里。往前翻，每一周都有自己的一张。',
         states: ['本周 · 18 张', '第 44 周 · 12 张', '第 43 周 · 12 张'],
       },
       {
-        id: 'places', label: '地点回顾', icon: 'pin',
+        id: 'places', label: '按地点整理', icon: 'pin',
         title: ['去过的好玩的地方，回忆随处散落。', 'Recap 帮你自动按照地点整理。'],
         body: '旅行、周末和路过，照片散落在相册的各个角落。Recap 自动按城市把地点收在一起，每座城一份回顾。',
         states: ['京都 · 42 张', '河口湖 · 18 张', '雷克雅未克 · 21 张'],

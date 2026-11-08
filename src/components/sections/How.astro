@@ -1,12 +1,15 @@
 ---
-// Feature introduction after savee.com: one centred block per feature, a two-part title (the problem in ink,
-// Recap's answer in grey), a short line, then a pill and a full-bleed photo strip that changes with it.
+// How Recap sorts photos, after Polaris v2's feature gallery: a centred two-part title, then a full-bleed row of large
+// slides (copy on the left, the feature on the right) that snaps one slide at a time. The next slide peeks in faded;
+// a pill of dots below shows the current slide, its dot filling as an 8-second progress bar (motion.ts). Without
+// JavaScript the row still scrolls sideways.
 import type { ImageMetadata } from 'astro';
 import PhotoStrip from '../PhotoStrip.astro';
 import WeekPhone from '../WeekPhone.astro';
 import { copy, type Locale } from '../../data/site';
 interface Props { locale: Locale; }
 const { locale } = Astro.props;
+const intro = copy[locale].featuresIntro;
 const features = copy[locale].features;
 
 // Strip photos, registered in src/data/photography-sources.json. Each appears once on the page.
@@ -27,14 +30,38 @@ const photos: Record<string, ImageMetadata[][]> = {
   ],
 };
 ---
-{features.map((feature, i) => (
-  <section id={i === 0 ? 'features' : `feature-${feature.id}`} class="section feature-block" aria-labelledby={`feature-${feature.id}-title`}>
-    <div class="container">
-      <h2 id={`feature-${feature.id}-title`} class="section-title" data-enter><span>{feature.title[0]}</span> <span class="muted">{feature.title[1]}</span></h2>
-      <p class="feature-body" data-enter>{feature.body}</p>
+<section id="features" class="section features-section" aria-labelledby="features-title">
+  <div class="container">
+    <h2 id="features-title" class="section-title" data-enter><span>{intro.title[0]}</span> <span class="muted">{intro.title[1]}</span></h2>
+    <p class="feature-body" data-enter>{intro.body}</p>
+  </div>
+  <div class="feature-gallery" data-feature-gallery data-enter aria-roledescription="carousel" aria-label={intro.label}>
+    <div class="feature-track" data-feature-track tabindex="0">
+      {features.map((feature, i) => (
+        <article id={`feature-${feature.id}`} class:list={['feature-slide', { 'is-active': i === 0 }]} data-feature-slide
+          aria-roledescription="slide" aria-labelledby={`feature-${feature.id}-title`}>
+          <div class="feature-slide-copy">
+            <p class="feature-label">{feature.label}</p>
+            <h3 id={`feature-${feature.id}-title`} class="feature-slide-title"><span>{feature.title[0]}</span> <span class="muted">{feature.title[1]}</span></h3>
+            <p class="feature-slide-text">{feature.body}</p>
+          </div>
+          <div class="feature-slide-visual">
+            {feature.id === 'week'
+              ? <WeekPhone locale={locale} />
+              : <PhotoStrip states={feature.states} photos={photos[feature.id]} icon={feature.icon} layout="grid" />}
+          </div>
+        </article>
+      ))}
     </div>
-    {feature.id === 'week'
-      ? <WeekPhone locale={locale} />
-      : <PhotoStrip states={feature.states} photos={photos[feature.id]} icon={feature.icon} />}
-  </section>
-))}
+    <div class="feature-controls">
+      <div class="feature-dots" role="group" aria-label={intro.choose}>
+        {features.map((feature, i) => (
+          <button type="button" class:list={['feature-dot', { 'is-current': i === 0 }]} data-feature-dot={i}
+            aria-controls={`feature-${feature.id}`} aria-current={i === 0 ? 'true' : undefined}>
+            <span class="sr-only">{feature.label}</span><span class="feature-dot-fill" aria-hidden="true"></span>
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

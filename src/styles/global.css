@@ -114,8 +114,7 @@ html:not(.js) .theme-toggle { display: none; }
 .hero-air { right: 0; width: 26cqw; z-index: 1; }
 .hero-air img { width: 100%; height: auto; }
 
-/* Feature blocks, after savee.com: two-part title, a typed pill, and a full-bleed strip of photos that swap with it. */
-.feature-block + .feature-block { padding-top: 24px; }
+/* Feature intro and photo strips, after savee.com: two-part title, a typed pill, and photos that swap with it. */
 .feature-body { max-width: 560px; margin: 20px auto 0; color: var(--muted); font-size: 17px; line-height: 1.6; text-align: center; text-wrap: pretty; }
 .strip { margin-top: 32px; }
 .week-phone { position: relative; width: min(300px, 64vw); aspect-ratio: 1380 / 2880; margin: 48px auto 0; filter: drop-shadow(0 2px 4px rgb(28 27 26 / .12)) drop-shadow(0 18px 32px rgb(28 27 26 / .18)); }
@@ -131,6 +130,57 @@ html:not(.js) .theme-toggle { display: none; }
 .strip-layer { position: absolute; inset: 0; opacity: 0; transform: scale(1.04); transition: opacity .5s var(--ease-out), transform .7s var(--ease-out); transition-delay: calc(var(--i) * 60ms); }
 .strip-layer.is-current { opacity: 1; transform: none; }
 .strip-photo { width: 100%; height: 100%; object-fit: cover; }
+
+/* Feature gallery, after Polaris v2: full-bleed slides that snap one at a time, copy left and the feature right; the
+   others peek in faded. A pill of dots below; the current dot fills as an 8 s progress bar, then the next slide comes. */
+.feature-gallery { --slide-w: min(1080px, calc(100vw - 160px)); --slide-gap: 24px; width: 100vw; margin: clamp(36px, 5vw, 56px) 0 0 calc(50% - 50vw); }
+.feature-track { position: relative; display: flex; gap: var(--slide-gap); padding: 4px calc((100vw - var(--slide-w)) / 2) 8px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.feature-track::-webkit-scrollbar { display: none; }
+.feature-track:focus-visible { outline: none; }
+.feature-track:focus-visible .feature-slide.is-active { outline: 2px solid var(--accent); outline-offset: 4px; }
+.feature-slide { display: grid; flex: 0 0 var(--slide-w); grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: center; gap: clamp(28px, 4vw, 56px); height: min(660px, max(560px, 100vh - 160px)); padding: clamp(32px, 4.5vw, 56px); background: var(--card); border: 1px solid var(--border); border-radius: 28px; scroll-snap-align: center; transition: opacity .4s; }
+.js .feature-slide:not(.is-active) { opacity: .45; cursor: pointer; }
+.feature-slide-copy { display: grid; align-content: center; justify-items: start; min-width: 0; }
+.feature-label { margin: 0 0 20px; padding: 3px 8px; border: 1px solid var(--accent-border); border-radius: 6px; background: var(--accent-wash); color: var(--accent-text); font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+.feature-slide-title { margin: 0; font-family: var(--font-serif); font-size: clamp(30px, 3.4vw, 44px); font-weight: 400; letter-spacing: -.02em; line-height: 1.12; text-wrap: balance; }
+.feature-slide-title > span { display: block; }
+.feature-slide-title .muted { color: var(--subtle); }
+.feature-slide-text { max-width: 28rem; margin: 18px 0 0; color: var(--muted); font-size: clamp(16px, 1.4vw, 18px); line-height: 1.6; text-wrap: pretty; }
+.feature-slide-visual { display: flex; align-items: center; justify-content: center; align-self: stretch; min-width: 0; min-height: 0; padding: clamp(18px, 2.4vw, 32px); border-radius: 20px; background: var(--paper-deep); overflow: hidden; }
+.feature-slide-visual .week-phone { width: min(232px, 100%); margin: 0; }
+.strip--grid { width: 100%; margin: 0; }
+.strip--grid .strip-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; margin: 20px 0 0; }
+.strip--grid .strip-slot { width: auto; aspect-ratio: 1; border-radius: 12px; background: var(--paper); }
+.feature-controls { display: none; justify-content: center; margin-top: 28px; }
+.js .feature-controls { display: flex; }
+.feature-dots { display: flex; align-items: center; gap: 4px; height: 52px; padding: 0 18px; border-radius: var(--radius-pill); background: var(--paper-deep); }
+.feature-dot { position: relative; width: 24px; height: 44px; padding: 0; border: 0; background: none; cursor: pointer; transition: width .3s; }
+.feature-dot::before { content: ''; position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; border-radius: 999px; background: color-mix(in srgb, var(--ink) 35%, transparent); transform: translate(-50%, -50%); transition: width .3s, background-color .3s; }
+.feature-dot:hover::before { background: color-mix(in srgb, var(--ink) 60%, transparent); }
+.feature-dot.is-current { width: 56px; }
+.feature-dot.is-current::before { width: 48px; background: color-mix(in srgb, var(--ink) 22%, transparent); }
+.feature-dot-fill { position: absolute; top: 50%; left: 4px; width: 0; height: 8px; border-radius: 999px; background: var(--ink); transform: translateY(-50%); }
+.feature-dot.is-current .feature-dot-fill { width: 48px; }
+.feature-dot.is-current.is-running .feature-dot-fill { width: 0; animation: feature-progress 8s linear forwards; }
+.feature-gallery:not([data-playing="true"]) .feature-dot-fill { animation-play-state: paused; }
+.feature-dot:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 999px; }
+@keyframes feature-progress { to { width: 48px; } }
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+@media (max-width: 999px) {
+  .feature-slide { grid-template-columns: minmax(0, 1fr); align-content: start; height: auto; }
+  .feature-slide-visual { height: 460px; }
+}
+@media (max-width: 799px) {
+  .feature-gallery { --slide-w: calc(100vw - 48px); --slide-gap: 12px; }
+  .feature-slide { gap: 24px; padding: 24px 20px 20px; border-radius: 22px; }
+  .feature-slide-visual { height: 380px; padding: 14px; border-radius: 14px; }
+  .feature-slide-visual .week-phone { width: 168px; }
+  .feature-slide-title { font-size: 28px; }
+  .feature-slide-text { margin-top: 12px; font-size: 16px; }
+  .feature-controls { margin-top: 20px; }
+  .feature-dots { height: 44px; padding: 0 12px; gap: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .feature-slide, .feature-dot, .feature-dot::before { transition: none; } }
 
 /* Store-style badges, after hive.ink: black TestFlight badge, muted App Store "coming soon" badge. */
 .store-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
@@ -303,6 +353,8 @@ a.release-row:hover { background: var(--surface); }
 .locale-zh h1 { letter-spacing: 0; line-height: 1.22; word-break: keep-all; }
 .locale-zh h2, .locale-zh h3 { letter-spacing: 0; }
 .locale-zh .section-title { line-height: 1.25; word-break: keep-all; overflow-wrap: anywhere; }
+.locale-zh .feature-slide-title { font-size: clamp(26px, 2.6vw, 34px); letter-spacing: 0; line-height: 1.32; }
+.locale-zh .feature-label { letter-spacing: .02em; }
 .locale-zh .note-label, .locale-zh .slide-label, .locale-zh .eyebrow { letter-spacing: .04em; }
 
 @media (max-width: 1000px) {
