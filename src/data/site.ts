@@ -65,7 +65,7 @@ export const copy = {
     features: [
       {
         id: 'week', label: 'This Week', icon: 'calendar',
-        title: ['Thousands of photos, and this week gets lost.', 'Recap opens on it.'],
+        title: ['Tens of thousands of photos, and the one you want is lost.', 'Recap sorts them for you.'],
         body: 'Recap’s home starts with this week: the photos from these few days sit in one card at the top. Go back, and every week has a card of its own.',
         states: ['This Week · 18 photos', 'Week 44 · 12 photos', 'Week 43 · 12 photos'],
       },
@@ -197,7 +197,7 @@ export const copy = {
     features: [
       {
         id: 'week', label: '本周', icon: 'calendar',
-        title: ['几万张照片里，找不到这一周。', '打开 Recap，先看本周。'],
+        title: ['几万张照片里，找不到想要的照片。', 'Recap 帮你自动分类。'],
         body: 'Recap 的主页从这一周开始：这几天拍下的照片收在最上面一张卡片里。往前翻，每一周都有自己的一张。',
         states: ['本周 · 18 张', '第 44 周 · 12 张', '第 43 周 · 12 张'],
       },

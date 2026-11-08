@@ -2,6 +2,7 @@
 
 ## 2026-11-08
 
+- “本周”区块标题改为 “几万张照片里，找不到想要的照片。Recap 帮你自动分类。”；英文同步为 “Tens of thousands of photos, and the one you want is lost. Recap sorts them for you.”，正文未改。
 - 首屏标题下方的小字加宽到与标题最宽一行等宽（英文 563px、中文 531px），不再均分换行，左右边缘与标题对齐；手机宽度不变。
 - 首屏标题改为 “Your memories, week to week.” / “你的回忆，一周又一周。”，照片小图嵌在 memories／回忆 之前与最后一个 week／一周 之前。
 
