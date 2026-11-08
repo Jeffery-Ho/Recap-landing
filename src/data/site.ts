@@ -15,8 +15,24 @@ if (site.contactEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(site.contactEmail)) 
   throw new Error('PUBLIC_CONTACT_EMAIL must be a public email address.');
 }
 
-export function localPath(locale: Locale, page = '') {
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
+/** True when the site is built under a sub-path (the /v2/ preview), which must stay out of search results. */
+export const isPreviewBuild = base !== '';
+
+/** A root-relative path to a file in public/, prefixed with the build's base path. */
+export function withBase(path: string) {
+  return `${base}${path}`;
+}
+
+/** The page's path on the production site, for canonical and hreflang URLs. */
+export function sitePath(locale: Locale, page = '') {
   return `${locale === 'zh' ? '/zh/' : '/'}${page ? `${page}/` : ''}`;
+}
+
+/** The page's path in this build, for links. */
+export function localPath(locale: Locale, page = '') {
+  return withBase(sitePath(locale, page));
 }
 
 /** Absolute prices in CNY, as configured in `Recap.storekit` (China mainland App Store). */
