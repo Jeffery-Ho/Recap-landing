@@ -64,9 +64,9 @@ export const copy = {
     heroAltPhone: 'Recap’s latest home screen on iPhone: this week’s photo card, favorites and media types.',
     features: [
       {
-        id: 'week', label: 'This Week', icon: 'calendar',
+        id: 'week', label: 'Auto-sorted', icon: 'calendar',
         title: ['Tens of thousands of photos, and the one you want is lost.', 'Recap sorts them for you.'],
-        body: 'Recap’s home starts with this week: the photos from these few days sit in one card at the top. Go back, and every week has a card of its own.',
+        body: 'Recap sorts your photos by week, city and theme on its own, so there are no albums to build. Home starts with this week; go back, and every week has a card of its own.',
         states: ['This Week · 18 photos', 'Week 44 · 12 photos', 'Week 43 · 12 photos'],
       },
       {
@@ -77,8 +77,8 @@ export const copy = {
       },
       {
         id: 'categories', label: 'Smart Categories', icon: 'sparkle',
-        title: ['Finding the dog photos means endless scrolling.', 'Smart Categories sorts them on device.'],
-        body: 'Recap recognizes pets, flowers, the sea, sunsets and more right on your iPhone, and keeps each in its own category.',
+        title: ['Pets, flowers, the sea, sunsets: each in its place.', 'Recognized right on your device.'],
+        body: 'Smart Categories recognizes what’s in your photos on your iPhone and keeps each kind in its own category, so the dog photos are one tap away.',
         states: ['Pet friends', 'Flowers', 'By the sea', 'Sunset moments'],
       },
     ],
@@ -196,9 +196,9 @@ export const copy = {
     heroAltPhone: 'iPhone 上的 Recap 最新首页：本周照片卡片、个人收藏与媒体类型。',
     features: [
       {
-        id: 'week', label: '本周', icon: 'calendar',
+        id: 'week', label: '自动整理', icon: 'calendar',
         title: ['几万张照片里，找不到想要的照片。', 'Recap 帮你自动分类。'],
-        body: 'Recap 的主页从这一周开始：这几天拍下的照片收在最上面一张卡片里。往前翻，每一周都有自己的一张。',
+        body: 'Recap 会按周、城市和主题自动整理照片，不用自己建相册。主页从这一周开始，往前翻，每一周都有自己的一张卡片。',
         states: ['本周 · 18 张', '第 44 周 · 12 张', '第 43 周 · 12 张'],
       },
       {
@@ -209,8 +209,8 @@ export const copy = {
       },
       {
         id: 'categories', label: '智能分类', icon: 'sparkle',
-        title: ['想找小狗的照片，只能一直往下翻。', '智能分类在设备上帮你分好。'],
-        body: 'Recap 在 iPhone 上识别宠物、花卉、海边、日落等内容，各自收进一个分类。',
+        title: ['宠物、花卉、海边、日落，各归各的位置。', '识别全程在你的设备上完成。'],
+        body: '智能分类在 iPhone 上识别照片里的内容，把每一类收进各自的分类，想找小狗的照片，点一下就到。',
         states: ['宠物时光', '花卉', '海边', '日落时刻'],
       },
     ],
