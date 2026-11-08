@@ -50,8 +50,9 @@
   --absolute-muted: #a7a2b0;
   --absolute-accent: #ff4d8d;
 
-  /* Type — RecapTypography (serif titles, SF body) and RecapOnboardingHeadline (rounded) */
-  --font-serif: ui-serif, 'New York', 'Iowan Old Style', 'Songti SC', 'Noto Serif SC', Georgia, serif;
+  /* Type — RecapTypography (serif titles, SF body) and RecapOnboardingHeadline (rounded).
+     v2 zh display titles load Noto Serif SC Medium themselves (zh-title-font.css). */
+  --font-serif: ui-serif, 'New York', 'Iowan Old Style', 'Songti SC', Georgia, serif;
   --font-rounded: ui-rounded, 'SF Pro Rounded', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB', sans-serif;
   --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'PingFang SC', 'Hiragino Sans GB', 'Helvetica Neue', 'Noto Sans', sans-serif;
   --font-mono: ui-monospace, 'SF Mono', Menlo, monospace;

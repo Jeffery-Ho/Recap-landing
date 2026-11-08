@@ -32,6 +32,8 @@
 
 Safari 可直接调用 New York 与 SF Pro Rounded；其他浏览器按字体栈回退。
 
+v2 简体中文首页的主标题（`#hero-title`）、区块标题（`.section-title`）、功能幻灯标题（`.feature-slide-title`）和收尾标题（`#closing-title`）加载自托管的 Noto Serif SC Medium（`font-weight: 500`，SIL OFL，只含这些标题用到的简体汉字）。同一标题里的英文仍走 `--font-serif`。正文、导航、按钮、卡片小标题、价格名和其他语言、其他页面保持原字体。
+
 ## 间距与形状
 
 间距沿用 `RecapSpacing`：4 / 8 / 12 / 16 / 24 / 32，点击区不小于 44px。版式细节对齐 Polaris v2：区块上下留白 112 / 82px；卡片只用 1px 细边框、不加阴影，圆角为说明卡 18px、轮播卡 28px、定价与安装卡 16px、隐私卡 20px；导航为 16px 圆角卡片，按钮为胶囊。

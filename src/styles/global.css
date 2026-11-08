@@ -1,6 +1,7 @@
 @import './tokens.css';
 @import './motion.css';
 @import './scenes.css';
+@import './zh-title-font.css';
 
 /* Layout, spacing and component details follow polaris-ai.work/v2; colors and type are Recap's (tokens.css). */
 :root {
@@ -350,6 +351,10 @@ a.release-row:hover { background: var(--surface); }
 .changelog-page .release-row:target { background: var(--accent-subtle); }
 
 /* Chinese */
+.locale-zh :is(#hero-title, .section-title, .feature-slide-title, #closing-title) {
+  font-family: "Noto Serif SC", var(--font-serif);
+  font-weight: 500;
+}
 .locale-zh h1 { letter-spacing: 0; line-height: 1.22; word-break: keep-all; }
 .locale-zh h2, .locale-zh h3 { letter-spacing: 0; }
 .locale-zh .section-title { line-height: 1.25; word-break: keep-all; overflow-wrap: anywhere; }

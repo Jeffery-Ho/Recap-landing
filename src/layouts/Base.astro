@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import zhTitleFont from '../assets/fonts/noto-serif-sc-500.woff2';
 import BetaButton from '../components/BetaButton.astro';
 import { copy, isPreviewBuild, localPath, site, sitePath, withBase, type Locale } from '../data/site';
 interface Props { locale: Locale; page?: string; title?: string; description?: string; noindex?: boolean; }
@@ -50,6 +51,7 @@ const navLinks = [
     <link rel="alternate" hreflang="en" href={new URL(sitePath('en', page), site.origin).href} />
     <link rel="alternate" hreflang="zh-Hans" href={new URL(sitePath('zh', page), site.origin).href} />
     <link rel="alternate" hreflang="x-default" href={new URL(sitePath('en', page), site.origin).href} />
+    {locale === 'zh' && isHome && <link rel="preload" href={zhTitleFont} as="font" type="font/woff2" crossorigin />}
     <link rel="icon" type="image/png" href={withBase('/app-icon.png')} />
     <link rel="apple-touch-icon" href={withBase('/app-icon.png')} />
     <meta property="og:type" content="website" />
