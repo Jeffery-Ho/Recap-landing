@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import BetaButton from '../BetaButton.astro';
 import { copy, type Locale } from '../../data/site';
-import PhotoWall from './PhotoWall.astro';
+import HeroStage from './HeroStage.astro';
 import sunset from '../../assets/library/hero-sunset.jpg';
 import pet from '../../assets/library/hero-pet.jpg';
 import seoul from '../../assets/library/cities-seoul.jpg';
@@ -36,5 +36,5 @@ const parts = (line: string) => line.split(/(\{\d\})/).filter(Boolean);
     <p class="hero-description" data-hero-line style="--i:2">{t.heroDescription}</p>
     <div class="hero-actions" data-hero-line style="--i:3"><BetaButton locale={locale} size="hero" /></div>
   </div>
-  <div class="hero-visual"><PhotoWall locale={locale} /></div>
+  <div class="hero-visual"><HeroStage locale={locale} /></div>
 </section>

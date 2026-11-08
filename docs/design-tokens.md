@@ -48,3 +48,7 @@ Safari 可直接调用 New York 与 SF Pro Rounded；其他浏览器按字体栈
 | `--dur-fade` | 300ms | `demo-fade`、FAQ 展开 |
 
 功能场景（`src/components/scenes/`）依据 onboarding 页重绘：W2 周回顾、M1b 城市、R1d 随机模式、L1 Live Photo、H1 往年同周，另有主题、助手和分享卡片。场景的基础样式就是终帧；启用 JavaScript 后从首帧开始播放，进入视口才运行。系统开启“减少动态效果”或禁用 JavaScript 时，直接显示终帧。
+
+## 深色模式
+
+`html[data-theme="dark"]` 覆盖 `tokens.css` 中的颜色 token（暖近黑 `--paper: #121211`、卡片 `--card: #1f1e1c`、正文 `--ink: #f2f0ec`、强调文字 `--accent-text: #8cc4a3`）。主题由 `Base.astro` 的内联脚本在首帧前设置：已保存的选择优先，否则跟随系统；导航的分段切换按 Polaris 的样式与行为实现。有深浅两版的截图用 `.only-light` / `.only-dark` 切换。

@@ -7,8 +7,9 @@
 | 网站文件 | 来源 | 说明 |
 | --- | --- | --- |
 | `public/app-icon.png` | `Recap/Assets.xcassets/AppIconFish.appiconset/AppIconFishDefault.png` | 当前项目配置使用的主图标 |
-| `src/assets/mockups/duo-open-{zh,en}.png` | iPhone Duo 模拟器展开内屏（2853×2007）截图，合成进官方外框 `iPhone Duo - Star White - Inner Open Landscape.png` | Recap `mock` 分支 Debug 构建，2026-11-07 采集，状态栏 9:41；中英文各一张 |
-| `src/assets/mockups/air-home-{zh,en}.png` | iPhone Air 模拟器（1260×2736）首页截图，合成进官方 iPhone Air Cloud White 外框 | 同一构建，临时 Air 模拟器采集后已删除 |
+| `src/assets/mockups/duo-open-{zh,en}.png` | iPhone Duo 模拟器展开内屏（2853×2007）截图，合成进官方外框 `iPhone Duo - Star White - Inner Open Landscape.png` | Recap `mock` 分支 Debug 构建，2026-11-07 采集，状态栏 9:41；中文以已付费身份重拍，英文仅将随机模式按钮的锁替换为星形图标 |
+| `src/assets/mockups/handheld-duo-landscape-{zh,en}[-dark].png` | 首屏双手横握图：App 随机模式引导页素材 `OnboardingRandomHandTrailing`（右手，镜像后兼作左手）与 `OnboardingRandomBezelLeading/Trailing`（两半展开机身），按 `RecapOnboardingRandomPage.swift` 的坐标 4 倍合成；屏幕为 iPhone Duo 模拟器展开横屏内屏（2853×2007）的图库第 42 周截图（顶部封面取老街一帧，头像为空头像占位）（`-recap-testing-pro-entitlement`，已付费、未充电，深色版用 `simctl ui appearance dark`） | Recap `mock` 分支 Debug 构建，2026-11-08 采集 |
+| `src/assets/mockups/air-home-{zh,en}[-dark].png` | iPhone Air 模拟器（1260×2736）首页截图（`-recap-website-photos -recap-testing-pro-entitlement`，已付费、状态栏 9:41 满电未充电），合成进官方 iPhone Air Cloud White 外框；用于“大屏小屏”区块；`-dark` 为模拟器深色外观（`simctl ui appearance dark`）下的同一画面 | Recap `mock` 分支 Debug 构建，2026-11-07 在 Air 模拟器 `Recap Weekly Capture` 重拍；中英文各一张 |
 | `src/assets/mockups/air-frame.png` | Apple Design Resources 的 iPhone Air Cloud White 竖屏外框（屏幕区 60,72 起 1260×2736） | 用于“本周”录屏，CSS 叠加 |
 | `public/onboarding/week-{zh,en}.{mp4,jpg}` | iPhone Air 模拟器“本周”流程录屏，剪去静止段后 630 宽 H.264 | `mock` 分支构建，`-recap-website-photos` 演示数据 |
 

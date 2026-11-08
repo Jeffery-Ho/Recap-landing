@@ -2,6 +2,19 @@
 // Without JavaScript every section and scene renders its final frame.
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+// Header theme switch, after Polaris: a two-option pill (dark, light). The inline script in Base.astro set data-theme
+// before paint; picking an option applies and saves it.
+const themeOptions = [...document.querySelectorAll<HTMLButtonElement>('[data-theme-option]')];
+if (themeOptions.length) {
+  const root = document.documentElement;
+  const sync = () => themeOptions.forEach((option) => option.setAttribute('aria-pressed', String(option.dataset.themeOption === root.dataset.theme)));
+  sync();
+  new MutationObserver(sync).observe(root, { attributes: true, attributeFilter: ['data-theme'] });
+  themeOptions.forEach((option) => option.addEventListener('click', () => {
+    (window as unknown as { recapSetTheme: (theme: string) => void }).recapSetTheme(option.dataset.themeOption ?? 'light');
+  }));
+}
 const root = document.documentElement;
 
 /** Restarts a scene from its first frame. */
@@ -104,26 +117,37 @@ const videoObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.4 });
 document.querySelectorAll<HTMLVideoElement>('[data-loop-video]').forEach((video) => videoObserver.observe(video));
 
-// Hero photo wall: the columns loop on their own while on screen, and one week at a time lights up (every 3 s):
-// its photos get a ring and its card pops up over the wall.
-const wall = document.querySelector<HTMLElement>('[data-wall]');
-if (wall) {
-  const tiles = [...wall.querySelectorAll<HTMLElement>('[data-week]')];
-  const pops = [...document.querySelectorAll<HTMLElement>('[data-pop]')];
-  const weeks = new Set(tiles.map((tile) => tile.dataset.week)).size;
-  let week = 0;
+// Hero photo cards, after placify.app: cards zoom in one by one, then take turns (one every 1.1 s, in a scattered
+// order) swapping photos without blinking: the card zooms out slightly, the next photo cross-fades in, and the card
+// zooms back in. Paused while the hero is off screen.
+const cardLayer = document.querySelector<HTMLElement>('[data-hero-cards]');
+if (cardLayer && !reduceMotion.matches) {
+  const cards = [...cardLayer.querySelectorAll<HTMLElement>('[data-hero-card]')];
+  const order = [0, 5, 3, 6, 1, 7, 4, 2].filter((i) => i < cards.length);
+  cards.forEach((card) => card.classList.remove('is-on'));
+  cards.forEach((card, i) => window.setTimeout(() => card.classList.add('is-on'), 300 + i * 120));
+  let step = 0;
   let timer = 0;
-  const show = (next: number) => {
-    week = next;
-    tiles.forEach((tile) => tile.classList.toggle('is-active', tile.dataset.week === String(week)));
-    pops.forEach((pop) => pop.classList.toggle('is-on', pop.dataset.pop === String(week)));
+  const swap = () => {
+    const visible = order.map((i) => cards[i]).filter((card) => card.offsetParent !== null);
+    if (!visible.length) return;
+    const card = visible[step++ % visible.length];
+    card.classList.add('is-swapping');
+    window.setTimeout(() => {
+      // Next photo in this card's order that no other card is showing, so the same photo never appears twice at once.
+      const shown = new Set(cards.filter((other) => other !== card)
+        .map((other) => other.querySelector<HTMLElement>('img.is-current')?.dataset.photo));
+      const images = [...card.querySelectorAll<HTMLElement>('img')];
+      const current = images.findIndex((image) => image.classList.contains('is-current'));
+      const next = images.map((_, k) => (current + 1 + k) % images.length).find((k) => !shown.has(images[k].dataset.photo)) ?? current;
+      images.forEach((image, k) => image.classList.toggle('is-current', k === next));
+      card.classList.remove('is-swapping');
+    }, 420);
   };
-  wall.classList.add('has-week');
   new IntersectionObserver(([entry]) => {
-    wall.classList.toggle('is-playing', entry.isIntersecting);
-    if (entry.isIntersecting && !timer && !reduceMotion.matches) timer = window.setInterval(() => show((week + 1) % weeks), 3000);
+    if (entry.isIntersecting && !timer) timer = window.setInterval(swap, 1100);
     if (!entry.isIntersecting) { window.clearInterval(timer); timer = 0; }
-  }).observe(wall);
+  }).observe(cardLayer);
 }
 
 // Hero photo chips cycle through a few photos, like Polaris's rotating platform icons.
@@ -143,4 +167,13 @@ if (!reduceMotion.matches) {
 // Keep the selected section when switching languages.
 for (const link of document.querySelectorAll<HTMLAnchorElement>('[data-language-switch]')) {
   link.addEventListener('click', () => { link.hash = window.location.hash; });
+}
+
+// The footer language menu closes on an outside click or Escape.
+const languageControl = document.querySelector<HTMLDetailsElement>('.language-control');
+if (languageControl) {
+  document.addEventListener('click', (event) => {
+    if (languageControl.open && !languageControl.contains(event.target as Node)) languageControl.open = false;
+  });
+  document.addEventListener('keydown', (event) => { if (event.key === 'Escape') languageControl.open = false; });
 }

@@ -35,7 +35,7 @@ export const pricing = {
 
 export const copy = {
   en: {
-    lang: 'en', otherLanguage: '简体中文', otherLanguageShort: '中', languageLabel: 'Switch to Simplified Chinese',
+    lang: 'en', otherLanguage: '简体中文', otherLanguageShort: '中', languageLabel: 'Switch to Simplified Chinese', languageMenuLabel: 'Language', themeLabel: 'Theme', themeDark: 'Dark theme', themeLight: 'Light theme',
     title: 'Recap — Rediscover Your Photo Memories',
     description: 'Rediscover the moments in your photo library with weekly recaps, city memories, and themed collections. Made for iPhone and iPad.',
     skip: 'Skip to content',
@@ -99,16 +99,10 @@ export const copy = {
       query: 'Photos by the sea last summer', searching: 'Searching your indexes…', results: '3 photos',
       frames: ['Classic', 'Instant', 'Border'], signature: 'Recap',
     },
-    wall: {
-      label: 'Photos sorted into weeks, from this week back to week 40',
-      weeks: [
-        { name: 'This Week', dates: 'Nov 2 – 8', count: '18 photos' },
-        { name: 'Week 44', dates: 'Oct 26 – Nov 1', count: '12 photos' },
-        { name: 'Week 43', dates: 'Oct 19 – 25', count: '12 photos' },
-        { name: 'Week 42', dates: 'Oct 12 – 18', count: '9 photos' },
-        { name: 'Week 41', dates: 'Oct 5 – 11', count: '14 photos' },
-        { name: 'Week 40', dates: 'Sep 28 – Oct 4', count: '7 photos' },
-      ],
+    heroStage: {
+      label: 'Photos from the past few weeks around Recap',
+      hand: 'Recap’s Gallery on an unfolded iPhone Duo held in both hands: weeks in the sidebar, the week’s photos beside them.',
+      also: 'Also available on iPhone and iPad',
     },
     devicesSection: {
       title: ['On any screen,', 'it starts with this week.'],
@@ -173,7 +167,7 @@ export const copy = {
     notFound: 'This moment seems to have wandered off.', notFoundBody: 'The page you’re looking for isn’t here. Let’s go back.',
   },
   zh: {
-    lang: 'zh-Hans', otherLanguage: 'English', otherLanguageShort: 'EN', languageLabel: '切换为英文',
+    lang: 'zh-Hans', otherLanguage: 'English', otherLanguageShort: 'EN', languageLabel: '切换为英文', languageMenuLabel: '语言', themeLabel: '主题', themeDark: '深色', themeLight: '浅色',
     title: 'Recap — 重温照片里的生活',
     description: '用 Recap 按周回看照片，重温城市回忆，通过主题发现值得记住的瞬间。适用于 iPhone 和 iPad。',
     skip: '跳到正文',
@@ -237,16 +231,10 @@ export const copy = {
       query: '找出去年夏天在海边拍的照片', searching: '正在检索照片索引…', results: '3 张照片',
       frames: ['经典', '拍立得', '留白'], signature: 'Recap',
     },
-    wall: {
-      label: '按周排好的照片，从本周到第 40 周',
-      weeks: [
-        { name: '本周', dates: '11月2日 – 8日', count: '18 张' },
-        { name: '第 44 周', dates: '10月26日 – 11月1日', count: '12 张' },
-        { name: '第 43 周', dates: '10月19日 – 25日', count: '12 张' },
-        { name: '第 42 周', dates: '10月12日 – 18日', count: '9 张' },
-        { name: '第 41 周', dates: '10月5日 – 11日', count: '14 张' },
-        { name: '第 40 周', dates: '9月28日 – 10月4日', count: '7 张' },
-      ],
+    heroStage: {
+      label: '围绕 Recap 的近几周照片',
+      hand: '双手横握展开的 iPhone Duo，Recap 图库左侧按周列出，右侧是这一周的照片。',
+      also: '同样支持 iPhone 与 iPad',
     },
     devicesSection: {
       title: ['大屏小屏，', '都从这一周开始。'],

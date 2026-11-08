@@ -57,7 +57,7 @@ for (const node of ctas) {
 for (const route of ['/', '/zh/']) {
   const nodes = documents.get(route);
   for (const id of ['features', 'pricing', 'install', 'faq', 'updates', 'privacy']) assert(nodes.some((node) => attr(node, 'id') === id), `${route}: #${id} section`);
-  assert.equal(nodes.filter((node) => node.tagName === 'details' && attr(node, 'class') !== 'menu').length, 7, `${route}: native, script-free FAQ`);
+  assert.equal(nodes.filter((node) => node.tagName === 'details' && !['menu', 'language-control'].includes(attr(node, 'class'))).length, 7, `${route}: native, script-free FAQ`);
   assert(nodes.some((node) => node.tagName === 'img' && attr(node, 'fetchpriority') === 'high'), `${route}: prioritized hero image`);
   assert(nodes.some((node) => node.tagName === 'img' && attr(node, 'loading') === 'lazy'), `${route}: lazy secondary images`);
   // Every photograph appears once per page (the brand icon is exempt), like hive.ink's one-image-per-slot rule.

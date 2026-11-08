@@ -26,6 +26,14 @@
   --hairline: rgb(47 91 69 / .14);
   --line: rgb(28 27 26 / .08);
   --print: #1f2a29;
+  --raised: #ffffff;
+  --glass: rgb(255 254 252 / .92);
+  --glass-soft: rgb(255 254 252 / .9);
+  --frame-bg: #f2f0ee;
+  --badge-bg: #111;
+  --badge-hover: #000;
+  --badge-border: transparent;
+  --accent-hover: #274d3a;
   --shadow-color: 30 38 34;
   --shadow-print: 0 14px 28px -10px rgb(var(--shadow-color) / .2);
   --shadow-card: 0 1px 2px rgb(var(--shadow-color) / .04), 0 12px 32px -18px rgb(var(--shadow-color) / .18);
@@ -71,4 +79,44 @@
   --dur-fade: 300ms;
   --dur-enter: 700ms;
   --dur-slide: 650ms;
+}
+
+/* Dark theme: html[data-theme="dark"], set before paint by the inline script in Base.astro (system preference first,
+   then the visitor's own choice from the header toggle). Values follow the app's dark appearance: warm near-black paper,
+   lifted cards, and a lighter forest for text so it keeps contrast. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #121211;
+  --paper-deep: #1b1a18;
+  --card: #1f1e1c;
+  --raised: #252422;
+  --ink: #f2f0ec;
+  --ink-soft: #d7d3cc;
+  --muted: #a8a39b;
+  --subtle: #7f7a72;
+  --forest: #3f7a5c;
+  --forest-soft: #23382c;
+  --accent: #3f7a5c;
+  --accent-text: #8cc4a3;
+  --accent-subtle: #1c2a22;
+  --accent-border: rgb(140 196 163 / .4);
+  --accent-wash: rgb(140 196 163 / .1);
+  --accent-hover: #4a8a69;
+  --surface: #1a1918;
+  --surface-strong: #262522;
+  --border: #2f2d2a;
+  --border-strong: #4a4742;
+  --hairline: rgb(140 196 163 / .16);
+  --line: rgb(242 240 236 / .08);
+  --shadow-color: 0 0 0;
+  --shadow-cta: 0 12px 28px rgb(0 0 0 / .4);
+  --glass: rgb(31 30 28 / .88);
+  --glass-soft: rgb(31 30 28 / .86);
+  --frame-bg: #1b1a18;
+  --badge-bg: #f2f0ec;
+  --badge-hover: #fff;
+  --badge-border: transparent;
+  --swatch-1: #3a352d; --swatch-2: #33372f; --swatch-3: #3b352b; --swatch-4: #2f3531;
+  --swatch-5: #39332d; --swatch-6: #37312a; --swatch-7: #3d3830; --swatch-8: #2d332e;
+  --swatch-9: #39322a; --swatch-10: #3a352e; --swatch-11: #2c312d; --swatch-12: #3a3329;
 }
