@@ -73,4 +73,23 @@ for (const route of ['/', '/zh/']) {
   }
 }
 for (const file of ['404.html', '_redirects', '_headers', 'robots.txt', 'sitemap-index.xml']) assert(existsSync(join(root, file)), `Missing ${file}`);
-console.log(`Verified ${routes.length} static routes, ${checkedLinks} local links, consistent beta CTAs, SEO, responsive assets, and script-free FAQ markup.`);
+
+const fontPreloads = (nodes) => nodes.filter((node) => node.tagName === 'link' && attr(node, 'rel') === 'preload' && attr(node, 'as') === 'font');
+const zhFont = fontPreloads(documents.get('/zh/'));
+assert.equal(zhFont.length, 1, 'zh home preloads the title font');
+const fontHref = attr(zhFont[0], 'href');
+assert(fontHref.endsWith('.woff2'), 'title font is woff2');
+const fontFile = join(root, fontHref);
+assert(existsSync(fontFile), 'preloaded title font exists');
+const fontBytes = readFileSync(fontFile).length;
+assert(fontBytes < 80_000, `title font is ${fontBytes} bytes; keep the subset small`);
+for (const route of ['/', '/privacy/', '/zh/privacy/', '/zh/changelog/']) {
+  assert.equal(fontPreloads(documents.get(route)).length, 0, `${route} must not preload the zh title font`);
+}
+const stylesheet = attr(documents.get('/zh/').find((node) => node.tagName === 'link' && attr(node, 'rel') === 'stylesheet'), 'href');
+const css = readFileSync(join(root, stylesheet), 'utf8');
+assert(css.includes('Noto Serif SC'), 'stylesheet declares Noto Serif SC');
+assert(css.includes(fontHref), 'stylesheet and preload use the same font file');
+assert(/font-weight:500/.test(css), 'zh titles request weight 500');
+
+console.log(`Verified ${routes.length} static routes, ${checkedLinks} local links, consistent beta CTAs, SEO, responsive assets, script-free FAQ markup, and the zh title font.`);
