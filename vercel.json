@@ -1,6 +1,6 @@
 {
   "rewrites": [
     { "source": "/v2", "destination": "https://recap-landing-git-v2-hexianji6275s-projects.vercel.app/v2/" },
-    { "source": "/v2/:path*", "destination": "https://recap-landing-git-v2-hexianji6275s-projects.vercel.app/v2/:path*" }
+    { "source": "/v2/(.*)", "destination": "https://recap-landing-git-v2-hexianji6275s-projects.vercel.app/v2/$1" }
   ]
 }
