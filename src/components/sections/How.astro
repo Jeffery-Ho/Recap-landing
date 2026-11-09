@@ -32,6 +32,7 @@ const photos: Record<string, ImageMetadata[][]> = {
 ---
 <section id="features" class="section features-section" aria-labelledby="features-title">
   <div class="container">
+    {locale === 'zh' && <p class="section-kicker">整理方案</p>}
     <h2 id="features-title" class="section-title" data-enter><span>{intro.title[0]}</span> <span class="muted">{intro.title[1]}</span></h2>
     <p class="feature-body" data-enter>{intro.body}</p>
   </div>
