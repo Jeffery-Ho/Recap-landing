@@ -91,5 +91,8 @@ const css = readFileSync(join(root, stylesheet), 'utf8');
 assert(css.includes('Noto Serif SC'), 'stylesheet declares Noto Serif SC');
 assert(css.includes(fontHref), 'stylesheet and preload use the same font file');
 assert(/font-weight:500/.test(css), 'zh titles request weight 500');
+const zhHomeHtml = readFileSync(pathFor('/zh/'), 'utf8');
+assert(zhHomeHtml.includes('整理方案'), 'zh features intro has the 整理方案 badge');
+assert(!readFileSync(pathFor('/'), 'utf8').includes('整理方案'), 'english home does not show the zh badge');
 
 console.log(`Verified ${routes.length} static routes, ${checkedLinks} local links, consistent beta CTAs, SEO, responsive assets, script-free FAQ markup, and the zh title font.`);
