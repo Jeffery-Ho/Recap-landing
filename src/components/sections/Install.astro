@@ -1,15 +1,18 @@
 ---
-// Install, kept short: a two-part title, one line, the beta button, three numbered steps and the App Store status.
-import StoreBadges from '../StoreBadges.astro';
-import { copy, type Locale } from '../../data/site';
+// Install, after the reference the owner shared: the app icon on a fading dot grid, a one-line two-part headline, one line,
+// a black TestFlight button and a quiet underlined link to the install steps in the FAQ.
+import BetaButton from '../BetaButton.astro';
+import { copy, withBase, type Locale } from '../../data/site';
 interface Props { locale: Locale; }
 const { locale } = Astro.props;
 const i = copy[locale].install;
 ---
-<section id="install" class="section container" aria-labelledby="install-title">
-  <h2 id="install-title" class="section-title" data-enter><span>{i.title[0]}</span> <span class="muted">{i.title[1]}</span></h2>
-  <p class="feature-body" data-enter>{i.lead}</p>
-  <div class="block-action" data-enter><StoreBadges locale={locale} /></div>
-  <ol class="install-steps" data-enter>{i.steps.map((step) => <li>{step}</li>)}</ol>
-  <p class="install-note">{i.note}</p>
+<section id="install" class="section container install" aria-labelledby="install-title">
+  <div class="install-mark" data-enter><img class="install-icon" src={withBase('/app-icon.png')} width="96" height="96" alt="" loading="lazy" /></div>
+  <h2 id="install-title" class="install-title" data-enter><span>{i.title[0]}</span><span class="muted">{i.title[1]}</span></h2>
+  <p class="install-lead" data-enter>{i.lead}</p>
+  <div class="install-actions" data-enter>
+    <BetaButton locale={locale} variant="dark" />
+    <a class="install-help" href="#installation">{i.help}</a>
+  </div>
 </section>

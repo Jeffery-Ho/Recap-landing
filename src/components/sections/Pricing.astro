@@ -1,34 +1,32 @@
 ---
-// Pricing after savee.com's "Go Pro. Save without limits.": a two-part title, one paragraph that explains Absolute,
-// then two cards with a large price, one billing line, a short list and the button at the bottom.
+// Pricing in three cards: Free, Yearly (recommended, as in the app's paywall) and Lifetime. Both paid cards are Absolute; prices come from
+// `pricing` (Recap.storekit, China mainland App Store).
 import { Check } from '@lucide/astro';
 import { copy, pricing, type Locale } from '../../data/site';
 interface Props { locale: Locale; }
 const { locale } = Astro.props;
 const p = copy[locale].pricingCopy;
-const [monthly, yearly, lifetime] = pricing[locale];
-const altPrices = p.absolute.altPrices.replace('{monthly}', monthly.price).replace('{yearly}', yearly.price);
+const [, yearly, lifetime] = pricing[locale];
+const plans = [
+  { ...p.free, price: p.free.price, period: '', recommended: false, button: 'button-outline-neutral' },
+  { ...p.yearly, price: yearly.price, period: yearly.period, recommended: true, button: 'button-primary' },
+  { ...p.lifetime, price: lifetime.price, period: '', recommended: false, button: 'button-outline' },
+];
 ---
 <section id="pricing" class="section container" aria-labelledby="pricing-title">
   <h2 id="pricing-title" class="section-title" data-enter><span>{p.title[0]}</span> <span class="muted">{p.title[1]}</span></h2>
   <p class="feature-body" data-enter>{p.lead}</p>
-  <div class="pricing-grid">
-    <article class="price-card" data-enter>
-      <h3>{p.free.name}</h3>
-      <p class="price-description">{p.free.description}</p>
-      <p class="price-amount">{p.free.price}</p>
-      <p class="price-note">{p.free.priceNote}</p>
-      <ul class="price-features">{p.free.features.map((feature) => <li><Check size={16} stroke-width={2.2} aria-hidden="true" />{feature}</li>)}</ul>
-      <a class="button button-outline-neutral" href="#install">{p.free.cta}</a>
-    </article>
-    <article class="price-card price-card-absolute" data-enter>
-      <h3>{p.absolute.name}<span class="price-tag">{p.recommended}</span></h3>
-      <p class="price-description">{p.absolute.description}</p>
-      <p class="price-amount">{lifetime.price}</p>
-      <p class="price-note">{p.absolute.priceNote} · {altPrices}</p>
-      <ul class="price-features">{p.absolute.features.map((feature) => <li><Check size={16} stroke-width={2.2} aria-hidden="true" />{feature}</li>)}</ul>
-      <a class="button button-primary" href="#install">{p.absolute.cta}</a>
-    </article>
+  <div class="pricing-grid pricing-grid--three">
+    {plans.map((plan) => (
+      <article class:list={['price-card', { 'price-card-absolute': plan.recommended }]} data-enter>
+        <h3>{plan.name}{plan.recommended && <span class="price-tag">{p.recommended}</span>}</h3>
+        <p class="price-description">{plan.description}</p>
+        <p class="price-amount">{plan.price}{plan.period && <span class="price-period">{plan.period}</span>}</p>
+        <p class="price-note">{plan.priceNote}</p>
+        <ul class="price-features">{plan.features.map((feature) => <li><Check size={16} stroke-width={2.2} aria-hidden="true" />{feature}</li>)}</ul>
+        <a class:list={['button', plan.button]} href="#install">{plan.cta}</a>
+      </article>
+    ))}
   </div>
   <p class="pricing-footnote">{p.footnote}</p>
 </section>

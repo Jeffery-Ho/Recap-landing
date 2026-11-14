@@ -1,0 +1,93 @@
+---
+// Chapter 04, a year of photos as a calendar heatmap (one square per day, columns are weeks), after Polarsteps's travel
+// stats. The data is a fixed example: everyday photos with a few travel weeks that glow brightest.
+// It reads like a time picker laid on its side: the year drifts past the middle, the weeks either side fade away, and
+// the day in the middle is picked while its photos come in below at a steady pace. Click any day to bring it to the
+// middle (interactive.ts). The year is drawn twice so the drift can loop.
+import { Image } from 'astro:assets';
+import ChapterHeader from '../ChapterHeader.astro';
+import { slot } from '../../data/photos';
+import { copy, type Locale } from '../../data/site';
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const t = copy[locale];
+const h = t.heatmap;
+const photos = slot('stats');
+
+// A seeded generator, so every build draws the same year.
+let seed = 20261112;
+const random = () => ((seed = (seed * 1664525 + 1013904223) % 4294967296) / 4294967296);
+const weeks = 53;
+const end = new Date(Date.UTC(2026, 10, 14)); // a Saturday; the last column ends here
+const start = new Date(end);
+start.setUTCDate(end.getUTCDate() - (weeks * 7 - 1));
+const travel = new Set([6, 7, 19, 31, 32, 44, 50]); // weeks away from home
+const days = Array.from({ length: weeks * 7 }, (_, i) => {
+  const date = new Date(start);
+  date.setUTCDate(start.getUTCDate() + i);
+  const week = Math.floor(i / 7);
+  const weekend = date.getUTCDay() === 0 || date.getUTCDay() === 6;
+  const r = random();
+  let count = 0;
+  // About 37,000 photos a year: travel days run from a hundred to nearly two thousand, ordinary days a few dozen.
+  if (travel.has(week)) count = 80 + Math.round(random() ** 3.8 * 1920);
+  else if (r < (weekend ? .82 : .6)) count = 2 + Math.round(random() ** 2 * (weekend ? 240 : 70));
+  return { date, week, count };
+});
+const level = (count: number) => (count === 0 ? 0 : count < 30 ? 1 : count < 120 ? 2 : count < 500 ? 3 : 4);
+const total = days.reduce((sum, day) => sum + day.count, 0);
+const active = days.filter((day) => day.count > 0).length;
+let streak = 0;
+let run = 0;
+for (const day of days) { run = day.count ? run + 1 : 0; streak = Math.max(streak, run); }
+const format = (date: Date) => (locale === 'zh'
+  ? `${date.getUTCMonth() + 1}月${date.getUTCDate()}日`
+  : `${h.months[date.getUTCMonth()]} ${date.getUTCDate()}`);
+const number = new Intl.NumberFormat(locale === 'zh' ? 'zh-CN' : 'en-US');
+// A month label over the first week that starts in that month.
+const months = days.filter((day, i) => i % 7 === 0 && (i === 0 || day.date.getUTCDate() <= 7))
+  .map((day) => ({ week: day.week, label: h.months[day.date.getUTCMonth()] }))
+  .filter((month, i) => i > 0 || month.week === 0);
+// Before JavaScript picks a day: the busiest day of the last week.
+const lastWeek = days.slice(-7);
+const shown = days.length - 7 + lastWeek.indexOf(lastWeek.reduce((a, b) => (b.count > a.count ? b : a)));
+const caption = (count: number, date: Date) => (count ? h.tip : h.tipNone).replace('{date}', format(date)).replace('{count}', number.format(count));
+---
+<section id="stats" class="section chapter heatmap-section" aria-labelledby="stats-title">
+  <div class="container">
+    <ChapterHeader id="stats-title" number={4} label={t.chapters.stats} title={h.title} body={h.body} />
+    <div class="heatmap-card" data-enter>
+      <dl class="heatmap-stats">
+        <div><dt>{h.stats.photos}</dt><dd data-stat="photos" data-to={total}>{number.format(total)}</dd></div>
+        <div><dt>{h.stats.days}</dt><dd data-stat="days" data-to={active}>{active}</dd></div>
+        <div><dt>{h.stats.streak}</dt><dd data-stat="streak" data-to={streak}>{streak}</dd></div>
+      </dl>
+      <div class="heatmap-picker">
+        <div class="heatmap-scroll" data-heatmap-scroll>
+          <div class="heatmap" data-heatmap data-tip={h.tip} data-tip-none={h.tipNone} data-locale={locale} role="img" aria-label={h.label} style={`--weeks:${weeks * 2}`}>
+            <div class="heatmap-months" aria-hidden="true">
+              {[0, weeks].map((offset) => months.filter((month) => !offset || month.week).map((month) => <span style={`grid-column:${offset + month.week + 1}`}>{month.label}</span>))}
+            </div>
+            <div class="heatmap-grid" aria-hidden="true">
+              {[0, 1].map((copy) => days.map((day, i) => (
+                <span class:list={['heat-cell', { 'is-picked': copy === 0 && i === shown }]} data-level={level(day.count)} data-d={format(day.date)} data-c={day.count}></span>
+              )))}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="heatmap-foot">
+        <figure class="heatmap-day" data-heatmap-day aria-live="polite">
+          <div class="heatmap-day-photos" aria-hidden="true">
+            {photos.map((photo, i) => (
+              <Image class:list={['heatmap-day-photo', { 'is-shown': i < 3 }]} style={`--slot:${i < 3 ? i : 3}`} src={photo} alt=""
+                widths={[160, 320]} sizes="96px" format="webp" loading="lazy" />
+            ))}
+          </div>
+          <figcaption class="heatmap-tip" data-heatmap-tip>{caption(days[shown].count, days[shown].date)}</figcaption>
+        </figure>
+        <p class="heatmap-legend" aria-hidden="true">{h.less}{[0, 1, 2, 3, 4].map((l) => <span class="heat-cell" data-level={l}></span>)}{h.more}</p>
+      </div>
+    </div>
+  </div>
+</section>

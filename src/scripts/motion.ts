@@ -1,5 +1,5 @@
 // Page motion, following polaris-ai.work/v2: plain CSS driven by data attributes and classes.
-// Without JavaScript every section and scene renders its final frame.
+// Without JavaScript every section renders its final frame.
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -16,36 +16,6 @@ if (themeOptions.length) {
   }));
 }
 const root = document.documentElement;
-
-/** Restarts a scene from its first frame. */
-function playScene(scene: HTMLElement) {
-  scene.classList.add('is-reset');
-  scene.classList.remove('is-playing');
-  void scene.offsetWidth;
-  scene.classList.remove('is-reset');
-  scene.classList.add('is-playing');
-  typeInto(scene);
-}
-
-function typeInto(scene: HTMLElement) {
-  for (const target of scene.querySelectorAll<HTMLElement>('[data-type]')) {
-    const text = target.dataset.type ?? '';
-    window.clearInterval(Number(target.dataset.timer));
-    if (reduceMotion.matches) { target.textContent = text; continue; }
-    const characters = Array.from(text);
-    let shown = 0;
-    target.textContent = '';
-    const start = window.setTimeout(() => {
-      const timer = window.setInterval(() => {
-        shown += 1;
-        target.textContent = characters.slice(0, shown).join('');
-        if (shown >= characters.length) window.clearInterval(timer);
-      }, Math.max(40, 1300 / characters.length));
-      target.dataset.timer = String(timer);
-    }, 350);
-    target.dataset.timer = String(start);
-  }
-}
 
 // The header CTA appears once the hero is behind us.
 const hero = document.querySelector('[data-hero]');
@@ -66,16 +36,6 @@ for (const block of document.querySelectorAll<HTMLElement>('[data-enter]')) {
   block.dataset.enter = 'pending';
   enterObserver.observe(block);
 }
-
-// Stand-alone scenes play each time they come back into view.
-const sceneObserver = new IntersectionObserver((entries) => {
-  for (const entry of entries) {
-    const scene = entry.target as HTMLElement;
-    if (entry.isIntersecting && !scene.classList.contains('is-playing')) playScene(scene);
-    if (!entry.isIntersecting) scene.classList.remove('is-playing');
-  }
-}, { threshold: .35 });
-for (const scene of document.querySelectorAll<HTMLElement>('[data-scene]:not([data-owned])')) sceneObserver.observe(scene);
 
 // Feature strips, after savee.com: while a strip is on screen its pill types the next state every 3.5 s
 // and the photos below swap, slot by slot. Reduced motion keeps the first state.
@@ -152,6 +112,7 @@ for (const gallery of document.querySelectorAll<HTMLElement>('[data-feature-gall
   });
   slides.forEach((slide, i) => slide.addEventListener('click', () => { if (i !== current) go(i); }));
   track.addEventListener('keydown', (event) => {
+    if ((event.target as HTMLElement).closest('input, textarea, [role="radiogroup"]')) return;
     if (event.key === 'ArrowRight') { event.preventDefault(); go(current + 1); }
     if (event.key === 'ArrowLeft') { event.preventDefault(); go(current - 1); }
   });

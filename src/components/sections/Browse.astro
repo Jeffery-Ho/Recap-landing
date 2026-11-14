@@ -1,0 +1,49 @@
+---
+// Chapter 02, browsing: a centred two-part title, then the same slide gallery as chapter 01 (motion.ts drives every
+// [data-feature-gallery]). Shuffle Mode is a CSS demo on a real iPhone bezel (tap the button, turn sideways, photos lay out), the instant print is editable in the page,
+// and this week in past years plays the onboarding recording.
+import ChapterHeader from '../ChapterHeader.astro';
+import ShuffleFrame from '../ShuffleFrame.astro';
+import PolaroidEditor from '../PolaroidEditor.astro';
+import OnboardingVideo from '../OnboardingVideo.astro';
+import { copy, type Locale } from '../../data/site';
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const t = copy[locale];
+const b = t.browse;
+---
+<section id="browse" class="section features-section browse-section" aria-labelledby="browse-title">
+  <div class="container">
+    <ChapterHeader id="browse-title" number={2} label={t.chapters.browse} title={b.title} body={b.body} />
+  </div>
+  <div class="feature-gallery" data-feature-gallery data-enter aria-roledescription="carousel" aria-label={b.title[0]}>
+    <div class="feature-track" data-feature-track tabindex="0">
+      {b.items.map((item, i) => (
+        <article id={`browse-${item.id}`} class:list={['feature-slide', { 'is-active': i === 0 }]} data-feature-slide
+          aria-roledescription="slide" aria-labelledby={`browse-${item.id}-title`}>
+          <div class="feature-slide-copy">
+            <p class="feature-label">{item.label}</p>
+            <h3 id={`browse-${item.id}-title`} class="feature-slide-title">{item.title}</h3>
+            <p class="feature-slide-text">{item.body}</p>
+            {item.absolute && <p class="browse-note">{b.absolute}</p>}
+          </div>
+          <div class={`feature-slide-visual browse-visual--${item.id}`}>
+            {item.id === 'random' && <ShuffleFrame locale={locale} label={b.shuffleBar.label} change={b.shuffleBar.change} />}
+            {item.id === 'print' && <PolaroidEditor copy={b.print} />}
+            {item.id === 'past' && <div class="browse-video video-frame"><OnboardingVideo name="past" /></div>}
+          </div>
+        </article>
+      ))}
+    </div>
+    <div class="feature-controls">
+      <div class="feature-dots" role="group" aria-label={b.title[1]}>
+        {b.items.map((item, i) => (
+          <button type="button" class:list={['feature-dot', { 'is-current': i === 0 }]} data-feature-dot={i}
+            aria-controls={`browse-${item.id}`} aria-current={i === 0 ? 'true' : undefined}>
+            <span class="sr-only">{item.label}</span><span class="feature-dot-fill" aria-hidden="true"></span>
+          </button>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

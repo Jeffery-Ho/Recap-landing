@@ -1,0 +1,52 @@
+---
+// Shuffle Mode, built in CSS on a real iPhone Air bezel: the phone shows Recap's Home (a simulator capture), the
+// Shuffle Mode button is tapped, the phone turns sideways and photos lay themselves out in the app's staggered grid,
+// the controls show and fade, and for about 20 seconds the photo columns scroll upward at an even pace, as Shuffle
+// Mode plays, then the phone turns back. One 24-second loop, played only while on screen (interactive.ts adds .is-playing). Without JavaScript, or under reduced motion, it rests on the
+// sideways frame with the first set of photos.
+import { Image } from 'astro:assets';
+import bezel from '../assets/mockups/air-frame.png';
+import homeZh from '../assets/mockups/air-home-random-zh.png';
+import homeEn from '../assets/mockups/air-home-random-en.png';
+import { slot } from '../data/photos';
+import type { Locale } from '../data/site';
+interface Props { locale: Locale; label: string; change: string; }
+const { locale, label, change } = Astro.props;
+const photos = slot('shuffle');
+// Five columns that each scroll up at their own steady pace, as Shuffle Mode plays; every column is repeated once so
+// the loop is seamless. Tile heights vary like the app's masonry.
+const columnCount = 5;
+const columns = Array.from({ length: columnCount }, (_, c) => photos.filter((_, i) => i % columnCount === c));
+const ratios = [1.25, 0.8, 1, 1.33, 0.75];
+// The Shuffle Mode button on each capture, as a share of the screen.
+const tap = locale === 'zh' ? { x: 82, y: 9.6 } : { x: 78.5, y: 9.6 };
+---
+<div class="shuffle-demo" data-shuffle aria-hidden="true">
+  <div class="shuffle-device">
+    <div class="shuffle-screen">
+      <Image class="shuffle-home" src={locale === 'zh' ? homeZh : homeEn} alt="" widths={[320, 640]} sizes="220px" format="webp" loading="lazy" />
+      <span class="shuffle-tap" style={`--x:${tap.x}%;--y:${tap.y}%`}></span>
+      <div class="shuffle-land">
+        <div class="shuffle-cols">
+          {columns.map((column, c) => (
+            <div class="shuffle-col" style={`--c:${c}`}>
+              <div class="shuffle-track">
+                {[false, true].map((copy) => column.map((photo, k) => (
+                  <div class="shuffle-tile" style={`--h:${ratios[(c + k) % ratios.length]}`}>
+                    <Image src={photo} alt="" widths={[240, 480]} sizes="140px" format="webp" loading="lazy" data-loop-copy={copy ? '' : undefined} />
+                  </div>
+                )))}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div class="shuffle-bar">
+          <span>{label}<svg viewBox="0 0 12 12"><path d="m3 4.5 3 3 3-3" /></svg></span>
+          <svg class="shuffle-pause" viewBox="0 0 12 12"><rect x="3" y="2.5" width="2" height="7" rx=".6" /><rect x="7" y="2.5" width="2" height="7" rx=".6" /></svg>
+          <span><svg viewBox="0 0 16 16"><path d="M2 4.5h2.5c1.4 0 2.3.6 3 1.7l1 1.6c.7 1.1 1.6 1.7 3 1.7H14M2 11.5h2.5c1.4 0 2.3-.6 3-1.7M10.5 6.2c.7-1.1 1.6-1.7 3-1.7H14M12.5 2.8 14 4.5l-1.5 1.7M12.5 9.8l1.5 1.7-1.5 1.7" /></svg>{change}</span>
+        </div>
+      </div>
+    </div>
+    <Image class="shuffle-bezel" src={bezel} alt="" widths={[320, 640, 960]} sizes="240px" format="webp" loading="lazy" data-frame />
+  </div>
+</div>

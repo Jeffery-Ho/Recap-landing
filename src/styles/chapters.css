@@ -1,0 +1,304 @@
+/*
+ * The four feature chapters (Sort, Browse, Share, Stats) and the hero's iPhone Duo badge.
+ * References: placify.app (badge, bento), hive.ink (in-page demo), Polarsteps (stats).
+ */
+
+/* Hero badge: a glass pill with a green dot and a chevron; it opens the TestFlight invitation. */
+.hero-badge { display: inline-flex; align-items: center; gap: 10px; min-height: 40px; padding: 0 12px 0 16px; background: var(--glass); border: 1px solid var(--border); border-radius: var(--radius-pill); box-shadow: 0 6px 18px -10px rgb(var(--shadow-color) / .3); color: var(--ink-soft); font-size: 15px; font-weight: 500; letter-spacing: -.01em; transition: border-color var(--dur-fast), background-color var(--dur-fast); }
+.hero-badge:hover { border-color: var(--border-strong); background: var(--card); }
+.hero-badge-chevron { width: 14px; height: 14px; fill: none; stroke: var(--subtle); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.hero-badge-dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: #52c25a; box-shadow: 0 0 0 3px rgb(82 194 90 / .18); }
+.hero .hero-also + h1 { margin-top: 36px; }
+
+/* By place: the app's Places onboarding map (390 × 456 points), in cqw of the stage. Resting frame = the city card. */
+.places-scene { position: relative; width: 100%; height: 100%; container-type: size; }
+.places-stage { --pt: calc(100cqw / 390); position: absolute; left: 50%; top: 50%; width: min(100cqw, 100cqh * 390 / 456); aspect-ratio: 390 / 456; transform: translate(-50%, -50%); container-type: inline-size; }
+.places-map { position: absolute; inset: 0; width: 100%; height: 100%; -webkit-mask-image: radial-gradient(66% 47% at 50% 45%, #000 55%, transparent); mask-image: radial-gradient(66% 47% at 50% 45%, #000 55%, transparent); }
+.places-ring { position: absolute; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgb(47 91 69 / .14), rgb(47 91 69 / .08) 75%, rgb(47 91 69 / .05)); box-shadow: inset 0 0 0 calc(1.5 * 100cqw / 390) rgb(47 91 69 / .35); }
+.places-pin { position: absolute; width: calc(44 * 100cqw / 390); opacity: 0; }
+.places-pin img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; padding: calc(3 * 100cqw / 390); border-radius: calc(12 * 100cqw / 390); background: #fffefc; box-shadow: 0 calc(3 * 100cqw / 390) calc(10 * 100cqw / 390) rgb(30 38 34 / .16); }
+.places-pin b { position: absolute; left: 50%; top: calc(48 * 100cqw / 390); padding: calc(2 * 100cqw / 390) calc(8 * 100cqw / 390); border-radius: calc(8 * 100cqw / 390); background: rgb(255 254 252 / .92); box-shadow: 0 1px 4px rgb(30 38 34 / .12); color: #1c1b1a; font-family: var(--font-rounded); font-size: calc(11 * 100cqw / 390); font-weight: 700; white-space: nowrap; transform: translateX(-50%); opacity: 0; }
+.places-city { position: absolute; z-index: 2; width: calc(112 * 100cqw / 390); margin: 0; padding: calc(4 * 100cqw / 390); border-radius: calc(30 * 100cqw / 390); background: #fffefc; box-shadow: 0 calc(6 * 100cqw / 390) calc(24 * 100cqw / 390) rgb(40 32 26 / .12); }
+.places-city img { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: calc(26 * 100cqw / 390); }
+.places-city::after { content: ''; position: absolute; inset: calc(4 * 100cqw / 390); border-radius: calc(26 * 100cqw / 390); background: linear-gradient(transparent 40%, rgb(10 16 12 / .62)); }
+.places-city figcaption { position: absolute; left: 0; right: 0; bottom: calc(12 * 100cqw / 390); z-index: 1; color: #fffefc; font-family: var(--font-serif); font-size: calc(22 * 100cqw / 390); font-weight: 600; letter-spacing: .04em; text-align: center; text-shadow: 0 1px 4px rgb(0 0 0 / .35); }
+.places-count { position: absolute; z-index: 3; display: grid; place-items: center; min-width: calc(30 * 100cqw / 390); height: calc(30 * 100cqw / 390); padding: 0 calc(9 * 100cqw / 390); border-radius: 999px; background: var(--forest); box-shadow: 0 0 0 calc(3 * 100cqw / 390) #fffefc, 0 calc(3 * 100cqw / 390) calc(10 * 100cqw / 390) rgb(22 40 31 / .16); color: #fffefc; font-family: var(--font-rounded); font-size: calc(14 * 100cqw / 390); font-weight: 700; }
+.places-scene.is-playing .places-map { animation: places-map 8s ease-out infinite; }
+.places-scene.is-playing .places-pin { animation: places-pin 8s linear infinite; }
+.places-scene.is-playing .places-pin b { animation: places-label 8s linear infinite; }
+.places-scene.is-playing .places-ring { animation: places-ring 8s linear infinite; }
+.places-scene.is-playing .places-city { animation: places-city 8s linear infinite; }
+.places-scene.is-playing .places-count { animation: places-count 8s linear infinite; }
+@keyframes places-map { 0% { opacity: 0; filter: blur(10px); } 11%, 100% { opacity: 1; filter: none; } }
+@keyframes places-pin {
+  0%, 3% { opacity: 0; transform: translateY(calc(10 * 100cqw / 390)) scale(.4); animation-timing-function: cubic-bezier(.3, 1.6, .5, 1); }
+  10%, 31% { opacity: 1; transform: none; animation-timing-function: cubic-bezier(.55, 0, .3, 1); }
+  39% { opacity: .9; transform: translate(var(--px), var(--py)) scale(.35); }
+  41%, 100% { opacity: 0; transform: translate(var(--px), var(--py)) scale(.3); }
+}
+@keyframes places-label { 0%, 8% { opacity: 0; } 13%, 29% { opacity: 1; } 33%, 100% { opacity: 0; } }
+@keyframes places-ring { 0%, 18% { opacity: 0; transform: scale(.6); animation-timing-function: cubic-bezier(.22, .8, .24, 1); } 30%, 92% { opacity: 1; transform: none; } 98%, 100% { opacity: 0; } }
+@keyframes places-city { 0%, 36% { opacity: 0; transform: scale(.55); animation-timing-function: cubic-bezier(.3, 1.5, .5, 1); } 43%, 92% { opacity: 1; transform: none; } 98%, 100% { opacity: 0; transform: scale(.9); } }
+@keyframes places-count { 0%, 44% { opacity: 0; transform: scale(.3); animation-timing-function: cubic-bezier(.3, 1.7, .5, 1); } 50%, 92% { opacity: 1; transform: none; } 98%, 100% { opacity: 0; } }
+
+/* Clean up slide: a burst fanned out in a grid; the copies fold away, the best one stays tagged. */
+.cleanup { display: grid; align-content: center; width: 100%; }
+.cleanup > .strip-pill { margin-bottom: 20px; }
+.cleanup-set { grid-area: 2 / 1; display: grid; align-content: start; grid-template-columns: repeat(var(--cols), 1fr); gap: 10px; opacity: 0; transition: opacity .5s var(--ease-out); }
+.cleanup-set.is-current { opacity: 1; }
+.cleanup-shot { position: relative; aspect-ratio: 1; border-radius: 12px; overflow: hidden; background: var(--paper); transition: opacity .6s var(--ease-out), transform .6s var(--ease-out), filter .6s; transition-delay: calc(var(--i) * 70ms); }
+.cleanup-shot img { width: 100%; height: 100%; object-fit: cover; object-position: var(--x) var(--y); transform: scale(var(--z)); filter: brightness(var(--b)); }
+.cleanup-set.is-cleared .cleanup-shot:not(.is-best) { opacity: .18; transform: scale(.86); filter: grayscale(1); }
+.cleanup-shot.is-best { box-shadow: 0 0 0 0 var(--accent); transition-property: box-shadow, transform; }
+.cleanup-set.is-cleared .cleanup-shot.is-best { box-shadow: 0 0 0 3px var(--accent); transform: scale(1.04); }
+
+/* Chapter 02, Browse: the same slide gallery as chapter 01. */
+.browse-note { margin-top: 18px; color: var(--subtle); font-size: 13px; }
+.browse-video { width: min(440px, 100%); aspect-ratio: 1; border-radius: 0; background: transparent; }
+/* The past-weeks recording has a #f2f0ee ground baked in; the slide visual takes the same color so no inner card shows. */
+.feature-slide-visual.browse-visual--past { background: #f2f0ee; }
+
+/* Shuffle Mode demo on the iPhone Air bezel (screen inset matches .week-phone). The resting state is the sideways
+   frame; .is-playing runs one 24 s loop: Home, tap, turn sideways, the photos already scrolling, controls show and fade, the
+   photo columns scroll upward at an even pace, turn back. */
+.shuffle-demo { --t: 24s; position: relative; width: 100%; height: 100%; min-height: 320px; container-type: size; }
+.shuffle-device { position: absolute; left: 50%; top: 50%; height: min(94cqh, 96cqw); aspect-ratio: 1380 / 2880; transform: translate(-50%, -50%) rotate(-90deg); filter: drop-shadow(0 2px 4px rgb(28 27 26 / .12)) drop-shadow(0 18px 32px rgb(28 27 26 / .18)); }
+.shuffle-screen { position: absolute; left: 4.348%; top: 2.5%; width: 91.304%; height: 95%; border-radius: 14.7% / 6.8%; overflow: hidden; background: #f3f1ee; container-type: size; }
+.shuffle-bezel { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.shuffle-home { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
+.shuffle-tap { position: absolute; left: var(--x); top: var(--y); width: 16cqw; aspect-ratio: 1; border-radius: 50%; background: rgb(28 27 26 / .2); transform: translate(-50%, -50%) scale(.3); opacity: 0; }
+/* The sideways screen: laid out landscape, turned 90° inside the portrait screen so the turned phone shows it upright. */
+.shuffle-land { position: absolute; left: 50%; top: 50%; width: 100cqh; height: 100cqw; transform: translate(-50%, -50%) rotate(90deg); padding: 0 3cqw; overflow: hidden; background: #f3f1ee; }
+.shuffle-cols { display: grid; grid-template-columns: repeat(5, 1fr); gap: 2cqw; height: 100%; }
+.shuffle-col { overflow: hidden; }
+.shuffle-track { display: flex; flex-direction: column; gap: 2cqw; }
+.shuffle-tile { position: relative; flex: none; aspect-ratio: 1 / var(--h); overflow: hidden; border-radius: 3cqw; background: #e6e3de; }
+.shuffle-tile img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.shuffle-bar { position: absolute; left: 50%; bottom: 7cqw; display: flex; align-items: center; gap: 4.5cqw; padding: 2.4cqw 6cqw; border-radius: 999px; background: rgb(250 249 247 / .9); box-shadow: 0 4px 16px -6px rgb(0 0 0 / .25); color: #1c1b1a; font-size: max(7px, 3.6cqw); font-weight: 600; white-space: nowrap; transform: translateX(-50%); opacity: 0; }
+.shuffle-bar span { display: inline-flex; align-items: center; gap: 1.2cqw; }
+.shuffle-bar svg { width: 3.6cqw; height: 3.6cqw; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+.shuffle-bar .shuffle-pause { fill: currentColor; stroke: none; width: 4cqw; height: 4cqw; }
+
+.shuffle-demo.is-playing .shuffle-device { animation: shuffle-turn var(--t) linear infinite; }
+.shuffle-demo.is-playing .shuffle-home { animation: shuffle-home var(--t) linear infinite; }
+.shuffle-demo.is-playing .shuffle-tap { animation: shuffle-tap var(--t) linear infinite; }
+.shuffle-demo.is-playing .shuffle-land { animation: shuffle-land var(--t) linear infinite; }
+.shuffle-demo.is-playing .shuffle-track { animation: shuffle-scroll calc(26s + var(--c) * 3s) linear infinite; animation-delay: calc(var(--c) * -4s); }
+.shuffle-demo.is-playing .shuffle-bar { animation: shuffle-bar var(--t) linear infinite; }
+@keyframes shuffle-turn {
+  0%, 7.5% { transform: translate(-50%, -50%) rotate(0deg); animation-timing-function: cubic-bezier(.6, 0, .2, 1); }
+  12%, 93% { transform: translate(-50%, -50%) rotate(-90deg); animation-timing-function: cubic-bezier(.6, 0, .2, 1); }
+  97.5%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+}
+@keyframes shuffle-home { 0%, 6.5% { opacity: 1; } 8%, 95% { opacity: 0; } 97%, 100% { opacity: 1; } }
+@keyframes shuffle-tap {
+  0%, 4.5% { opacity: 0; transform: translate(-50%, -50%) scale(.3); }
+  5% { opacity: 1; transform: translate(-50%, -50%) scale(.5); }
+  7%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(1.4); }
+}
+@keyframes shuffle-land { 0%, 7% { opacity: 0; } 8.5%, 94% { opacity: 1; } 96%, 100% { opacity: 0; } }
+@keyframes shuffle-scroll { from { transform: translateY(0); } to { transform: translateY(calc(-50% - 1cqw)); } }
+@keyframes shuffle-bar { 0%, 14% { opacity: 0; } 16%, 30% { opacity: 1; } 33%, 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .shuffle-demo .shuffle-device, .shuffle-demo .shuffle-track, .shuffle-demo .shuffle-bar { animation: none !important; } }
+
+
+/* Instant print editor: swatches, caption and flip. The card flips in 3D; the back carries date, place and signature. */
+.print-editor { display: grid; justify-items: center; gap: 28px; width: 100%; }
+/* The print follows Recap's instax Mini paper on the app's 344pt reference: everything is sized in cqw of the card. */
+.print-stage { perspective: 1400px; width: min(250px, 62%); }
+.print-card, .app-print { --paper: #ffffff; --ink: #3d3d3b; --brand: #70706d; position: relative; container-type: inline-size; transform-style: preserve-3d; transition: transform .8s cubic-bezier(.3, 1.3, .5, 1); cursor: pointer; }
+.print-card.is-flipped { transform: rotateY(180deg); }
+.print-face, .app-print .print-front { border-radius: 1.16cqw; backface-visibility: hidden; -webkit-backface-visibility: hidden; box-shadow: 0 2.9cqw 5.8cqw rgb(0 0 0 / .09), 0 .9cqw 2.3cqw rgb(0 0 0 / .07); }
+.print-front { display: flex; flex-direction: column; padding: 7.41cqw; background: linear-gradient(135deg, rgb(255 255 255 / .35), transparent 45%, rgb(0 0 0 / .05)), var(--paper); box-shadow: inset 0 0 0 .26cqw rgb(219 214 204 / .72), inset 0 0 0 .55cqw rgb(255 255 255 / .5), 0 2.9cqw 5.8cqw rgb(0 0 0 / .09), 0 .9cqw 2.3cqw rgb(0 0 0 / .07); transition: background-color .35s ease; }
+.print-photo { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: .3cqw; background: #ece8e2; }
+.print-photo img { width: 100%; height: 100%; object-fit: cover; }
+.print-photo::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(rgb(0 0 0 / .12), transparent 40%), linear-gradient(225deg, rgb(255 255 255 / .12), transparent 50%, rgb(255 255 255 / .04)); box-shadow: inset 0 0 0 .3cqw rgb(0 0 0 / .08); }
+.print-row { display: flex; align-items: baseline; gap: 4.65cqw; margin-top: 3.7cqw; }
+.print-caption { flex: 1; min-width: 0; color: var(--ink); font-family: var(--font-rounded); font-size: 4.36cqw; line-height: 5.8cqw; text-align: left; overflow-wrap: anywhere; }
+.print-caption.is-typing::after { content: ''; display: inline-block; width: .35cqw; height: 4.6cqw; margin-left: .4cqw; vertical-align: -.7cqw; background: currentColor; animation: caret 1s steps(1) infinite; }
+.print-brand { display: inline-flex; align-items: center; gap: 1.45cqw; flex: none; color: var(--brand); font-family: ui-serif, 'New York', Georgia, serif; font-size: 4.65cqw; }
+.print-brand img { width: 6.1cqw; height: 6.1cqw; border-radius: 1.4cqw; }
+.print-card.is-dark { --ink: #f2f0ec; --brand: #f2f0ec; }
+.print-card.is-dark .print-front { box-shadow: inset 0 0 0 .26cqw rgb(255 255 255 / .14), 0 2.9cqw 5.8cqw rgb(0 0 0 / .12), 0 .9cqw 2.3cqw rgb(0 0 0 / .09); }
+/* Back: the film side, dark with a faint dot grain, grey printed bands, and the capture info in monospaced type. */
+.print-back { position: absolute; inset: 0; display: flex; flex-direction: column; overflow: hidden; transform: rotateY(180deg); background: radial-gradient(circle, rgb(255 255 255 / .14) .1cqw, transparent .14cqw) 0 0 / .87cqw .87cqw, #1f1b1a; color: rgb(255 255 255 / .55); }
+.print-band { display: flex; align-items: center; flex: none; overflow: hidden; background: #5c5c5c; color: rgb(255 255 255 / .82); white-space: nowrap; }
+.print-band--top { height: 11.15cqw; gap: 5.6cqw; padding-left: 3.3cqw; font-size: 5.1cqw; font-weight: 700; }
+.print-band--top span { display: inline-flex; align-items: center; gap: 1.7cqw; }
+.print-band--top svg { width: 4.4cqw; height: 3cqw; fill: currentColor; }
+.print-band--bottom { height: 23.9cqw; justify-content: space-between; padding: 0 3.5cqw; font-family: var(--font-rounded); font-size: 6.7cqw; font-weight: 900; letter-spacing: -.02em; }
+.print-back-info { display: grid; justify-items: center; gap: 1.16cqw; margin-top: auto; padding: 0 3.5cqw 4.07cqw; text-align: center; }
+.print-back-date { font-family: var(--font-mono); font-size: 3.78cqw; font-weight: 600; }
+.print-back-time { font-family: var(--font-mono); font-size: 2.9cqw; font-weight: 500; }
+.print-back-place { font-size: 2.9cqw; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.print-controls { display: none; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; }
+.print-editor.is-ready .print-controls { display: flex; }
+.print-swatches { display: flex; gap: 6px; padding: 6px 8px; border-radius: var(--radius-pill); background: var(--card); border: 1px solid var(--border); }
+.print-swatch { width: 26px; height: 26px; padding: 0; border-radius: 50%; border: 1px solid rgb(28 27 26 / .16); background: var(--swatch); cursor: pointer; transition: box-shadow var(--dur-fast), transform var(--dur-fast); }
+.print-swatch:hover { transform: scale(1.08); }
+.print-swatch[aria-checked="true"] { box-shadow: 0 0 0 2px var(--card), 0 0 0 4px var(--ink); }
+.print-swatch:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 50%; }
+.print-flip { display: inline-flex; align-items: center; gap: 6px; height: 40px; padding: 0 16px; border-radius: var(--radius-pill); border: 1px solid var(--border); background: var(--card); font-size: 15px; font-weight: 600; cursor: pointer; transition: background-color var(--dur-fast), border-color var(--dur-fast); }
+.print-flip:hover { border-color: var(--border-strong); }
+.print-flip svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Chapter 03, Share: a bento after placify.app. */
+.bento { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px; margin-top: 48px; }
+.bento-card { display: flex; flex-direction: column; justify-content: space-between; gap: 28px; min-height: 320px; padding: clamp(24px, 3vw, 36px); background: var(--card); border: 1px solid var(--border); border-radius: 28px; overflow: hidden; }
+.bento-apps { grid-column: 1 / 8; grid-row: 1; position: relative; }
+.bento-live { grid-column: 8 / 13; grid-row: 1 / 3; }
+.bento-templates { grid-column: 1 / 8; grid-row: 2; }
+.bento-title { font-family: var(--font-serif); font-size: clamp(26px, 2.6vw, 34px); font-weight: 400; line-height: 1.15; letter-spacing: -.02em; }
+.bento-title > span { display: block; }
+.bento-title .muted { color: var(--subtle); }
+.bento-chip { position: absolute; top: 24px; right: 24px; display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px 5px 10px; border-radius: var(--radius-pill); background: var(--surface); color: var(--ink-soft); font-size: 13px; font-weight: 600; }
+.share-apps { display: flex; justify-content: center; align-items: center; gap: clamp(14px, 2vw, 24px); padding-top: 28px; }
+.app-tile { display: grid; place-items: center; width: 84px; height: 84px; border-radius: 22px; background: #000; box-shadow: 0 2px 4px rgb(0 0 0 / .08), 0 18px 30px -16px rgb(0 0 0 / .4); }
+.app-tile svg { width: 46%; height: 46%; fill: #fff; }
+/* Instagram: the current filled app icon, gradient tile with a white glyph. */
+.app-tile--instagram { width: 120px; height: 120px; border-radius: 30px; background: radial-gradient(130% 95% at 15% 112%, #ffd600 0%, #ff9a00 22%, #ff4a2e 46%, #ff1f84 70%, #c13be0 100%); box-shadow: 0 2px 4px rgb(0 0 0 / .08), 0 18px 30px -16px rgb(0 0 0 / .35); }
+.app-tile--instagram svg { width: 62%; height: 62%; }
+[data-theme="dark"] .app-tile--threads, [data-theme="dark"] .app-tile--x { box-shadow: inset 0 0 0 1px #333, 0 18px 30px -16px rgb(0 0 0 / .6); }
+.live-photo { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 2px; }
+@keyframes live-breathe { from { transform: scale(1); } to { transform: scale(1.08) translateX(-2%); } }
+.app-print { position: relative; container-type: inline-size; margin: 0; cursor: default; }
+/* Live Photo card: the print with a share sheet under it; tapping Stories opens it as an Instagram story. A 9 s loop
+   while on screen (.is-playing, interactive.ts); without it the print and the share sheet rest. */
+.live-stage { --t: 9s; position: relative; display: grid; place-items: center; flex: 1; min-height: 440px; }
+.live-start { display: grid; justify-items: center; gap: 22px; width: 100%; }
+.live-print { width: min(220px, 64%); transform: rotate(-2deg); }
+/* Share targets, after placify.app's app-icon row: no tray, rounded-square icons with a small label. */
+.share-sheet { position: relative; display: flex; gap: 20px; }
+.share-target { display: grid; justify-items: center; gap: 7px; color: var(--muted); font-size: 12px; font-weight: 500; }
+.share-icon { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 12px; background: #000; box-shadow: 0 1px 2px rgb(0 0 0 / .08), 0 8px 16px -8px rgb(0 0 0 / .35); }
+.share-icon svg { width: 22px; height: 22px; fill: #fff; }
+.share-icon--ig { background: radial-gradient(130% 95% at 15% 112%, #ffd600 0%, #ff9a00 22%, #ff4a2e 46%, #ff1f84 70%, #c13be0 100%); }
+.share-icon--ig svg { width: 30px; height: 30px; }
+[data-theme="dark"] .share-icon:not(.share-icon--ig) { box-shadow: inset 0 0 0 1px #333; }
+.share-tap { position: absolute; left: 24px; top: 24px; width: 54px; height: 54px; border-radius: 50%; background: rgb(28 27 26 / .18); transform: translate(-50%, -50%) scale(.3); opacity: 0; pointer-events: none; }
+.story { position: absolute; top: 50%; left: 50%; height: 100%; max-height: 520px; aspect-ratio: 9 / 16; overflow: hidden; border-radius: 22px; background: #111; box-shadow: 0 2px 6px rgb(0 0 0 / .12), 0 30px 50px -24px rgb(0 0 0 / .5); opacity: 0; transform: translate(-50%, -50%) scale(.9); container-type: inline-size; }
+.story-bg { position: absolute; inset: -20%; width: 140%; height: 140%; object-fit: cover; filter: blur(22px) saturate(1.2) brightness(.62); }
+.story-bars { position: absolute; top: 3.5cqw; left: 4cqw; right: 4cqw; height: .9cqw; border-radius: 9px; background: rgb(255 255 255 / .35); overflow: hidden; }
+.story-bars i { display: block; height: 100%; width: 0; background: #fff; }
+.story-head { position: absolute; top: 7.5cqw; left: 4cqw; right: 4cqw; display: flex; align-items: center; gap: 2.4cqw; color: #fff; font-size: 4.2cqw; }
+.story-head span { opacity: .7; }
+.story-print { position: absolute; top: 48%; left: 50%; width: 72%; transform: translate(-50%, -50%) rotate(-2deg); }
+.story-print .live-badge { top: 5cqw; left: 5cqw; }
+.story-foot { position: absolute; left: 4cqw; right: 4cqw; bottom: 5cqw; display: flex; align-items: center; gap: 3.5cqw; color: #fff; }
+.story-foot span { flex: 1; padding: 2.8cqw 4.5cqw; border: 1px solid rgb(255 255 255 / .55); border-radius: 999px; font-size: 3.8cqw; opacity: .9; }
+.story-foot svg { width: 6.6cqw; height: 6.6cqw; fill: none; stroke: #fff; stroke-width: 1.7; stroke-linejoin: round; stroke-linecap: round; }
+.live-stage.is-playing .live-start { animation: live-start var(--t) ease infinite; }
+.live-stage.is-playing .share-tap { animation: live-tap var(--t) ease-out infinite; }
+.live-stage.is-playing .story { animation: live-story var(--t) cubic-bezier(.3, 1.2, .5, 1) infinite; }
+.live-stage.is-playing .story-bars i { animation: live-bar var(--t) linear infinite; }
+@keyframes live-start { 0%, 28% { opacity: 1; transform: none; } 34%, 94% { opacity: 0; transform: scale(.92); } 100% { opacity: 1; transform: none; } }
+@keyframes live-tap { 0%, 20% { opacity: 0; transform: translate(-50%, -50%) scale(.3); } 22% { opacity: 1; transform: translate(-50%, -50%) scale(.6); } 28%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(1.4); } }
+@keyframes live-story { 0%, 29% { opacity: 0; transform: translate(-50%, -50%) scale(.86); } 36%, 92% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 98%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(.96); } }
+@keyframes live-bar { 0%, 36% { width: 0; } 92%, 100% { width: 100%; } }
+@media (prefers-reduced-motion: reduce) { .live-stage * { animation: none !important; } }
+.live-photo img { animation: live-breathe 5s ease-in-out infinite alternate; }
+.template .print-caption small { display: block; font-family: var(--font-mono); font-size: 3.4cqw; line-height: 1.4; color: var(--brand); }
+.live-badge { position: absolute; top: 10px; left: 10px; display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px 3px 6px; border-radius: var(--radius-pill); background: rgb(255 255 255 / .82); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: #1c1b1a; font-size: 11px; font-weight: 700; letter-spacing: .06em; }
+.live-badge svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.2; }
+/* The three templates fanned out and overlapping, the Polaroid in front. */
+.templates { display: flex; justify-content: center; align-items: flex-end; padding: 8px 0 4px; }
+.templates > * { flex: none; width: 31%; }
+.templates > .tpl-cover { transform: rotate(-6deg) translate(14%, 2%); z-index: 1; }
+.templates > .app-print--polaroid { transform: translateY(-4%); z-index: 2; width: 33%; }
+.templates > .app-print--instax { transform: rotate(6deg) translate(-14%, 2%); z-index: 1; }
+.bento-text { margin-top: 10px; color: var(--muted); font-size: 15px; line-height: 1.55; }
+/* App share templates. The default card (WeeklyShareTemplateCaption): full-bleed photo on a 327 × 436 canvas, a bottom
+   gradient, white 10pt text in two rows split by a hairline. The prints use the app's paper sizes:
+   Polaroid Classic 88.47 × 107.52 with a 76.8 × 78.94 window, instax Mini 54 × 86 with a 46 × 62 window. */
+.tpl-cover { position: relative; margin: 0; container-type: inline-size; aspect-ratio: 327 / 436; overflow: hidden; border-radius: 12px; box-shadow: 0 6px 14px rgb(0 0 0 / .09), 0 2px 6px rgb(0 0 0 / .07); }
+.tpl-cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.tpl-cover::after { content: ''; position: absolute; inset: auto 0 0; height: 45%; background: linear-gradient(transparent, rgb(0 0 0 / .08), rgb(0 0 0 / .48)); }
+.tpl-cover figcaption { position: absolute; inset: auto 6.1cqw 6.1cqw; z-index: 1; display: grid; gap: 3cqw; color: #fff; font-size: 3.06cqw; font-weight: 500; }
+.tpl-cover figcaption span { display: flex; justify-content: space-between; gap: 2.4cqw; }
+.tpl-cover figcaption b { font-weight: 500; }
+.tpl-cover figcaption i { height: max(.5px, .3cqw); background: #fff; }
+.app-print--polaroid .print-front { aspect-ratio: 88.47 / 107.52; padding: 6.6cqw 6.6cqw 0; }
+.app-print--polaroid .print-photo { aspect-ratio: 76.8 / 78.94; }
+.app-print--instax .print-front { aspect-ratio: 54 / 86; padding: 7.41cqw 7.41cqw 0; }
+.app-print--instax .print-photo { aspect-ratio: 46 / 62; }
+/* Templates as small prints: the photo stays clean; place, date and the app icon sit on the paper below it. */
+
+/* Chapter 04, Stats: a year as a calendar heatmap. */
+.heatmap-card { margin-top: 48px; padding: clamp(24px, 3vw, 36px); background: var(--card); border: 1px solid var(--border); border-radius: 28px; }
+.heatmap-stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px 56px; margin: 0 0 32px; text-align: center; }
+.heatmap-stats > div { display: flex; flex-direction: column-reverse; align-items: center; min-width: 7ch; }
+.heatmap-stats dd { margin: 0; font-family: var(--font-serif); font-size: clamp(32px, 3.4vw, 44px); line-height: 1.1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.heatmap-stats dt { margin-top: 4px; color: var(--muted); font-size: 14px; }
+/* A time picker laid on its side: the chart scrolls sideways past the middle; the weeks either
+   side fade and shrink away from it. */
+.heatmap-picker { position: relative; }
+.heatmap-scroll {
+  overflow-x: auto; scrollbar-width: none; padding: 6px 4px 10px; overscroll-behavior-x: contain;
+  -webkit-mask-image: linear-gradient(90deg, rgb(0 0 0 / .08), rgb(0 0 0 / .3) 18%, #000 36%, #000 64%, rgb(0 0 0 / .3) 82%, rgb(0 0 0 / .08));
+  mask-image: linear-gradient(90deg, rgb(0 0 0 / .08), rgb(0 0 0 / .3) 18%, #000 36%, #000 64%, rgb(0 0 0 / .3) 82%, rgb(0 0 0 / .08));
+}
+.heatmap-scroll::-webkit-scrollbar { display: none; }
+.heatmap { --cell: 16px; --gap: 7px; width: max-content; }
+.heatmap-months, .heatmap-grid { display: grid; grid-template-columns: repeat(var(--weeks), var(--cell)); gap: var(--gap); }
+.heatmap-months { height: 16px; line-height: 16px; margin-bottom: 8px; color: var(--subtle); font-size: 12px; }
+.heatmap-months span { white-space: nowrap; }
+.heatmap-grid { grid-template-rows: repeat(7, var(--cell)); grid-auto-flow: column; }
+.heat-cell { display: block; width: var(--cell, 12px); height: var(--cell, 12px); border-radius: 4px; background: var(--surface-strong); transition: background-color .35s var(--ease-out); }
+.heat-cell[data-level="1"] { background: color-mix(in srgb, var(--forest) 28%, var(--surface-strong)); }
+.heat-cell[data-level="2"] { background: color-mix(in srgb, var(--forest) 50%, var(--surface-strong)); }
+.heat-cell[data-level="3"] { background: color-mix(in srgb, var(--forest) 75%, var(--surface-strong)); }
+.heat-cell[data-level="4"] { background: var(--forest); }
+[data-theme="dark"] .heat-cell[data-level="4"] { background: var(--accent-text); }
+.heatmap-grid .heat-cell { cursor: pointer; }
+@supports (animation-timeline: view()) {
+  .heatmap-grid .heat-cell { animation: heat-focus linear both; animation-timeline: view(inline); }
+  /* A magnifier in the middle: the centre column is largest and its neighbours step down, like a loupe over the week. */
+  @keyframes heat-focus { 0%, 100% { scale: .6; } 30%, 70% { scale: .85; } 44%, 56% { scale: 1.08; } 50% { scale: 1.42; } }
+}
+.heatmap .heat-cell.is-picked { outline: 1.5px solid var(--ink); outline-offset: 1.5px; }
+.heatmap-grid .heat-cell:hover { outline: 1.5px solid var(--muted); outline-offset: 1.5px; }
+
+/* The picked day's date and count, over a row of three photos that moves along one photo per week. */
+.heatmap-foot { display: grid; grid-template-columns: 1fr auto 1fr; align-items: end; gap: 16px; margin-top: 12px; color: var(--subtle); font-size: 13px; }
+.heatmap-day { grid-column: 2; margin: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.heatmap-day-photos { position: relative; width: 220px; height: 104px; }
+.heatmap-day-photo {
+  position: absolute; left: 50%; top: 8px; width: 80px; height: 88px; object-fit: cover; border-radius: 12px;
+  border: 3px solid var(--card); box-shadow: 0 10px 24px -14px rgb(0 0 0 / .45);
+  translate: calc(-50% + (var(--slot) - 1) * 62px) 0; rotate: calc((var(--slot) - 1) * 7deg);
+  opacity: 0; scale: .8; transition: opacity .35s var(--ease-out), scale .45s var(--ease-out), translate .45s var(--ease-out), rotate .45s var(--ease-out);
+}
+.heatmap-day-photo.is-shown { opacity: 1; scale: 1; }
+.heatmap-tip { margin: 0; min-height: 20px; color: var(--ink-soft); font-size: 14px; font-variant-numeric: tabular-nums; }
+.heatmap-legend { grid-column: 3; justify-self: end; margin: 0; }
+.heatmap-legend { display: inline-flex; align-items: center; gap: 4px; }
+.heatmap-legend .heat-cell { --cell: 11px; }
+.heatmap-legend .heat-cell:first-child { margin-left: 4px; }
+.heatmap-legend .heat-cell:last-child { margin-right: 4px; }
+
+.locale-zh .bento-title { letter-spacing: 0; line-height: 1.28; }
+
+@media (max-width: 999px) {
+  .bento-apps, .bento-templates { grid-column: 1 / -1; }
+  .bento-live { grid-column: 1 / -1; grid-row: auto; }
+}
+@media (max-width: 860px) {
+  .bento-card { min-height: 0; border-radius: 22px; }
+  .app-tile { width: 64px; height: 64px; border-radius: 17px; }
+  .app-tile--instagram { width: 92px; height: 92px; border-radius: 24px; }
+  .bento-chip { top: 18px; right: 18px; }
+  .heatmap-stats { gap: 16px 32px; }
+}
+@media (max-width: 640px) {
+  .hero-badge { font-size: 14px; }
+  .heatmap { --cell: 13px; --gap: 6px; }
+  .heatmap-foot { grid-template-columns: 1fr; justify-items: center; }
+  .heatmap-day, .heatmap-legend { grid-column: 1; }
+  .heatmap-legend { justify-self: center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .live-photo img { animation: none; }
+}
+[data-theme="dark"] .print-swatch { border-color: rgb(255 255 255 / .22); }
+/* The print editor (card + controls) is taller than the phone-width visual box, so that box grows to fit it. */
+@media (max-width: 999px) { .feature-slide-visual.browse-visual--print { height: auto; min-height: 380px; } }

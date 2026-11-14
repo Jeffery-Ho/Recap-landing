@@ -1,23 +1,26 @@
 ---
 import { Image } from 'astro:assets';
 import BetaButton from '../BetaButton.astro';
-import { copy, type Locale } from '../../data/site';
+import { copy, site, type Locale } from '../../data/site';
 import HeroStage from './HeroStage.astro';
-import sunset from '../../assets/library/hero-sunset.jpg';
-import pet from '../../assets/library/hero-pet.jpg';
-import seoul from '../../assets/library/cities-seoul.jpg';
-import flowers from '../../assets/library/hero-flowers.jpg';
-import sea from '../../assets/library/hero-sea.jpg';
-import oslo from '../../assets/library/cities-oslo.jpg';
+import { slot } from '../../data/photos';
 interface Props { locale: Locale; }
 const { locale } = Astro.props;
 const t = copy[locale];
 // Photo chips set between the words of the headline, like Polaris's inline platform icons.
-const chips = [[sunset, pet, seoul], [flowers, sea, oslo]];
+// Three per chip, from photos/manifest.json (web slot hero:chips).
+const chipPhotos = slot('hero:chips');
+const chips = [chipPhotos.slice(0, 3), chipPhotos.slice(3, 6)];
 const parts = (line: string) => line.split(/(\{\d\})/).filter(Boolean);
 ---
 <section class="hero" aria-labelledby="hero-title" data-hero>
+  <div class="hero-pin" data-hero-pin>
   <div class="container">
+    <a class="hero-badge" href={site.testflightUrl || '#features'} data-beta-cta={site.testflightUrl ? '' : undefined} data-hero-line style="--i:0">
+      <span class="hero-badge-dot" aria-hidden="true"></span>{t.heroBadge}
+      <svg class="hero-badge-chevron" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5" /></svg>
+    </a>
+    <p class="hero-also" data-hero-line style="--i:0">{t.heroStage.also}</p>
     <h1 id="hero-title">
       {t.heroLines.map((line, i) => (
         <span class="hero-line" data-hero-line style={`--i:${i}`}>
@@ -37,4 +40,5 @@ const parts = (line: string) => line.split(/(\{\d\})/).filter(Boolean);
     <div class="hero-actions" data-hero-line style="--i:3"><BetaButton locale={locale} size="hero" /></div>
   </div>
   <div class="hero-visual"><HeroStage locale={locale} /></div>
+  </div>
 </section>

@@ -7,19 +7,18 @@
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import { copy, type Locale } from '../../data/site';
-import handEn from '../../assets/mockups/handheld-duo-landscape-en.png';
-import handZh from '../../assets/mockups/handheld-duo-landscape-zh.png';
-import handEnDark from '../../assets/mockups/handheld-duo-landscape-en-dark.png';
-import handZhDark from '../../assets/mockups/handheld-duo-landscape-zh-dark.png';
+import { slot } from '../../data/photos';
+import handEn from '../../assets/mockups/hero-duo-gallery-v3-en.png';
+import handZh from '../../assets/mockups/hero-duo-gallery-v3-zh.png';
+import handEnDark from '../../assets/mockups/hero-duo-gallery-v3-en-dark.png';
+import handZhDark from '../../assets/mockups/hero-duo-gallery-v3-zh-dark.png';
 interface Props { locale: Locale; }
 const { locale } = Astro.props;
 const s = copy[locale].heroStage;
 const en = locale === 'en';
-// The cards keep the Duo screen's soft, low-saturation tone: the screen's week 43 (pine riverbank, corner shop, tree-lined
-// road) plus pale, faceless scenes in the same palette, none of them used further down the page.
-const files = import.meta.glob<{ default: ImageMetadata }>('../../assets/library/wall/*.jpg', { eager: true });
-const pool = ['Random02', 'Paywall13', 'Gallery06', 'Gallery12', 'Welcome09', 'Gallery01', 'Paywall12', 'Welcome01']
-  .map((name) => files[`../../assets/library/wall/Onboarding${name}.jpg`].default);
+// The cards use the shared, graded travel set (photos/manifest.json, web slot hero:wall): quiet, faceless streets, rivers
+// and coast, none of them used further down the page.
+const pool: ImageMetadata[] = slot('hero:wall');
 // [x offset from the page centre in px, y % of the hero, size, band]. Offsets keep the cards a fixed distance from the
 // hands (the hand image is 880px wide) instead of drifting outward on wide screens. Outer columns portrait, inner square.
 const outer = { w: 140, r: 1.25 };
@@ -37,7 +36,7 @@ const cards = grid.map(([x, y, size, band], i) => ({
 ---
 <div class="hero-cards" role="img" aria-label={s.label} data-hero-cards>
   {cards.map((card, i) => (
-    <div class="hero-card is-on" data-hero-card data-band={card.band} style={`--x:calc(50% + ${card.x}px);--y:${card.y}%;--w:${card.w}px;--r:${card.r}`}>
+    <div class="hero-card is-on" data-hero-card data-band={card.band} style={`--x:calc(50% + ${card.x}px);--y:${card.y}%;--w:${card.w}px;--r:${card.r};--side:${card.x < 0 ? -1 : 1}`}>
       <div class="hero-card-media">
         {card.photos.map((src, k) => (
           <Image class:list={{ 'is-current': k === 0 }} src={src} alt="" widths={[160, 320]} sizes="140px" format="webp"
@@ -53,4 +52,3 @@ const cards = grid.map(([x, y, size, band], i) => ({
   <Image class="only-dark" src={en ? handEnDark : handZhDark} alt={s.hand} widths={[640, 960, 1400, 1800]} sizes="(max-width: 640px) 120vw, 880px"
     format="webp" loading="lazy" data-frame />
 </div>
-<p class="hero-also" data-hero-line style="--i:5">{s.also}</p>

@@ -8,7 +8,7 @@
 | --- | --- | --- |
 | `public/app-icon.png` | `Recap/Assets.xcassets/AppIconFish.appiconset/AppIconFishDefault.png` | 当前项目配置使用的主图标 |
 | `src/assets/mockups/duo-open-{zh,en}.png` | iPhone Duo 模拟器展开内屏（2853×2007）截图，合成进官方外框 `iPhone Duo - Star White - Inner Open Landscape.png` | Recap `mock` 分支 Debug 构建，2026-11-07 采集，状态栏 9:41；中文以已付费身份重拍，英文仅将随机模式按钮的锁替换为星形图标 |
-| `src/assets/mockups/handheld-duo-landscape-{zh,en}[-dark].png` | 首屏双手横握图：App 随机模式引导页素材 `OnboardingRandomHandTrailing`（右手，镜像后兼作左手）与 `OnboardingRandomBezelLeading/Trailing`（两半展开机身），按 `RecapOnboardingRandomPage.swift` 的坐标 4 倍合成；屏幕为 iPhone Duo 模拟器展开横屏内屏（2853×2007）的图库第 42 周截图（顶部封面取老街一帧，头像为空头像占位）（`-recap-testing-pro-entitlement`，已付费、未充电，深色版用 `simctl ui appearance dark`） | Recap `mock` 分支 Debug 构建，2026-11-08 采集 |
+| `src/assets/mockups/hero-duo-gallery-v3-v3-{zh,en}[-dark].png` | 首屏双手横握图：App 随机模式引导页素材 `OnboardingRandomHandTrailing`（右手，镜像后兼作左手）与 `OnboardingRandomBezelLeading/Trailing`（两半展开机身），按 `RecapOnboardingRandomPage.swift` 的坐标 4 倍合成；屏幕为 iPhone Duo 模拟器展开横屏内屏（2853×2007）的图库第 42 周截图（顶部封面取老街一帧，头像为空头像占位）（`-recap-testing-pro-entitlement`，已付费、未充电，深色版用 `simctl ui appearance dark`） | Recap `mock` 分支 Debug 构建，2026-11-08 采集 |
 | `src/assets/mockups/air-home-{zh,en}[-dark].png` | iPhone Air 模拟器（1260×2736）首页截图（`-recap-website-photos -recap-testing-pro-entitlement`，已付费、状态栏 9:41 满电未充电），合成进官方 iPhone Air Cloud White 外框；用于“大屏小屏”区块；`-dark` 为模拟器深色外观（`simctl ui appearance dark`）下的同一画面 | Recap `mock` 分支 Debug 构建，2026-11-07 在 Air 模拟器 `Recap Weekly Capture` 重拍；中英文各一张 |
 | `src/assets/mockups/air-frame.png` | Apple Design Resources 的 iPhone Air Cloud White 竖屏外框（屏幕区 60,72 起 1260×2736） | 用于“本周”录屏，CSS 叠加 |
 | `public/onboarding/week-{zh,en}.{mp4,jpg}` | iPhone Air 模拟器“本周”流程录屏，剪去静止段后 630 宽 H.264 | `mock` 分支构建，`-recap-website-photos` 演示数据 |
@@ -55,3 +55,15 @@
 ## 引导页录屏
 
 `public/onboarding/{random,live-zh,live-en,past}.{mp4,jpg}`：在临时 iPhone Air 模拟器上安装 Recap `mock` 分支 Debug 构建，以 `-recap-website-photos` 启动，从设置的“回顾使用介绍”进入引导页，用 `xcrun simctl io recordVideo` 录屏（2026-11-07）。每段截取一个完整动画周期（随机模式 14 秒、Live Photo 8 秒、往年同周 12 秒），逐帧找出与底色不同的像素，按动画内容的外接框（含阴影）裁剪，再在 RGB 下用同色补成正方形（随机模式顶部的返回、关闭按钮用底色盖掉），输出随机模式 960px、其余 720px 的 30fps H.264；封面帧取自循环内。网页容器同为 1:1，视频铺满容器，底色设为浏览器实际渲染的 `#f2f0ee`。照片均为 App 内置的引导页照片。临时模拟器录完已删除。
+
+## 统一照片素材库（2026-11-12）
+
+官网、App 截图与录屏共用 `photos/` 里的一套照片，说明见 `photos/README.md`。共 70 张 Unsplash 照片：京都（鸭川与老街）、冲绳、东京、名古屋的旅行照片，以及自然光的宠物、绣球与樱花、柔和的海上日落、富士山与河口湖、祭典灯笼。原图在 `photos/originals/`，统一调色（低饱和、偏暖、暗部稍提亮）后输出到 `src/assets/photos/`，官网经 `src/data/photos.ts` 按 `manifest.json` 的位置取图；`scripts/photos/load-simulator.mjs` 把同一批调色照片装进模拟器里 Recap 的演示图库。只登记原始链接，不登记摄影师。原 `src/assets/library/strip/` 与 `travel/` 已移除；首屏照片墙与标题小图仍用 `src/assets/library/` 的旧照片。
+
+## 截图与录屏重拍（2026-11-13）
+
+照片全部来自 `photos/manifest.json`（`app` 各位置），用 `node scripts/photos/load-simulator.mjs <udid> zh-Hans|en` 装进模拟器。App 用 Recap `mock` 分支提交加上网站模式（`WebsiteScreenshotFixture`，主仓库中尚未提交）构建，另在单独 worktree 分支 `website-travel-fixture` 中加了三个旅行周（`travelWeeks`：冲绳、东京、名古屋，分类种子后移四周），并把引导页 `OnboardingHistory01–09` 换成旅行照；这些改动只用于采集，未合入 Recap。
+
+- `public/onboarding/week-{zh,en}.{mp4,jpg}`：临时 iPhone Air 模拟器，图库页用一次连续拖动匀速向下滚 200pt（每 33ms 移动约 1.1pt，结束前停住再抬手，不触底），`simctl io recordVideo` 录制；去掉重复帧后按 25fps 等间隔重排，剪掉手指刚按下的起步段，开头停 0.6 秒、结尾停 0.5 秒，630 宽 H.264。
+- `public/onboarding/past.{mp4,jpg}`：同一模拟器的引导页“往年同周”，按帧比对得出 12.00 秒周期，截取一个周期，按动画外接框裁成 1232×1232 正方形，输出 720×720。
+- `src/assets/mockups/hero-duo-gallery-v3-v3-{zh,en}[-dark].png`：iPhone Duo 模拟器展开内屏（2853×2007）图库模式第 45 周，缩放到 1402×986 贴回原合成图屏幕区域（x 462、y 39），圆角半径 79px，外框与双手保持原样。采集后 Duo 上的 App 已换回采集前的构建。

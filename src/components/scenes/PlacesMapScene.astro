@@ -1,0 +1,56 @@
+---
+// By place, redrawn from the app's Places onboarding page (RecapOnboardingPlacesPage, 390 × 456 points): photo pins
+// pop up over a stylised map of Kyoto with their place names, a ring gathers them, they fly into the centre and merge
+// into the Kyoto city card with a count badge. One 8 s loop while on screen (interactive.ts adds .is-playing); the
+// resting frame (no JavaScript, reduced motion) is the finished city card on the map.
+import { Image } from 'astro:assets';
+import { slot } from '../../data/photos';
+import type { Locale } from '../../data/site';
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const photos = slot('places:kyoto');
+const zh = locale === 'zh';
+// [name, x, y, pull x, pull y] in the app's 390 × 456 coordinates (pin top-left; the pull lands it on the centre).
+const places: [string, number, number, number, number][] = [
+  [zh ? '伏见稻荷' : 'Fushimi Inari', 100, 270, 73, -86],
+  [zh ? '锦市场' : 'Nishiki Market', 54, 176, 119, 8],
+  [zh ? '祇园' : 'Gion', 96, 84, 77, 100],
+  [zh ? '清水寺' : 'Kiyomizu-dera', 246, 78, -73, 106],
+  [zh ? '鸭川' : 'Kamo River', 292, 176, -119, 8],
+  [zh ? '岚山' : 'Arashiyama', 246, 270, -73, -86],
+];
+const u = (v: number) => `${(v / 390) * 100}cqw`;
+---
+<div class="places-scene" data-places-scene aria-hidden="true">
+  <div class="places-stage">
+    <svg class="places-map" viewBox="0 0 390 456" preserveAspectRatio="none">
+      <rect width="390" height="456" fill="#eee9dd" />
+      <g fill="#dce5d6">
+        <path d="M-10 250C30 240 60 270 40 330C20 390-10 380-10 380Z" />
+        <rect x="300" y="250" width="110" height="120" rx="24" />
+        <ellipse cx="200" cy="40" rx="70" ry="30" />
+      </g>
+      <g fill="#e6e0d2">
+        <rect x="20" y="50" width="70" height="48" rx="6" /><rect x="132" y="140" width="56" height="40" rx="6" />
+        <rect x="210" y="150" width="58" height="44" rx="6" /><rect x="30" y="160" width="60" height="70" rx="6" />
+        <rect x="180" y="250" width="70" height="48" rx="6" /><rect x="110" y="370" width="80" height="50" rx="6" />
+        <rect x="300" y="60" width="72" height="52" rx="6" /><rect x="200" y="380" width="60" height="44" rx="6" />
+      </g>
+      <path d="M282-10C262 80 296 150 274 230C252 310 250 360 290 470" fill="none" stroke="#c9dbe2" stroke-width="18" stroke-linecap="round" />
+      <path d="M-10 140 400 128M-10 262 400 250M-10 368 400 360M120-10 112 470M200-10 196 470" stroke="#fffefc" stroke-width="7" stroke-linecap="round" />
+      <path d="M60-10 56 470M-10 200 400 190M340-10 336 470M-10 312 400 304" stroke="#f7f3ea" stroke-width="3" />
+    </svg>
+    <span class="places-ring" style={`left:${u(33)};top:${u(44)};width:${u(324)}`}></span>
+    {places.map(([name, x, y, px, py], i) => (
+      <span class="places-pin" style={`left:${u(x)};top:${u(y)};--px:${u(px)};--py:${u(py)}`}>
+        <Image src={photos[i]} alt="" widths={[120]} sizes="40px" format="webp" loading="lazy" data-loop-copy="" />
+        <b>{name}</b>
+      </span>
+    ))}
+    <figure class="places-city" style={`left:${u(139)};top:${u(150)}`}>
+      <Image src={photos[3]} alt="" widths={[240, 480]} sizes="120px" format="webp" loading="lazy" data-loop-copy="" />
+      <figcaption>{zh ? '京都' : 'Kyoto'}</figcaption>
+    </figure>
+    <span class="places-count" style={`left:${u(236)};top:${u(137)}`}>{places.length}</span>
+  </div>
+</div>

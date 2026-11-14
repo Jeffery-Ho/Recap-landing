@@ -1,0 +1,8 @@
+---
+// A chapter's opening: the centred two-part title (statement, then the muted answer) and one line under it.
+// `number` and `label` are kept for the chapter order but not shown.
+interface Props { id: string; number: number; label: string; title: readonly string[]; body: string; }
+const { id, title, body } = Astro.props;
+---
+<h2 id={id} class="section-title" data-enter><span>{title[0]}</span> <span class="muted">{title[1]}</span></h2>
+<p class="feature-body" data-enter>{body}</p>

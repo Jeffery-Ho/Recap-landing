@@ -1,27 +1,25 @@
 ---
 import Hero from './sections/Hero.astro';
 import How from './sections/How.astro';
-import Absolute from './sections/Absolute.astro';
-import MoreFeatures from './sections/MoreFeatures.astro';
-import Devices from './sections/Devices.astro';
+import Browse from './sections/Browse.astro';
+import Share from './sections/Share.astro';
+import Heatmap from './sections/Heatmap.astro';
 import Privacy from './sections/Privacy.astro';
 import Pricing from './sections/Pricing.astro';
 import Install from './sections/Install.astro';
 import Faq from './sections/Faq.astro';
 import ReleaseNotes from './sections/ReleaseNotes.astro';
-import Closing from './sections/Closing.astro';
 import type { Locale } from '../data/site';
 interface Props { locale: Locale; }
 const { locale } = Astro.props;
 ---
 <Hero locale={locale} />
 <How locale={locale} />
-<Absolute locale={locale} />
-<MoreFeatures locale={locale} />
-<Devices locale={locale} />
+<Browse locale={locale} />
+<Share locale={locale} />
+<Heatmap locale={locale} />
 <Privacy locale={locale} />
 <Pricing locale={locale} />
 <Install locale={locale} />
 <Faq locale={locale} />
 <ReleaseNotes locale={locale} />
-<Closing locale={locale} />
