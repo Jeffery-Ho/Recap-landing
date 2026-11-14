@@ -162,12 +162,12 @@ export const copy = {
       yearly: {
         name: 'Yearly', description: 'Absolute, a year at a time.', priceNote: 'Billed yearly, cancel anytime',
         features: ['Everything in Free', 'More Smart Categories', 'Shuffle Mode', 'Live Photo sharing', 'This week, two or more years back', 'More share templates'],
-        cta: 'Get Absolute',
+        cta: 'Get Absolute yearly',
       },
       lifetime: {
         name: 'Lifetime', description: 'Absolute, yours for good.', priceNote: 'One-time purchase, kept for life',
         features: ['Everything in Free', 'More Smart Categories', 'Shuffle Mode', 'Live Photo sharing', 'This week, two or more years back', 'More share templates'],
-        cta: 'Get Lifetime',
+        cta: 'Get Absolute for life',
       },
       footnote: 'China mainland App Store prices. Other regions follow local App Store pricing.',
     },
@@ -311,12 +311,12 @@ export const copy = {
       yearly: {
         name: '年付', description: '按年用上 Absolute。', priceNote: '按年订阅，随时取消',
         features: ['免费版全部内容', '更多智能分类', '随机模式', 'Live Photo 分享', '两年前及更早的往年同周', '更多分享模板'],
-        cta: '获取 Absolute',
+        cta: '按年获取 Absolute',
       },
       lifetime: {
         name: '终身', description: '一次买断，Absolute 一直是你的。', priceNote: '一次购买，终身使用',
         features: ['免费版全部内容', '更多智能分类', '随机模式', 'Live Photo 分享', '两年前及更早的往年同周', '更多分享模板'],
-        cta: '获取终身版',
+        cta: '终身获取 Absolute',
       },
       footnote: '以上为中国大陆 App Store 价格，其他地区以当地 App Store 为准。',
     },
