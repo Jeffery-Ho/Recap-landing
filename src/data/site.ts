@@ -344,7 +344,7 @@ export const copy = {
     closingTitle: ['为每一个', '想再看一眼的日子。'],
     footer: {
       tagline: '每一个，想再看一眼的日子。',
-      product: '产品', support: '安装与帮助', legal: '法律', install: '安装', made: '用心制作', love: '爱心',
+      product: '产品', support: '安装与帮助', legal: '法律', install: '安装', made: 'Made with', love: 'love',
     },
     privacy: '隐私政策', terms: '服务条款', contact: '联系', credits: '照片来源',
     legalDraft: '待审阅草稿，尚未批准发布', updated: '最后更新', back: '返回 Recap',
