@@ -37,12 +37,13 @@ export function localPath(locale: Locale, page = '') {
   return withBase(sitePath(locale, page));
 }
 
-/** Absolute prices in CNY, as configured in `Recap.storekit` (China mainland App Store). */
+/** Absolute prices: CNY for the Chinese page, as configured in `Recap.storekit` (China mainland App Store), and USD for
+ * the English page, at the matching App Store price tiers ($1.99 / $9.99 / $19.99 for ¥12 / ¥68 / ¥128). */
 export const pricing = {
   en: [
-    { label: 'Monthly', price: '¥12', period: '/ month' },
-    { label: 'Yearly', price: '¥68', period: '/ year' },
-    { label: 'Lifetime', price: '¥128', period: 'one-time' },
+    { label: 'Monthly', price: '$1.99', period: '/ month' },
+    { label: 'Yearly', price: '$9.99', period: '/ year' },
+    { label: 'Lifetime', price: '$19.99', period: 'one-time' },
   ],
   zh: [
     { label: '月度', price: '¥12', period: '/ 月' },
@@ -155,21 +156,21 @@ export const copy = {
       lead: 'Weekly recaps, Place Memories, Smart Categories and share cards are free. Absolute adds more categories, Shuffle Mode, Live Photo sharing, this week two or more years back and more share templates: subscribe yearly, or buy once and keep it for life.',
       recommended: 'Recommended',
       free: {
-        name: 'Free', description: 'Everything you need to look back.', price: '¥0', priceNote: 'No account, no payment details',
+        name: 'Free', description: 'Everything you need to look back.', price: '$0', priceNote: 'No account, no payment details',
         features: ['Weekly recaps', 'Place Memories', 'Smart Categories', 'Share cards'],
         cta: 'Download Recap',
       },
       yearly: {
-        name: 'Yearly', description: 'Absolute, a year at a time.', priceNote: 'Billed yearly, cancel anytime',
+        name: 'Yearly', description: 'More Smart Categories, Shuffle Mode, Live Photo sharing and this week in years past.', priceNote: 'Billed yearly, cancel anytime',
         features: ['Everything in Free', 'More Smart Categories', 'Shuffle Mode', 'Live Photo sharing', 'This week, two or more years back', 'More share templates'],
         cta: 'Get Absolute yearly',
       },
       lifetime: {
-        name: 'Lifetime', description: 'Absolute, yours for good.', priceNote: 'One-time purchase, kept for life',
+        name: 'Lifetime', description: 'More Smart Categories, Shuffle Mode, Live Photo sharing and this week in years past.', priceNote: 'One-time purchase, kept for life',
         features: ['Everything in Free', 'More Smart Categories', 'Shuffle Mode', 'Live Photo sharing', 'This week, two or more years back', 'More share templates'],
         cta: 'Get Absolute for life',
       },
-      footnote: 'China mainland App Store prices. Other regions follow local App Store pricing.',
+      footnote: 'US App Store prices. Other regions follow local App Store pricing.',
     },
     install: {
       title: ['Your memories, ', 'week to week.'],
@@ -198,6 +199,15 @@ export const copy = {
       product: 'Product', support: 'Install & help', legal: 'Legal', install: 'Install', made: 'Made with', love: 'love',
     },
     privacy: 'Privacy Policy', terms: 'Terms of Service', contact: 'Contact', credits: 'Photo credits',
+    contactPage: {
+      title: 'How can we help?', description: 'Get help with Recap: common questions, email support, TestFlight feedback and release notes.',
+      groups: { help: 'Get help', follow: 'Follow along' }, channels: 'Contact channels',
+      faq: { title: 'Common questions', body: 'Weekly recaps, privacy, Absolute and installing.' },
+      email: { title: 'Email support', body: 'For bugs, include your iPhone model, iOS version and Recap version.' },
+      feedback: { title: 'TestFlight feedback', body: 'In TestFlight, open Recap and choose Send Beta Feedback. A screenshot helps.' },
+      x: { title: 'X', body: 'Product news and behind-the-scenes notes.' },
+      updates: { title: 'Release notes', body: 'Every update to Recap.' },
+    },
     legalDraft: 'Review draft — not yet approved for publication', updated: 'Last updated', back: 'Back to Recap',
     notFound: 'This moment seems to have wandered off.', notFoundBody: 'The page you’re looking for isn’t here. Let’s go back.',
   },
@@ -309,12 +319,12 @@ export const copy = {
         cta: '下载 Recap',
       },
       yearly: {
-        name: '年付', description: '按年用上 Absolute。', priceNote: '按年订阅，随时取消',
+        name: '年付', description: '更多智能分类、随机模式、Live Photo 分享和往年同周。', priceNote: '按年订阅，随时取消',
         features: ['免费版全部内容', '更多智能分类', '随机模式', 'Live Photo 分享', '两年前及更早的往年同周', '更多分享模板'],
         cta: '按年获取 Absolute',
       },
       lifetime: {
-        name: '终身', description: '一次买断，Absolute 一直是你的。', priceNote: '一次购买，终身使用',
+        name: '终身', description: '更多智能分类、随机模式、Live Photo 分享和往年同周。', priceNote: '一次购买，终身使用',
         features: ['免费版全部内容', '更多智能分类', '随机模式', 'Live Photo 分享', '两年前及更早的往年同周', '更多分享模板'],
         cta: '终身获取 Absolute',
       },
@@ -347,6 +357,15 @@ export const copy = {
       product: '产品', support: '安装与帮助', legal: '法律', install: '安装', made: 'Made with', love: 'love',
     },
     privacy: '隐私政策', terms: '服务条款', contact: '联系', credits: '照片来源',
+    contactPage: {
+      title: '需要什么帮助？', description: '获取 Recap 帮助：常见问题、邮件支持、TestFlight 反馈与更新日志。',
+      groups: { help: '获取帮助', follow: '关注动态' }, channels: '联系渠道',
+      faq: { title: '常见问题', body: '每周回顾、隐私、Absolute 与安装。' },
+      email: { title: '邮件支持', body: '反馈问题时，请附上 iPhone 型号、iOS 版本和 Recap 版本。' },
+      feedback: { title: 'TestFlight 反馈', body: '在 TestFlight 里打开 Recap，选择“发送 Beta 反馈”，附上截图会更好。' },
+      x: { title: 'X', body: '产品动态与幕后记录。' },
+      updates: { title: '更新日志', body: 'Recap 的每一次更新。' },
+    },
     legalDraft: '待审阅草稿，尚未批准发布', updated: '最后更新', back: '返回 Recap',
     notFound: '这一页，好像走远了。', notFoundBody: '没有找到你要访问的页面，先回到首页吧。',
   },

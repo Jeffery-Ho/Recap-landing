@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import { parse } from 'parse5';
 
 const root = 'dist';
-const routes = ['/', '/zh/', '/privacy/', '/zh/privacy/', '/terms/', '/zh/terms/', '/credits/', '/zh/credits/', '/changelog/', '/zh/changelog/'];
+const routes = ['/', '/zh/', '/privacy/', '/zh/privacy/', '/terms/', '/zh/terms/', '/credits/', '/zh/credits/', '/changelog/', '/zh/changelog/', '/contact/', '/zh/contact/'];
 const pathFor = (url) => join(root, url, 'index.html');
 const documents = new Map();
 const all = (node) => [node, ...(node.childNodes ?? []).flatMap(all)];

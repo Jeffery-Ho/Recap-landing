@@ -8,7 +8,7 @@ const { locale, page = '', title, description, noindex = false } = Astro.props;
 const t = copy[locale];
 const home = localPath(locale);
 const canonical = new URL(sitePath(locale, page), site.origin).href;
-const contactHref = site.contactEmail ? `mailto:${site.contactEmail}` : `${home}#contact`;
+const contactHref = localPath(locale, 'contact');
 const pageTitle = title ?? t.title;
 const pageDescription = description ?? t.description;
 const isHome = page === '';

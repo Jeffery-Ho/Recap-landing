@@ -1,0 +1,54 @@
+---
+// Contact, after polaris-ai.work/contact: a serif question over a dot grid, then two grouped lists of channels. Each
+// row is an icon, a title with one line of help, an optional handle and an arrow (→ stays on the site, ↗ leaves it).
+import { CircleHelp, Mail, MessageSquareText, ScrollText } from '@lucide/astro';
+import Base from '../layouts/Base.astro';
+import { copy, localPath, site, type Locale } from '../data/site';
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const t = copy[locale];
+const c = t.contactPage;
+const home = localPath(locale);
+type Row = { title: string; body: string; href: string; icon: 'faq' | 'mail' | 'feedback' | 'x' | 'updates'; value?: string; external?: boolean };
+const groups: { title: string; rows: Row[] }[] = [
+  { title: c.groups.help, rows: [
+    { ...c.faq, href: `${home}#faq`, icon: 'faq' },
+    ...(site.contactEmail ? [{ ...c.email, href: `mailto:${site.contactEmail}`, icon: 'mail' as const }] : []),
+    { ...c.feedback, href: site.testflightUrl, icon: 'feedback', external: true },
+  ] },
+  { title: c.groups.follow, rows: [
+    { ...c.x, href: site.developer.url, icon: 'x', value: `@${site.developer.url.split('/').pop()}`, external: true },
+    { ...c.updates, href: localPath(locale, 'changelog'), icon: 'updates' },
+  ] },
+];
+---
+<Base locale={locale} page="contact" title={`${c.title} · Recap`} description={c.description}>
+  <article class="contact">
+    <header class="contact-hero"><h1>{c.title}</h1></header>
+    <div class="contact-groups" aria-label={c.channels}>
+      {groups.map((group) => (
+        <section class="contact-group">
+          <h2>{group.title}</h2>
+          <ul class="contact-list">
+            {group.rows.map((row) => (
+              <li>
+                <a class="contact-row" href={row.href} target={row.external ? '_blank' : undefined} rel={row.external ? 'noreferrer' : undefined}>
+                  <span class="contact-icon" aria-hidden="true">
+                    {row.icon === 'faq' && <CircleHelp size={20} stroke-width={1.8} />}
+                    {row.icon === 'mail' && <Mail size={20} stroke-width={1.8} />}
+                    {row.icon === 'feedback' && <MessageSquareText size={20} stroke-width={1.8} />}
+                    {row.icon === 'updates' && <ScrollText size={20} stroke-width={1.8} />}
+                    {row.icon === 'x' && <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.75 3h3.07l-6.71 7.67L22 21h-6.18l-4.84-6.33L5.44 21H2.37l7.18-8.2L2 3h6.33l4.38 5.79L17.75 3Zm-1.08 16.18h1.7L7.4 4.73H5.58l11.09 14.45Z" /></svg>}
+                  </span>
+                  <span class="contact-row-text"><span class="contact-row-title">{row.title}</span><span class="contact-row-desc">{row.body}</span></span>
+                  {row.value && <span class="contact-row-value">{row.value}</span>}
+                  <span class="contact-arrow" aria-hidden="true">{row.external ? '↗' : '→'}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+  </article>
+</Base>
