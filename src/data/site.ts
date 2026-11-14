@@ -4,6 +4,8 @@ export const site = {
   origin: 'https://recapmoments.app',
   testflightUrl: (import.meta.env.PUBLIC_TESTFLIGHT_URL ?? 'https://testflight.apple.com/join/zhd3PaV4').trim(),
   operator: 'Recap Team',
+  // The developer credit in the footer, as on polaris-ai.work.
+  developer: { name: 'Jeffery Ho', url: 'https://x.com/JefferyHo_' },
   contactEmail: (import.meta.env.PUBLIC_CONTACT_EMAIL ?? 'support@recapmoments.app').trim(),
   legalApproved: (import.meta.env.LEGAL_CONTENT_APPROVED ?? 'true') === 'true',
 };
@@ -193,7 +195,7 @@ export const copy = {
     closingTitle: ['For every day', 'worth a second look.'],
     footer: {
       tagline: 'Every day worth a second look.',
-      product: 'Product', support: 'Install & help', legal: 'Legal', install: 'Install', made: 'Made for iPhone and iPad.',
+      product: 'Product', support: 'Install & help', legal: 'Legal', install: 'Install', made: 'Made with', love: 'love',
     },
     privacy: 'Privacy Policy', terms: 'Terms of Service', contact: 'Contact', credits: 'Photo credits',
     legalDraft: 'Review draft — not yet approved for publication', updated: 'Last updated', back: 'Back to Recap',
@@ -342,7 +344,7 @@ export const copy = {
     closingTitle: ['为每一个', '想再看一眼的日子。'],
     footer: {
       tagline: '每一个，想再看一眼的日子。',
-      product: '产品', support: '安装与帮助', legal: '法律', install: '安装', made: '为 iPhone 与 iPad 打造。',
+      product: '产品', support: '安装与帮助', legal: '法律', install: '安装', made: '用心制作', love: '爱心',
     },
     privacy: '隐私政策', terms: '服务条款', contact: '联系', credits: '照片来源',
     legalDraft: '待审阅草稿，尚未批准发布', updated: '最后更新', back: '返回 Recap',

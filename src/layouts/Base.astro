@@ -148,7 +148,10 @@ const navLinks = [
             </div>
           </details>
         </div>
-        <span>{t.footer.made}</span>
+        <p class="footer-made">
+          {t.footer.made}<svg class="footer-heart" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true" focusable="false"><path d="M12 21 3.5 12.5a5.3 5.3 0 0 1 7.5-7.5L12 6l1-1a5.3 5.3 0 0 1 7.5 7.5Z" /></svg><span class="sr-only">{t.footer.love}</span>
+          <a href={site.developer.url} target="_blank" rel="noreferrer">{site.developer.name}</a>
+        </p>
       </div>
     </footer>
     <script>import '../scripts/motion.ts'; import '../scripts/interactive.ts';</script>
