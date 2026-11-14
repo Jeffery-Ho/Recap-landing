@@ -40,14 +40,9 @@ const active = days.filter((day) => day.count > 0).length;
 let streak = 0;
 let run = 0;
 for (const day of days) { run = day.count ? run + 1 : 0; streak = Math.max(streak, run); }
-const format = (date: Date) => (locale === 'zh'
-  ? `${date.getUTCMonth() + 1}月${date.getUTCDate()}日`
-  : `${h.months[date.getUTCMonth()]} ${date.getUTCDate()}`);
+// No calendar dates on the site: a day is named by its weekday only, and the chart carries no month labels.
+const format = (date: Date) => h.weekdays[date.getUTCDay()];
 const number = new Intl.NumberFormat(locale === 'zh' ? 'zh-CN' : 'en-US');
-// A month label over the first week that starts in that month.
-const months = days.filter((day, i) => i % 7 === 0 && (i === 0 || day.date.getUTCDate() <= 7))
-  .map((day) => ({ week: day.week, label: h.months[day.date.getUTCMonth()] }))
-  .filter((month, i) => i > 0 || month.week === 0);
 // Before JavaScript picks a day: the busiest day of the last week.
 const lastWeek = days.slice(-7);
 const shown = days.length - 7 + lastWeek.indexOf(lastWeek.reduce((a, b) => (b.count > a.count ? b : a)));
@@ -65,9 +60,6 @@ const caption = (count: number, date: Date) => (count ? h.tip : h.tipNone).repla
       <div class="heatmap-picker">
         <div class="heatmap-scroll" data-heatmap-scroll>
           <div class="heatmap" data-heatmap data-tip={h.tip} data-tip-none={h.tipNone} data-locale={locale} role="img" aria-label={h.label} style={`--weeks:${weeks * 2}`}>
-            <div class="heatmap-months" aria-hidden="true">
-              {[0, weeks].map((offset) => months.filter((month) => !offset || month.week).map((month) => <span style={`grid-column:${offset + month.week + 1}`}>{month.label}</span>))}
-            </div>
             <div class="heatmap-grid" aria-hidden="true">
               {[0, 1].map((copy) => days.map((day, i) => (
                 <span class:list={['heat-cell', { 'is-picked': copy === 0 && i === shown }]} data-level={level(day.count)} data-d={format(day.date)} data-c={day.count}></span>

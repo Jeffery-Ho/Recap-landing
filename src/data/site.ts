@@ -104,13 +104,13 @@ export const copy = {
       shuffleBar: { label: 'On the road', change: 'Show Another Set' },
       items: [
         { id: 'random', label: 'Shuffle Mode', title: 'Turn your iPhone into a photo frame.', body: 'Tap Shuffle Mode and turn your iPhone sideways. Photos lay themselves out and keep turning up moments you’d almost forgotten.', absolute: true },
-        { id: 'print', label: 'Instant prints', title: 'Turn photos into instant prints.', body: 'Pick a frame color, write a line, then flip it over for the date and place. Try it right here.', absolute: false },
+        { id: 'print', label: 'Instant prints', title: 'Turn photos into instant prints.', body: 'Pick a frame color, write a line, then flip it over for the time and place. Try it right here.', absolute: false },
         { id: 'past', label: 'This week in past years', title: 'Back to this week, last year.', body: 'Turn the year wheel back to the same week one, two or three years ago.', absolute: true },
       ],
       print: {
         colors: 'Paper color', flip: 'Flip',
         colorNames: ['White', 'Cream', 'Sage', 'Sky', 'Blush', 'Ink'],
-        text: 'The sea at Kouri Island', captions: ['The sea at Kouri Island', 'The last of summer', 'Watching the sea with you'], date: '2026.10.18', time: '4:20 PM', place: 'Kouri Island, Okinawa', signature: 'Recap',
+        text: 'The sea at Kouri Island', captions: ['The sea at Kouri Island', 'The last of summer', 'Watching the sea with you'], time: '4:20 PM', place: 'Kouri Island, Okinawa', signature: 'Recap',
         alt: 'An instant print of a beach and the Kouri Bridge in Okinawa',
       },
     },
@@ -118,11 +118,11 @@ export const copy = {
       title: ['Moments worth keeping', 'are worth sharing.'],
       body: 'Straight to Instagram, Threads and X, as a Live Photo or a template.',
       apps: { title: ['Share straight to', 'Instagram, Threads and X.'], note: 'Direct' },
-      live: { title: ['Share a Live Photo', 'that’s yours alone.'], caption: 'Kamo River, Kyoto', date: 'Nov 2, 2026', stories: 'Stories', story: 'Your story', now: 'now', message: 'Send message' },
+      live: { title: ['Share a Live Photo', 'that’s yours alone.'], caption: 'Kamo River, Kyoto', stories: 'Stories', story: 'Your story', now: 'now', message: 'Send message' },
       templates: {
         title: ['Stamped with the time and place.', ''], body: 'The default card, a Polaroid or an instax Mini. More templates are on the way.',
-        cover: { week: 'Week 45', place: 'Kamakura', time: 'Nov 5, 2026 · 5:20 PM' },
-        items: [{ kind: 'Polaroid', place: 'Kyoto', date: '2026.11.02 · 17:20' }, { kind: 'instax mini', place: 'Nagoya', date: '2026.10.25 · 16:05' }],
+        cover: { week: 'Week 45', place: 'Kamakura', time: 'Sat · 5:20 PM' },
+        items: [{ kind: 'Polaroid', place: 'Kyoto', date: 'Sun · 5:20 PM' }, { kind: 'instax mini', place: 'Nagoya', date: 'Sat · 4:05 PM' }],
       },
     },
     heatmap: {
@@ -131,7 +131,7 @@ export const copy = {
       label: 'Days with photos over the past year',
       stats: { photos: 'photos', days: 'days with photos', streak: 'day longest streak' },
       less: 'Less', more: 'More',
-      months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      weekdays: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
       tip: '{date} · {count} photos', tipNone: '{date} · No photos',
     },
     heroStage: {
@@ -262,13 +262,13 @@ export const copy = {
       shuffleBar: { label: '旅途风景', change: '换一组' },
       items: [
         { id: 'random', label: '随机模式', title: '把手机变成相框。', body: '点一下随机模式，把手机横过来。照片自己铺开、自己翻页，翻出那些差点忘记的瞬间。', absolute: true },
-        { id: 'print', label: '拍立得', title: '把照片变成拍立得。', body: '换一种边框颜色，写一句话，再翻到背面看日期和地点。就在这里试试。', absolute: false },
+        { id: 'print', label: '拍立得', title: '把照片变成拍立得。', body: '换一种边框颜色，写一句话，再翻到背面看时间和地点。就在这里试试。', absolute: false },
         { id: 'past', label: '往年同周', title: '回到去年的这一周。', body: '拨动年份，回到一年前、两年前、三年前的同一周。', absolute: true },
       ],
       print: {
         colors: '相纸颜色', flip: '翻转',
         colorNames: ['白', '米', '鼠尾草绿', '天蓝', '浅粉', '墨黑'],
-        text: '古宇利岛的海', captions: ['古宇利岛的海', '夏天的尾巴', '和你一起看海'], date: '2026.10.18', time: '下午4:20', place: '冲绳 · 古宇利岛', signature: 'Recap',
+        text: '古宇利岛的海', captions: ['古宇利岛的海', '夏天的尾巴', '和你一起看海'], time: '下午4:20', place: '冲绳 · 古宇利岛', signature: 'Recap',
         alt: '一张拍立得：冲绳古宇利大桥旁的海滩',
       },
     },
@@ -276,11 +276,11 @@ export const copy = {
       title: ['喜欢的瞬间，', '分享出去。'],
       body: '直连 Instagram、Threads 和 X，分享 Live Photo，或套用模板。',
       apps: { title: ['一键直连', 'Instagram、Threads 和 X。'], note: '直连' },
-      live: { title: ['把专属于你的 Live Photo', '分享出去。'], caption: '京都 · 鸭川', date: '2026年11月2日', stories: '快拍', story: '你的快拍', now: '刚刚', message: '发送消息' },
+      live: { title: ['把专属于你的 Live Photo', '分享出去。'], caption: '京都 · 鸭川', stories: '快拍', story: '你的快拍', now: '刚刚', message: '发送消息' },
       templates: {
         title: ['记录时间和地点。', ''], body: '默认卡片、宝丽来、富士 instax，更多模板即将推出。',
-        cover: { week: '第 45 周', place: '镰仓', time: '2026年11月5日 17:20' },
-        items: [{ kind: 'Polaroid', place: '京都', date: '2026.11.02 · 17:20' }, { kind: 'instax mini', place: '名古屋', date: '2026.10.25 · 16:05' }],
+        cover: { week: '第 45 周', place: '镰仓', time: '周六 · 17:20' },
+        items: [{ kind: 'Polaroid', place: '京都', date: '周日 · 17:20' }, { kind: 'instax mini', place: '名古屋', date: '周六 · 16:05' }],
       },
     },
     heatmap: {
@@ -289,7 +289,7 @@ export const copy = {
       label: '过去一年里拍过照片的日子',
       stats: { photos: '张照片', days: '天拍过照片', streak: '天最长连续' },
       less: '少', more: '多',
-      months: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+      weekdays: ['周日', '周一', '周二', '周三', '周四', '周五', '周六'],
       tip: '{date} · {count} 张', tipNone: '{date} · 没有照片',
     },
     heroStage: {

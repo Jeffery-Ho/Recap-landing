@@ -10,7 +10,7 @@ import { slot } from '../data/photos';
 import { withBase } from '../data/site';
 const [sea] = slot('print');
 interface Props {
-  copy: { colors: string; flip: string; colorNames: readonly string[]; text: string; captions: readonly string[]; date: string; time: string; place: string; signature: string; alt: string };
+  copy: { colors: string; flip: string; colorNames: readonly string[]; text: string; captions: readonly string[]; time: string; place: string; signature: string; alt: string };
 }
 const { copy: p } = Astro.props;
 const swatches = ['#ffffff', '#f3ead8', '#d9e4d6', '#d7e5ee', '#f3dcd8', '#24292b'];
@@ -29,7 +29,6 @@ const slogan = Array.from({ length: 4 }, () => "Don't put in mouth.");
       <div class="print-face print-back" aria-hidden="true">
         <div class="print-band print-band--top">{slogan.map((line) => <span><svg viewBox="0 0 12 8"><path d="M1 3.2C2.6 1 4.4.8 6 2.2 7.6.8 9.4 1 11 3.2 9.6 6 7.8 7.2 6 7.2S2.4 6 1 3.2Z" /></svg><i>{line}</i></span>)}</div>
         <div class="print-back-info">
-          <p class="print-back-date">{p.date}</p>
           <p class="print-back-time">{p.time}</p>
           <p class="print-back-place">{p.place}</p>
         </div>
