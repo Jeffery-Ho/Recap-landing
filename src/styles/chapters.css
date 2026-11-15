@@ -300,3 +300,95 @@
 [data-theme="dark"] .print-swatch { border-color: rgb(255 255 255 / .22); }
 /* The print editor (card + controls) is taller than the phone-width visual box, so that box grows to fit it. */
 @media (max-width: 999px) { .feature-slide-visual.browse-visual--print { height: auto; min-height: 380px; } }
+
+/* Recap Assistant (Sort chapter): the app's chat screen in a card. The question is typed into the composer, sent as an
+   accent bubble, the assistant thinks, then answers with the photos it found (interactive.ts). */
+.assistant { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
+.assistant-window {
+  display: grid; grid-template-rows: auto 1fr auto; width: min(100%, 400px); height: min(100%, 440px); overflow: hidden;
+  border: 1px solid var(--border); border-radius: 28px; background: var(--paper); box-shadow: 0 30px 60px -36px rgb(0 0 0 / .35);
+}
+.assistant-head { display: grid; grid-template-columns: 32px 1fr 32px; align-items: center; padding: 14px 14px 10px; font-size: 15px; }
+.assistant-title { display: flex; align-items: center; justify-content: center; gap: 6px; }
+.assistant-nav { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--card); color: var(--ink); box-shadow: 0 0 0 1px var(--border); }
+.assistant-nav svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.assistant-beta { padding: 1px 6px; border-radius: 999px; background: var(--surface-strong); color: var(--muted); font-size: 11px; font-weight: 600; }
+.assistant-thread { position: relative; min-height: 0; }
+/* The empty state, after the app's AssistantIntelligenceOrb (96pt): neutral tones, warm and cool in turn plus one mixed
+   with the theme green, flowing inside a clear glass sphere; a halo of the same tones turns around it (35% opacity, blur
+   22% of the diameter). Each time it appears it grows in and settles (0.6 → 1.08 → 0.95 → 1.06 → 1), then only flows. */
+.assistant-empty { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 0 24px 12px; text-align: center; opacity: 0; transition: opacity .45s var(--ease-out); pointer-events: none; }
+.assistant-empty b { font-size: 19px; font-weight: 600; }
+.assistant-empty > span:last-child { color: var(--muted); font-size: 13px; }
+.assistant.is-empty .assistant-empty { opacity: 1; }
+.assistant.is-empty .assistant-turn { opacity: 0; }
+.assistant {
+  --orb-1: #fcfcfa; --orb-2: #cccac4; --orb-3: color-mix(in srgb, #ebe8e3 55%, var(--forest)); --orb-4: #b8babf; --orb-5: #e0e0e6;
+}
+[data-theme="dark"] .assistant {
+  --orb-1: #9e9b99; --orb-2: #4d4d4f; --orb-3: color-mix(in srgb, #807a75 55%, var(--accent-text)); --orb-4: #66696e; --orb-5: #b3b3b5;
+}
+.assistant-orb { position: relative; width: 96px; height: 96px; margin-bottom: 22px; }
+.assistant.is-empty .assistant-orb { animation: orb-appear 2.6s both; }
+.assistant-orb-glow {
+  position: absolute; inset: 0; border-radius: 50%; scale: 1.05; filter: blur(21px); opacity: .35;
+  background: conic-gradient(var(--orb-1), var(--orb-2), var(--orb-3), var(--orb-4), var(--orb-5), var(--orb-1));
+  animation: orb-spin 9s linear infinite;
+}
+[data-theme="dark"] .assistant-orb-glow { opacity: .45; }
+.assistant-orb-ball {
+  position: absolute; inset: 0; overflow: hidden; border-radius: 50%;
+  box-shadow: inset 0 0 0 .8px rgb(255 255 255 / .35);
+}
+/* The liquid: a slowly turning wash of the five tones with three soft pools drifting through it, at 75% opacity. */
+.assistant-orb-ball::before {
+  content: ""; position: absolute; inset: -20%; opacity: .75; filter: blur(10px);
+  background: conic-gradient(from 90deg, var(--orb-2), var(--orb-5), var(--orb-1), var(--orb-3), var(--orb-4), var(--orb-2));
+  animation: orb-spin 14s linear infinite reverse;
+}
+.assistant-orb-ball i { position: absolute; width: 62%; height: 62%; border-radius: 50%; filter: blur(9px); opacity: .75; }
+.assistant-orb-ball i:nth-child(1) { left: 2%; top: 4%; background: var(--orb-1); animation: orb-drift-a 7s ease-in-out infinite alternate; }
+.assistant-orb-ball i:nth-child(2) { right: 0; top: 20%; background: var(--orb-4); animation: orb-drift-b 5s ease-in-out infinite alternate; }
+.assistant-orb-ball i:nth-child(3) { left: 18%; bottom: 0; background: var(--orb-3); animation: orb-drift-c 6s ease-in-out infinite alternate; }
+/* Clear glass over the liquid: a soft highlight up and to the left and a hairline edge. */
+.assistant-orb-ball::after {
+  content: ""; position: absolute; inset: 0; border-radius: 50%; box-shadow: inset 0 0 0 .8px rgb(255 255 255 / .35);
+  background: radial-gradient(circle at 32% 26%, rgb(255 255 255 / .55), rgb(255 255 255 / 0) 45%);
+}
+@keyframes orb-appear {
+  0% { scale: .6; opacity: 0; } 19% { opacity: 1; } 23% { scale: 1.08; } 46% { scale: .95; } 69% { scale: 1.06; } 100% { scale: 1; opacity: 1; }
+}
+@keyframes orb-spin { to { rotate: 360deg; } }
+@keyframes orb-drift-a { to { translate: 26% 18%; } }
+@keyframes orb-drift-b { to { translate: -24% 22%; } }
+@keyframes orb-drift-c { to { translate: 14% -30%; } }
+@media (prefers-reduced-motion: reduce) { .assistant.is-empty .assistant-orb, .assistant-orb-glow, .assistant-orb-ball::before, .assistant-orb-ball i { animation: none; } }
+.assistant-turn { position: absolute; inset: 6px 16px 8px; display: flex; flex-direction: column; gap: 10px; opacity: 0; transition: opacity .4s var(--ease-out); }
+.assistant-turn.is-current { opacity: 1; }
+.assistant-bubble { margin: 0; max-width: 82%; padding: 9px 14px; border-radius: 20px; font-size: 14px; line-height: 1.45; }
+.assistant-bubble--ask { align-self: flex-end; background: var(--forest); color: #fff; }
+.assistant-bubble--answer { align-self: flex-start; background: var(--card); color: var(--ink); }
+.assistant-typing { align-self: flex-start; display: none; gap: 4px; padding: 13px 14px; border-radius: 20px; background: var(--card); }
+.assistant-typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--subtle); animation: assistant-dot 1s ease-in-out infinite; }
+.assistant-typing i:nth-child(2) { animation-delay: .15s; }
+.assistant-typing i:nth-child(3) { animation-delay: .3s; }
+@keyframes assistant-dot { 0%, 60%, 100% { opacity: .35; translate: 0 0; } 30% { opacity: 1; translate: 0 -3px; } }
+.assistant-reply { display: flex; flex-direction: column; gap: 10px; }
+.assistant-photos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.assistant-photo { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 12px; }
+.assistant-composer { display: flex; align-items: center; gap: 10px; min-height: 52px; margin: 0 12px 12px; padding: 6px 6px 6px 18px; border: 1px solid rgb(255 255 255 / .7); border-radius: 999px; background: color-mix(in srgb, var(--card) 72%, transparent); backdrop-filter: blur(14px); box-shadow: 0 8px 24px -16px rgb(0 0 0 / .35), 0 0 0 1px var(--border); }
+.assistant-input { flex: 1; min-width: 0; overflow: hidden; color: var(--subtle); font-size: 14px; white-space: nowrap; text-overflow: ellipsis; }
+.assistant-input.is-typing { color: var(--ink); }
+.assistant-input.is-typing::after { content: ""; display: inline-block; width: 1.5px; height: 1.05em; margin-left: 1px; vertical-align: -2px; background: var(--forest); animation: assistant-caret 1s steps(1) infinite; }
+@keyframes assistant-caret { 50% { opacity: 0; } }
+.assistant-send { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--surface-strong); color: var(--muted); transition: background-color .2s, color .2s; }
+.assistant-input.is-typing + .assistant-send { background: var(--forest); color: #fff; }
+.assistant-send svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+/* Steps of one exchange, set by interactive.ts. Without it (or under reduced motion) the first turn shows answered. */
+.assistant.is-live .assistant-turn .assistant-bubble--ask, .assistant.is-live .assistant-turn .assistant-reply { opacity: 0; translate: 0 8px; transition: opacity .35s var(--ease-out), translate .35s var(--ease-out); }
+.assistant.is-live .assistant-turn.is-asked .assistant-bubble--ask { opacity: 1; translate: 0 0; }
+.assistant.is-live .assistant-turn.is-thinking .assistant-typing { display: inline-flex; }
+.assistant.is-live .assistant-turn.is-answered .assistant-reply { opacity: 1; translate: 0 0; }
+.assistant.is-live .assistant-photo { opacity: 0; scale: .9; transition: opacity .35s var(--ease-out), scale .35s var(--ease-out); transition-delay: calc(.25s + var(--k) * .09s); }
+.assistant.is-live .assistant-turn.is-answered .assistant-photo { opacity: 1; scale: 1; }
+@media (max-width: 640px) { .assistant-window { border-radius: 22px; } .assistant-bubble { font-size: 13px; } }

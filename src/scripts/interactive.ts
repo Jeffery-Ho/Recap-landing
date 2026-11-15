@@ -66,6 +66,53 @@ if (zoomHero && zoomHand && !reduceMotion.matches) {
   update();
 }
 
+// Recap Assistant: the empty state's orb shows while each question types itself into the composer; it is sent, the assistant thinks, then answers and its
+// photos come in; after a pause the next question starts. Runs only while on screen.
+for (const scene of document.querySelectorAll<HTMLElement>('[data-assistant]')) {
+  if (reduceMotion.matches) break;
+  const turns = [...scene.querySelectorAll<HTMLElement>('[data-assistant-turn]')];
+  const input = scene.querySelector<HTMLElement>('[data-assistant-input]');
+  if (!turns.length || !input) continue;
+  const placeholder = input.dataset.placeholder ?? '';
+  let index = 0;
+  let timer = 0;
+  let running = false;
+  const wait = (ms: number, next: () => void) => { timer = window.setTimeout(() => { if (running) next(); }, ms); };
+  const play = () => {
+    const turn = turns[index];
+    const chars = Array.from(turn.dataset.ask ?? '');
+    turns.forEach((other) => other.classList.remove('is-current', 'is-asked', 'is-thinking', 'is-answered'));
+    turn.classList.add('is-current');
+    scene.classList.add('is-empty');
+    input.classList.add('is-typing');
+    const type = (shown: number) => {
+      input.textContent = chars.slice(0, shown).join('');
+      if (shown < chars.length) return wait(95, () => type(shown + 1));
+      wait(500, () => {
+        input.classList.remove('is-typing');
+        input.textContent = placeholder;
+        scene.classList.remove('is-empty');
+        turn.classList.add('is-asked');
+        wait(450, () => {
+          turn.classList.add('is-thinking');
+          wait(1300, () => {
+            turn.classList.replace('is-thinking', 'is-answered');
+            wait(3800, () => { index = (index + 1) % turns.length; play(); });
+          });
+        });
+      });
+    };
+    wait(1400, () => type(1));
+  };
+  scene.classList.add('is-live', 'is-empty');
+  turns.forEach((turn) => turn.classList.remove('is-current', 'is-asked', 'is-answered'));
+  turns[0].classList.add('is-current');
+  new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting && !running) { running = true; play(); }
+    if (!entry.isIntersecting && running) { running = false; window.clearTimeout(timer); }
+  }, { threshold: 0.4 }).observe(scene);
+}
+
 // Places map: pins pop up, a ring gathers them into the city card. Plays while on screen.
 for (const scene of document.querySelectorAll<HTMLElement>('[data-places-scene]')) {
   if (reduceMotion.matches) break;

@@ -9,6 +9,7 @@ import WeekPhone from '../WeekPhone.astro';
 import ChapterHeader from '../ChapterHeader.astro';
 import CleanupScene from '../scenes/CleanupScene.astro';
 import PlacesMapScene from '../scenes/PlacesMapScene.astro';
+import AssistantScene from '../scenes/AssistantScene.astro';
 import { copy, type Locale } from '../../data/site';
 import { slot } from '../../data/photos';
 interface Props { locale: Locale; }
@@ -36,11 +37,13 @@ const photos: Record<string, ImageMetadata[][]> = {
             <p class="feature-label">{feature.label}</p>
             <h3 id={`feature-${feature.id}-title`} class="feature-slide-title"><span>{feature.title[0]}</span> <span class="muted">{feature.title[1]}</span></h3>
             <p class="feature-slide-text">{feature.body}</p>
+            {'note' in feature && feature.note && <p class="browse-note">{feature.note}</p>}
           </div>
           <div class="feature-slide-visual">
             {feature.id === 'week' && <WeekPhone locale={locale} />}
             {feature.id === 'places' && <PlacesMapScene locale={locale} />}
             {feature.id === 'cleanup' && <CleanupScene states={feature.states} />}
+            {feature.id === 'assistant' && 'chat' in feature && <AssistantScene chat={feature.chat} />}
             {photos[feature.id] && <PhotoStrip states={feature.states} photos={photos[feature.id]} icon={feature.icon} layout="grid" />}
           </div>
         </article>

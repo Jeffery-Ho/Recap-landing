@@ -67,7 +67,7 @@ export const copy = {
     chapters: { sort: 'Sort', browse: 'Browse', share: 'Share', stats: 'Stats' },
     featuresIntro: {
       title: ['Thousands of photos, and never the one you want.', 'Recap sorts them for you.'],
-      body: 'By week, by place and by what’s in them, and the near-duplicates cleared out. No albums to build.',
+      body: 'By week, by place and by what’s in them, the near-duplicates cleared out, and an assistant to ask. No albums to build.',
       label: 'How Recap sorts your photos',
       choose: 'Choose a way to sort',
     },
@@ -95,6 +95,21 @@ export const copy = {
         title: ['Bursts and near-duplicates fill the library.', 'Recap keeps the best of each set.'],
         body: 'Similar shots are grouped together with the best one picked out. Clear the rest in one go.',
         states: ['Doorstep cats · 6 similar', 'Sabani sail · 4 similar'],
+      },
+      {
+        id: 'assistant', label: 'Recap Assistant', icon: 'sparkle',
+        title: ['Can’t remember which week it was?', 'Just ask Recap Assistant.'],
+        body: 'Describe it in a few words, like “the beach last autumn” or “my favorite flowers”, and the assistant finds them in your photos. You can ask Siri too. It all runs on your iPhone.',
+        note: 'Requires Apple Intelligence to be turned on, on a supported iPhone or iPad with iOS 26 or later.',
+        states: [],
+        chat: {
+          title: 'Recap Assistant', beta: 'Beta', placeholder: 'Ask about your photos', start: 'Start a Conversation', hint: 'Search your photos. General chat isn’t supported yet.',
+          turns: [
+            { ask: 'The beach last autumn', answer: 'Found 9 photos by the sea from last autumn.' },
+            { ask: 'My favorite flowers', answer: 'Here are 7 favorites with flowers in them.' },
+            { ask: 'Sunsets in the mountains', answer: 'Found 6 sunset photos taken in the mountains.' },
+          ],
+        },
       },
     ],
     browse: {
@@ -185,7 +200,7 @@ export const copy = {
       { question: 'Which devices are supported?', answer: 'iPhone and iPad on iOS 18.6 or later. The assistant also needs Apple Intelligence.', id: 'devices' },
       { question: 'Does Recap need my whole library?', answer: 'No. Share your whole library or just a few photos. Place Memories needs photos with location.', id: 'permissions' },
       { question: 'Are my photos processed locally?', answer: 'Yes. Categories, search and the assistant run on your device. iCloud downloads, maps and place names use Apple’s services.', id: 'local-processing' },
-      { question: 'What can the assistant find?', answer: 'It searches your themes, dates, favorites and media types. It needs iOS 26+, Apple Intelligence and a ready on-device model.', id: 'assistant' },
+      { question: 'What can the assistant find?', answer: 'Describe what you’re after, by time, Smart Category, what’s in the photo, favorites or photo type, and it finds matching photos. It needs Apple Intelligence turned on, on a supported device with iOS 26 or later. You can also search with Siri.', id: 'assistant' },
       { question: 'Does everything come with the free version?', answer: 'Everyday recaps are free. More Smart Categories, Shuffle Mode, Live Photo sharing, this week two or more years back and more share templates need Absolute.', id: 'membership' },
       { question: 'How can I send feedback?', answer: 'In TestFlight, open Recap and choose Send Beta Feedback. A screenshot helps.', id: 'contact' },
     ],
@@ -225,7 +240,7 @@ export const copy = {
     chapters: { sort: '整理', browse: '浏览', share: '分享', stats: '统计' },
     featuresIntro: {
       title: ['几万张照片，找不到想要的那张。', 'Recap 自动帮你整理好。'],
-      body: '按周、按地点、按内容自动归类，再清掉重复的照片，不用自己建相册。',
+      body: '按周、按地点、按内容自动归类，清掉重复的照片，想找哪张直接问助手，不用自己建相册。',
       label: 'Recap 如何整理照片',
       choose: '选择一种整理方式',
     },
@@ -253,6 +268,21 @@ export const copy = {
         title: ['连拍和相似照片，占满了相册。', 'Recap 每组帮你留下最好的一张。'],
         body: '相似的照片自动归成一组，挑出最好的一张，其余一次清掉。',
         states: ['门口的猫 · 6 张相似', '冲绳帆船 · 4 张相似'],
+      },
+      {
+        id: 'assistant', label: 'Recap 助手', icon: 'sparkle',
+        title: ['记不清是哪一周拍的？', '问问 Recap 助手。'],
+        body: '用一句话描述，比如「去年秋天的海边」「收藏的花」，助手就在你的照片里找出来；也可以直接问 Siri。理解和搜索都在 iPhone 上完成。',
+        note: '需要开启 Apple Intelligence，适用于 iOS 26 及以上的支持机型。',
+        states: [],
+        chat: {
+          title: 'Recap 助手', beta: 'Beta', placeholder: '问问你的照片', start: '开始对话', hint: '可以搜索照片，暂不支持通用对话。',
+          turns: [
+            { ask: '去年秋天的海边', answer: '找到 9 张去年秋天在海边拍的照片。' },
+            { ask: '收藏的花', answer: '这 7 张收藏里有花。' },
+            { ask: '山里的日落', answer: '找到 6 张在山里拍的日落。' },
+          ],
+        },
       },
     ],
     browse: {
@@ -343,7 +373,7 @@ export const copy = {
       { question: '支持哪些设备？', answer: 'iOS 18.6 及以上的 iPhone 和 iPad。助手另需 Apple Intelligence。', id: 'devices' },
       { question: '必须授权整个相册吗？', answer: '不用。可以授权整个相册，也可以只选几张。地点回顾需要照片带有位置信息。', id: 'permissions' },
       { question: '照片会在本地处理吗？', answer: '是。分类、检索和助手都在设备上运行。iCloud 下载、地图和地名使用 Apple 的服务。', id: 'local-processing' },
-      { question: '助手可以找到什么？', answer: '它检索你的主题、日期、收藏和媒体类型。需要 iOS 26+、Apple Intelligence 和就绪的本地模型。', id: 'assistant' },
+      { question: '助手可以找到什么？', answer: '按时间、智能分类、画面内容、收藏和照片类型描述，它就能找出对应的照片，也可以用 Siri 搜。需要在 iOS 26 及以上的支持机型上开启 Apple Intelligence。', id: 'assistant' },
       { question: '所有功能都免费吗？', answer: '日常回顾免费。更多智能分类、随机模式、Live Photo 分享、两年前及更早的往年同周和更多分享模板需要 Absolute。', id: 'membership' },
       { question: '如何反馈问题？', answer: '在 TestFlight 里打开 Recap，选择“发送 Beta 反馈”，附上截图会更好。', id: 'contact' },
     ],
