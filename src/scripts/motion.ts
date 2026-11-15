@@ -69,7 +69,8 @@ for (const strip of document.querySelectorAll<HTMLElement>('[data-strip]')) {
 
 // Feature gallery, after Polaris v2: the current slide's dot fills over 8 s, then the next slide scrolls in. Clicking a
 // dot or a faded slide, swiping, or the arrow keys pick a slide and restart the bar. The bar pauses while the gallery
-// is off screen, hovered or focused, or the tab is hidden; under reduced motion nothing advances on its own.
+// is off screen, hovered or focused, or the tab is hidden; under reduced motion nothing advances on its own. A reload
+// always starts from the first slide.
 for (const gallery of document.querySelectorAll<HTMLElement>('[data-feature-gallery]')) {
   const track = gallery.querySelector<HTMLElement>('[data-feature-track]');
   const slides = [...gallery.querySelectorAll<HTMLElement>('[data-feature-slide]')];
@@ -134,7 +135,16 @@ for (const gallery of document.querySelectorAll<HTMLElement>('[data-feature-gall
   gallery.addEventListener('focusout', (event) => { if (!gallery.contains(event.relatedTarget as Node)) hold(false); });
   document.addEventListener('visibilitychange', updatePlaying);
   new IntersectionObserver(([entry]) => { onScreen = entry.isIntersecting; updatePlaying(); }, { threshold: 0.4 }).observe(gallery);
-  mark(0);
+  // Always start from the first slide: browsers restore the track's sideways scroll on reload (and from the back-forward
+  // cache), which would otherwise land on whichever slide was showing before.
+  const toFirst = () => {
+    window.clearTimeout(settle);
+    track.scrollTo({ left: slides[0].offsetLeft - (track.clientWidth - slides[0].offsetWidth) / 2, behavior: 'instant' });
+    mark(0);
+  };
+  toFirst();
+  window.addEventListener('load', toFirst);
+  window.addEventListener('pageshow', (event) => { if (event.persisted) toFirst(); });
   updatePlaying();
 }
 
