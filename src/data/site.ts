@@ -100,7 +100,7 @@ export const copy = {
         id: 'assistant', label: 'Recap Assistant', icon: 'sparkle',
         title: ['Can’t remember which week it was?', 'Just ask Recap Assistant.'],
         body: 'Describe it in a few words, like “the beach last autumn” or “my favorite flowers”, and the assistant finds them in your photos. You can ask Siri too. It all runs on your iPhone.',
-        note: 'Requires Apple Intelligence to be turned on, on a supported iPhone or iPad with iOS 26 or later.',
+        note: 'Needs an iPhone or iPad that supports Apple Intelligence, on iOS 26 or later, with Apple Intelligence turned on. Not available yet on devices sold in mainland China.',
         states: [],
         chat: {
           title: 'Recap Assistant', beta: 'Beta', placeholder: 'Ask about your photos', start: 'Start a Conversation', hint: 'Search your photos. General chat isn’t supported yet.',
@@ -197,10 +197,10 @@ export const copy = {
     faq: 'Questions', faqTitle: 'Questions?',
     questions: [
       { question: 'How can I try Recap?', answer: 'Tap any TestFlight button on this page to open the TestFlight invitation, accept it, then install Recap.', id: 'installation' },
-      { question: 'Which devices are supported?', answer: 'iPhone and iPad on iOS 18.6 or later. The assistant also needs Apple Intelligence.', id: 'devices' },
+      { question: 'Which devices are supported?', answer: 'iPhone and iPad on iOS 18.6 or later. The assistant needs a newer device that supports Apple Intelligence; see “What can the assistant find?”.', id: 'devices' },
       { question: 'Does Recap need my whole library?', answer: 'No. Share your whole library or just a few photos. Place Memories needs photos with location.', id: 'permissions' },
       { question: 'Are my photos processed locally?', answer: 'Yes. Categories, search and the assistant run on your device. iCloud downloads, maps and place names use Apple’s services.', id: 'local-processing' },
-      { question: 'What can the assistant find?', answer: 'Describe what you’re after, by time, Smart Category, what’s in the photo, favorites or photo type, and it finds matching photos. It needs Apple Intelligence turned on, on a supported device with iOS 26 or later. You can also search with Siri.', id: 'assistant' },
+      { question: 'What can the assistant find?', answer: 'Describe what you’re after, by time, Smart Category, what’s in the photo, favorites or photo type, and it finds matching photos. It understands you with the AI Apple builds into your device, so it needs an iPhone or iPad that supports Apple Intelligence (such as iPhone 15 Pro or later, or an iPad with M1 or later), iOS 26 or later, and Apple Intelligence turned on and finished downloading in Settings. On devices sold in mainland China, Apple Intelligence isn’t open to other apps yet, so the assistant won’t appear there for now. You can still search photos with Siri.', id: 'assistant' },
       { question: 'Does everything come with the free version?', answer: 'Everyday recaps are free. More Smart Categories, Shuffle Mode, Live Photo sharing, this week two or more years back and more share templates need Absolute.', id: 'membership' },
       { question: 'How can I send feedback?', answer: 'In TestFlight, open Recap and choose Send Beta Feedback. A screenshot helps.', id: 'contact' },
     ],
@@ -273,7 +273,7 @@ export const copy = {
         id: 'assistant', label: 'Recap 助手', icon: 'sparkle',
         title: ['记不清是哪一周拍的？', '问问 Recap 助手。'],
         body: '用一句话描述，比如「去年秋天的海边」「收藏的花」，助手就在你的照片里找出来；也可以直接问 Siri。理解和搜索都在 iPhone 上完成。',
-        note: '需要开启 Apple Intelligence，适用于 iOS 26 及以上的支持机型。',
+        note: '需要支持 Apple 智能的 iPhone 或 iPad，系统为 iOS 26 或更新版本，并已打开 Apple 智能。国行设备暂不支持。',
         states: [],
         chat: {
           title: 'Recap 助手', beta: 'Beta', placeholder: '问问你的照片', start: '开始对话', hint: '可以搜索照片，暂不支持通用对话。',
@@ -370,10 +370,10 @@ export const copy = {
     faq: '常见问题', faqTitle: '还有疑问？',
     questions: [
       { question: '如何体验 Recap？', answer: '点页面上任意一个 TestFlight 按钮，打开 TestFlight 邀请并接受，然后安装 Recap。', id: 'installation' },
-      { question: '支持哪些设备？', answer: 'iOS 18.6 及以上的 iPhone 和 iPad。助手另需 Apple Intelligence。', id: 'devices' },
+      { question: '支持哪些设备？', answer: 'iOS 18.6 及以上的 iPhone 和 iPad。助手需要支持 Apple 智能的较新机型，详见“助手可以找到什么？”。', id: 'devices' },
       { question: '必须授权整个相册吗？', answer: '不用。可以授权整个相册，也可以只选几张。地点回顾需要照片带有位置信息。', id: 'permissions' },
       { question: '照片会在本地处理吗？', answer: '是。分类、检索和助手都在设备上运行。iCloud 下载、地图和地名使用 Apple 的服务。', id: 'local-processing' },
-      { question: '助手可以找到什么？', answer: '按时间、智能分类、画面内容、收藏和照片类型描述，它就能找出对应的照片，也可以用 Siri 搜。需要在 iOS 26 及以上的支持机型上开启 Apple Intelligence。', id: 'assistant' },
+      { question: '助手可以找到什么？', answer: '按时间、智能分类、画面内容、收藏和照片类型描述，它就能找出对应的照片。助手靠苹果装在设备里的 AI 听懂你的话，所以需要支持 Apple 智能的 iPhone 或 iPad（如 iPhone 15 Pro 及之后的机型、搭载 M1 及更新芯片的 iPad），系统为 iOS 26 或更新版本，并在设置里打开 Apple 智能、等它下载完成。国行设备上的 Apple 智能暂未开放给其他 App，所以暂时看不到助手，但仍可以用 Siri 搜照片。', id: 'assistant' },
       { question: '所有功能都免费吗？', answer: '日常回顾免费。更多智能分类、随机模式、Live Photo 分享、两年前及更早的往年同周和更多分享模板需要 Absolute。', id: 'membership' },
       { question: '如何反馈问题？', answer: '在 TestFlight 里打开 Recap，选择“发送 Beta 反馈”，附上截图会更好。', id: 'contact' },
     ],
