@@ -1,7 +1,7 @@
 export type Locale = 'en' | 'zh';
 
 export const site = {
-  origin: 'https://recapmoments.app',
+  origin: 'https://www.recapmoments.app',
   testflightUrl: (import.meta.env.PUBLIC_TESTFLIGHT_URL ?? 'https://testflight.apple.com/join/zhd3PaV4').trim(),
   operator: 'Recap Team',
   // The developer credit in the footer, as on polaris-ai.work.
@@ -57,6 +57,9 @@ export const copy = {
     lang: 'en', otherLanguage: '简体中文', otherLanguageShort: '中', languageLabel: 'Switch to Simplified Chinese', languageMenuLabel: 'Language', themeLabel: 'Theme', themeDark: 'Dark theme', themeLight: 'Light theme',
     title: 'Recap — Rediscover Your Photo Memories',
     description: 'Rediscover the moments in your photo library with weekly recaps, city memories, and themed collections. Made for iPhone and iPad.',
+    ogImageAlt: 'Recap — Rediscover Your Photo Memories, with the Recap app icon',
+    installFaqAnswer: 'Open the public invitation using a TestFlight button on this page. Install Apple’s TestFlight, accept the invitation, then install Recap. TestFlight availability is managed by Apple and the developer.',
+    creditsDescription: 'Every travel, theme, and demo photograph on this site is sourced from Unsplash.',
     skip: 'Skip to content',
     nav: { features: 'Features', pricing: 'Pricing', faq: 'FAQ', updates: 'Updates', menu: 'Main navigation' },
     join: 'Join TestFlight', pending: 'TestFlight invitations coming soon',
@@ -227,9 +230,12 @@ export const copy = {
     notFound: 'This moment seems to have wandered off.', notFoundBody: 'The page you’re looking for isn’t here. Let’s go back.',
   },
   zh: {
-    lang: 'zh-Hans', otherLanguage: 'English', otherLanguageShort: 'EN', languageLabel: '切换为英文', languageMenuLabel: '语言', themeLabel: '主题', themeDark: '深色', themeLight: '浅色',
+    lang: 'zh-CN', otherLanguage: 'English', otherLanguageShort: 'EN', languageLabel: '切换为英文', languageMenuLabel: '语言', themeLabel: '主题', themeDark: '深色', themeLight: '浅色',
     title: 'Recap — 重温照片里的生活',
     description: '用 Recap 按周回看照片，重温城市回忆，通过主题发现值得记住的瞬间。适用于 iPhone 和 iPad。',
+    ogImageAlt: 'Recap — 重温照片里的生活，配 Recap 应用图标',
+    installFaqAnswer: '点击页面上的 TestFlight 按钮，打开公开邀请。安装 Apple TestFlight、接受邀请后，即可安装 Recap。名额和可用性由 Apple 与开发者管理。',
+    creditsDescription: '本站旅行、主题和演示照片均来自 Unsplash。',
     skip: '跳到正文',
     nav: { features: '功能', pricing: '定价', faq: '常见问题', updates: '更新', menu: '主导航' },
     join: '在 TestFlight 体验', pending: 'TestFlight 邀请准备中',
@@ -400,3 +406,13 @@ export const copy = {
     notFound: '这一页，好像走远了。', notFoundBody: '没有找到你要访问的页面，先回到首页吧。',
   },
 } as const;
+
+/** Visible FAQ answers, including the TestFlight install copy when an invitation is published. */
+export function faqItems(locale: Locale) {
+  const t = copy[locale];
+  return t.questions.map((item) => ({
+    id: item.id,
+    question: item.question,
+    answer: item.id === 'installation' && site.testflightUrl ? t.installFaqAnswer : item.answer,
+  }));
+}

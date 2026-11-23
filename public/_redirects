@@ -4,5 +4,6 @@
 /v2/ / 301
 /v2/* /:splat 301
 
-# Both hostnames must first be attached in Cloudflare Pages.
-https://www.recapmoments.app/* https://recapmoments.app/:splat 301
+# Match production: Vercel already 308s the apex host to www. Both hostnames must
+# first be attached in Cloudflare Pages if this file is used there.
+https://recapmoments.app/* https://www.recapmoments.app/:splat 301

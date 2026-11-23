@@ -69,7 +69,7 @@ const caption = (count: number, date: Date) => (count ? h.tip : h.tipNone).repla
         </div>
       </div>
       <div class="heatmap-foot">
-        <figure class="heatmap-day" data-heatmap-day aria-live="polite">
+        <figure class="heatmap-day" data-heatmap-day aria-live="polite" data-nosnippet>
           <div class="heatmap-day-photos" aria-hidden="true">
             {photos.map((photo, i) => (
               <Image class:list={['heatmap-day-photo', { 'is-shown': i < 3 }]} style={`--slot:${i < 3 ? i : 3}`} src={photo} alt=""

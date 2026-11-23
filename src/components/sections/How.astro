@@ -28,7 +28,7 @@ const photos: Record<string, ImageMetadata[][]> = {
     {locale === 'zh' && <p class="section-kicker">整理方案</p>}
     <ChapterHeader id="features-title" number={1} label={t.chapters.sort} title={intro.title} body={intro.body} />
   </div>
-  <div class="feature-gallery" data-feature-gallery data-enter aria-roledescription="carousel" aria-label={intro.label}>
+  <div class="feature-gallery" data-feature-gallery data-enter aria-roledescription="carousel" aria-label={intro.label} data-nosnippet>
     <div class="feature-track" data-feature-track tabindex="0">
       {features.map((feature, i) => (
         <article id={`feature-${feature.id}`} class:list={['feature-slide', { 'is-active': i === 0 }]} data-feature-slide
