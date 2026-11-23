@@ -5,8 +5,8 @@ interface Props { locale: Locale; }
 const { locale } = Astro.props;
 const t = copy[locale];
 const installAnswer = locale === 'en'
-  ? 'Open the public invitation using a beta button on this page. Install Apple’s TestFlight, accept the invitation, then install Recap. TestFlight availability is managed by Apple and the developer.'
-  : '点击页面上的测试按钮，打开公开邀请。安装 Apple TestFlight、接受邀请后，即可安装 Recap。测试名额和可用性由 Apple 与开发者管理。';
+  ? 'Open the public invitation using a TestFlight button on this page. Install Apple’s TestFlight, accept the invitation, then install Recap. TestFlight availability is managed by Apple and the developer.'
+  : '点击页面上的 TestFlight 按钮，打开公开邀请。安装 Apple TestFlight、接受邀请后，即可安装 Recap。名额和可用性由 Apple 与开发者管理。';
 ---
 <section id="faq" class="section container" aria-labelledby="faq-title">
   <div class="faq-inner">

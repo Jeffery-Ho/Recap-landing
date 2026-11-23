@@ -35,7 +35,7 @@ npm run verify
 
 ## 当前生产部署
 
-GitHub 仓库 `Jeffery-Ho/Recap-landing` 的 `main` 分支连接 Vercel 项目 `recap-landing`，推送后自动部署。构建命令为 `npm run build`，输出目录为 `dist`。线上地址为 `https://www.recapmoments.app/`，根域名会重定向到 www。发布后需核对 Vercel 部署状态及公开页面内容。
+GitHub 仓库 `Jeffery-Ho/Recap-landing` 的 `main` 分支连接 Vercel 项目 `recap-landing`，推送到 `main` 后自动部署生产环境。构建命令为 `npm run build`，输出目录为 `dist`。线上地址为 `https://www.recapmoments.app/`，根域名会重定向到 www。原 `/v2/` 预览已退役，由 `vercel.json` 与 `public/_redirects` 永久跳转到对应根路径。发布后需核对 Vercel 部署状态、根路径页面，以及 `/v2/` 的 301 跳转。
 
 ## Cloudflare Pages（备选部署）
 

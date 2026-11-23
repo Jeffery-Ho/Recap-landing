@@ -1,0 +1,36 @@
+---
+// Clean up: a burst of near-identical shots fanned out like a contact sheet. While on screen, the copies fold away one by
+// one, the first (top-left) shot stays as the best, ringed, then the next set comes in (interactive.ts). The copies are the same photo
+// with a slightly different crop and exposure, as a burst would be; the repeats are marked data-loop-copy for the
+// one-photo-per-page check. Without JavaScript the first set shows fanned out.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { slot } from '../../data/photos';
+interface Props { states: readonly string[]; }
+const { states } = Astro.props;
+const [cats, sabani] = slot('cleanup');
+const sets: { photo: ImageMetadata; count: number; best: number }[] = [
+  { photo: cats, count: 6, best: 0 },
+  { photo: sabani, count: 4, best: 0 },
+];
+// Small per-shot differences: crop focus, zoom and exposure.
+const shots = [
+  { x: 50, y: 50, z: 1, b: 1 }, { x: 46, y: 52, z: 1.04, b: .96 }, { x: 52, y: 48, z: 1.02, b: 1.03 },
+  { x: 48, y: 54, z: 1.06, b: .92 }, { x: 54, y: 50, z: 1.03, b: 1.06 }, { x: 50, y: 46, z: 1.05, b: .98 },
+];
+---
+<div class="cleanup" data-cleanup aria-hidden="true">
+  <p class="strip-pill">
+    <svg class="strip-icon" viewBox="0 0 24 24"><path d="M8 4h11a1 1 0 0 1 1 1v11" /><rect x="4" y="8" width="12" height="12" rx="2" /></svg>
+    <span class="strip-text cleanup-text" data-cleanup-text>{states[0]}</span>
+  </p>
+  {sets.map((set, s) => (
+    <div class:list={['cleanup-set', { 'is-current': s === 0 }]} style={`--cols:${set.count > 4 ? 3 : 2}`} data-cleanup-set data-state={states[s] ?? ''}>
+      {shots.slice(0, set.count).map((shot, i) => (
+        <figure class:list={['cleanup-shot', { 'is-best': i === set.best }]} style={`--i:${i};--x:${shot.x}%;--y:${shot.y}%;--z:${shot.z};--b:${shot.b}`}>
+          <Image src={set.photo} alt="" data-loop-copy={i > 0 || undefined} widths={[240, 480]} sizes="(max-width: 800px) 28vw, 160px" format="webp" loading="lazy" />
+        </figure>
+      ))}
+    </div>
+  ))}
+</div>

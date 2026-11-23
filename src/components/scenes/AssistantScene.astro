@@ -1,20 +1,52 @@
 ---
+// Recap Assistant, after the app's chat screen: a title with the Beta tag, the empty state's liquid glass orb (shown
+// before each question, as the app shows it before a conversation starts), the reader's question in an accent bubble on
+// the right, the assistant's answer on the left with the photos it found. While on screen, each question types itself
+// into the composer, is sent, the assistant thinks, then answers and its photos slide in; three questions take turns
+// (interactive.ts). Without JavaScript, or under reduced motion, the first exchange shows finished. The photos repeat
+// ones shown elsewhere on the page, so they are marked data-loop-copy for the one-photo-per-page check.
 import { Image } from 'astro:assets';
-import { Sparkles } from '@lucide/astro';
-import { copy, type Locale } from '../../data/site';
-import openSea from '../../assets/library/weekly-sea-detail.jpg';
-import shore from '../../assets/library/themes-seaAttraction-02.jpg';
-import beachSunset from '../../assets/library/themes-sunsetBeach-02.jpg';
-interface Props { locale: Locale; owned?: boolean; }
-const { locale, owned = false } = Astro.props;
-const s = copy[locale].scenes;
-const photos = [openSea, shore, beachSunset];
+import { slot } from '../../data/photos';
+interface Chat { title: string; beta: string; placeholder: string; start: string; hint: string; turns: readonly { ask: string; answer: string }[] }
+interface Props { chat: Chat; }
+const { chat } = Astro.props;
+// Photos that match each question: the sea, flowers, then sunsets over mountains.
+const results = [
+  slot('places:okinawa').slice(0, 4),
+  slot('categories:flowers').slice(0, 4),
+  [...slot('categories:sunset').slice(0, 2), ...slot('categories:mountain').slice(0, 2)],
+];
 ---
-<div class="scene scene-assistant" data-scene data-owned={owned || undefined} aria-hidden="true">
-  <div class="a-results">
-    <small>{s.results}</small>
-    <div class="a-grid">{photos.map((photo, i) => <div style={`--i:${i}`}><Image src={photo} alt="" widths={[200, 400]} sizes="(max-width: 860px) 100px, 180px" format="webp" loading="lazy" /></div>)}</div>
+<div class="assistant" data-assistant aria-hidden="true">
+  <div class="assistant-window">
+    <header class="assistant-head">
+      <span class="assistant-nav"><svg viewBox="0 0 24 24"><path d="m15 5-7 7 7 7" /></svg></span>
+      <span class="assistant-title"><b>{chat.title}</b><span class="assistant-beta">{chat.beta}</span></span>
+      <span class="assistant-nav"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M12 11v5M12 8h.01" /></svg></span>
+    </header>
+    <div class="assistant-thread">
+      <div class="assistant-empty">
+        <span class="assistant-orb"><span class="assistant-orb-glow"></span><span class="assistant-orb-ball"><i></i><i></i><i></i></span></span>
+        <b>{chat.start}</b><span>{chat.hint}</span>
+      </div>
+      {chat.turns.map((turn, i) => (
+        <div class:list={['assistant-turn', { 'is-current is-asked is-answered': i === 0 }]} data-assistant-turn data-ask={turn.ask}>
+          <p class="assistant-bubble assistant-bubble--ask">{turn.ask}</p>
+          <span class="assistant-typing"><i></i><i></i><i></i></span>
+          <div class="assistant-reply">
+            <p class="assistant-bubble assistant-bubble--answer">{turn.answer}</p>
+            <div class="assistant-photos">
+              {(results[i] ?? []).map((photo, k) => (
+                <Image class="assistant-photo" style={`--k:${k}`} src={photo} alt="" widths={[160, 320]} sizes="96px" format="webp" loading="lazy" data-loop-copy />
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+    <div class="assistant-composer">
+      <span class="assistant-input" data-assistant-input data-placeholder={chat.placeholder}>{chat.placeholder}</span>
+      <span class="assistant-send"><svg viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6" /></svg></span>
+    </div>
   </div>
-  <span class="a-searching"><Sparkles aria-hidden="true" />{s.searching}</span>
-  <div class="a-bar s-glass"><Sparkles aria-hidden="true" /><span data-type={s.query}>{s.query}</span><i class="a-caret"></i></div>
 </div>

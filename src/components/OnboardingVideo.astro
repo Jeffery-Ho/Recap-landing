@@ -2,7 +2,8 @@
 // A looping screen recording from Recap (iPhone Air simulator, mock branch build): an onboarding page or an app flow.
 // Muted and inline so it can autoplay; motion.ts pauses it off-screen and under reduced motion, where the poster stays.
 interface Props { name: string; }
+import { withBase } from '../data/site';
 const { name } = Astro.props;
-const base = `/onboarding/${name}`;
+const base = withBase(`/onboarding/${name}`);
 ---
 <video class="onboarding-video" src={`${base}.mp4`} poster={`${base}.jpg`} muted loop playsinline preload="metadata" aria-hidden="true" data-loop-video></video>

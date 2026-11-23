@@ -1,0 +1,93 @@
+---
+// Chapter 03, sharing, as a bento after placify.app's "Save Places from Anywhere" and "Share your map" cards: large
+// rounded cards with two-tone serif titles. The wide card puts Instagram first with Threads and X beside it; the tall
+// card is a Live Photo print shared to Instagram Stories (a looping demo: share sheet, tap Stories, the print in a
+// story; interactive.ts plays it while visible); the third shows the app's share templates: the default full-bleed
+// card (photo, bottom gradient, week and place over a hairline over date and Recap), a Polaroid and an instax Mini.
+import { Image } from 'astro:assets';
+import ChapterHeader from '../ChapterHeader.astro';
+import InstagramGlyph from '../InstagramGlyph.astro';
+import { slot } from '../../data/photos';
+import { copy, withBase, type Locale } from '../../data/site';
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const t = copy[locale];
+const s = t.share;
+const [river] = slot('share:live');
+const templatePhotos = slot('share:templates');
+const threadsPath = 'M16.6 11.2c-.1 0-.2-.1-.3-.1-.2-3-1.8-4.7-4.6-4.7-1.7 0-3.1.7-3.9 2l1.5 1c.6-.9 1.5-1.1 2.4-1.1 1 0 1.8.3 2.2.9.3.4.5 1 .6 1.7-.8-.1-1.7-.2-2.6-.1-2.6.1-4.3 1.7-4.2 3.8.1 1.1.6 2 1.5 2.6.8.5 1.8.8 2.8.7 1.4-.1 2.5-.6 3.2-1.6.6-.7.9-1.7 1-2.9.7.4 1.2 1 1.5 1.6.5 1.1.5 2.8-.9 4.2-1.2 1.2-2.7 1.8-4.9 1.8-2.4 0-4.3-.8-5.5-2.3C5.2 16.9 4.6 14.8 4.6 12s.6-4.9 1.8-6.4C7.6 4.1 9.4 3.3 11.8 3.3c2.4 0 4.3.8 5.5 2.3.6.7 1.1 1.7 1.4 2.8l1.8-.5c-.4-1.4-1-2.6-1.8-3.6C17.1 2.4 14.8 1.4 11.8 1.4 8.9 1.4 6.6 2.4 5 4.3 3.6 6.1 2.8 8.7 2.8 12s.8 5.9 2.2 7.7c1.6 1.9 3.9 2.9 6.8 2.9 2.6 0 4.4-.7 5.9-2.2 2-2 1.9-4.4 1.3-5.9-.5-1.1-1.4-2-2.4-2.6Zm-4.4 4.6c-1.1.1-2.2-.4-2.3-1.4 0-.8.6-1.6 2.3-1.7h.6c.6 0 1.2.1 1.7.2-.2 2.4-1.3 2.9-2.3 2.9Z';
+const xPath = 'M18.9 1.2h3.7l-8 9.2L24 22.8h-7.4l-5.8-7.6-6.6 7.6H.5l8.6-9.8L0 1.2h7.6l5.2 6.9Zm-1.3 19.4h2L6.5 3.2H4.3Z';
+---
+<section id="share" class="section chapter share-section" aria-labelledby="share-title">
+  <div class="container">
+    <ChapterHeader id="share-title" number={3} label={t.chapters.share} title={s.title} body={s.body} />
+    <div class="bento">
+      <article class="bento-card bento-apps" data-enter>
+        <div class="share-apps" aria-hidden="true">
+          <span class="app-tile app-tile--threads">
+            <svg viewBox="0 0 24 24"><path d="M16.6 11.2c-.1 0-.2-.1-.3-.1-.2-3-1.8-4.7-4.6-4.7-1.7 0-3.1.7-3.9 2l1.5 1c.6-.9 1.5-1.1 2.4-1.1 1 0 1.8.3 2.2.9.3.4.5 1 .6 1.7-.8-.1-1.7-.2-2.6-.1-2.6.1-4.3 1.7-4.2 3.8.1 1.1.6 2 1.5 2.6.8.5 1.8.8 2.8.7 1.4-.1 2.5-.6 3.2-1.6.6-.7.9-1.7 1-2.9.7.4 1.2 1 1.5 1.6.5 1.1.5 2.8-.9 4.2-1.2 1.2-2.7 1.8-4.9 1.8-2.4 0-4.3-.8-5.5-2.3C5.2 16.9 4.6 14.8 4.6 12s.6-4.9 1.8-6.4C7.6 4.1 9.4 3.3 11.8 3.3c2.4 0 4.3.8 5.5 2.3.6.7 1.1 1.7 1.4 2.8l1.8-.5c-.4-1.4-1-2.6-1.8-3.6C17.1 2.4 14.8 1.4 11.8 1.4 8.9 1.4 6.6 2.4 5 4.3 3.6 6.1 2.8 8.7 2.8 12s.8 5.9 2.2 7.7c1.6 1.9 3.9 2.9 6.8 2.9 2.6 0 4.4-.7 5.9-2.2 2-2 1.9-4.4 1.3-5.9-.5-1.1-1.4-2-2.4-2.6Zm-4.4 4.6c-1.1.1-2.2-.4-2.3-1.4 0-.8.6-1.6 2.3-1.7h.6c.6 0 1.2.1 1.7.2-.2 2.4-1.3 2.9-2.3 2.9Z" /></svg>
+          </span>
+          <span class="app-tile app-tile--instagram">
+            <InstagramGlyph id="ig-glyph-1" />
+          </span>
+          <span class="app-tile app-tile--x">
+            <svg viewBox="0 0 24 24"><path d="M18.9 1.2h3.7l-8 9.2L24 22.8h-7.4l-5.8-7.6-6.6 7.6H.5l8.6-9.8L0 1.2h7.6l5.2 6.9Zm-1.3 19.4h2L6.5 3.2H4.3Z" /></svg>
+          </span>
+        </div>
+        <p class="bento-chip"><span class="hero-badge-dot" aria-hidden="true"></span>{s.apps.note}</p>
+        <h3 class="bento-title"><span class="muted">{s.apps.title[0]}</span> <span>{s.apps.title[1]}</span></h3>
+      </article>
+
+      <article class="bento-card bento-live" data-enter>
+        <div class="live-stage" data-live-share aria-hidden="true">
+          <div class="live-start">
+          <figure class="app-print live-print" aria-hidden="true"><div class="print-front">
+            <div class="print-photo live-photo">
+              <Image src={river} alt="" widths={[360, 720]} sizes="(max-width: 860px) 70vw, 320px" format="webp" loading="lazy" />
+              <span class="live-badge"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="2" /><circle cx="8" cy="8" r="4.4" /><circle cx="8" cy="8" r="6.6" stroke-dasharray="1.4 1.6" /></svg>LIVE</span>
+            </div>
+            <figcaption class="print-row"><span class="print-caption">{s.live.caption}</span><span class="print-brand">Recap<img src={withBase('/app-icon.png')} width="42" height="42" alt="" loading="lazy" /></span></figcaption>
+          </div></figure>
+            <div class="share-sheet">
+              <span class="share-target"><span class="share-icon share-icon--ig"><InstagramGlyph id="ig-glyph-2" /></span>{s.live.stories}</span>
+              <span class="share-target"><span class="share-icon"><svg viewBox="0 0 24 24"><path d={threadsPath} /></svg></span>Threads</span>
+              <span class="share-target"><span class="share-icon"><svg viewBox="0 0 24 24"><path d={xPath} /></svg></span>X</span>
+              <span class="share-tap"></span>
+            </div>
+          </div>
+          <div class="story">
+            <Image class="story-bg" src={river} alt="" widths={[240]} sizes="120px" format="webp" loading="lazy" data-loop-copy="" />
+            <div class="story-bars"><i></i></div>
+            <div class="story-head"><b>{s.live.story}</b><span>{s.live.now}</span></div>
+            <figure class="app-print story-print"><div class="print-front">
+              <div class="print-photo live-photo"><Image src={river} alt="" widths={[360, 720]} sizes="200px" format="webp" loading="lazy" data-loop-copy="" /><span class="live-badge"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="2" /><circle cx="8" cy="8" r="4.4" /><circle cx="8" cy="8" r="6.6" stroke-dasharray="1.4 1.6" /></svg>LIVE</span></div>
+              <figcaption class="print-row"><span class="print-caption">{s.live.caption}</span><span class="print-brand">Recap<img src={withBase('/app-icon.png')} width="42" height="42" alt="" loading="lazy" /></span></figcaption>
+            </div></figure>
+            <div class="story-foot"><span>{s.live.message}</span><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z" /></svg><svg viewBox="0 0 24 24"><path d="M21 3 10 14M21 3l-7 18-4-7-7-4Z" /></svg></div>
+          </div>
+        </div>
+        <h3 class="bento-title"><span>{s.live.title[0]}</span> <span class="muted">{s.live.title[1]}</span></h3>
+      </article>
+
+      <article class="bento-card bento-templates" data-enter>
+        <div class="templates" aria-hidden="true">
+          <figure class="tpl-cover">
+            <Image src={templatePhotos[0]} alt="" widths={[240, 480]} sizes="(max-width: 860px) 36vw, 180px" format="webp" loading="lazy" />
+            <figcaption>
+              <span><b>{s.templates.cover.week}</b><b>{s.templates.cover.place}</b></span>
+              <i></i>
+              <span><b>{s.templates.cover.time}</b><b>Recap</b></span>
+            </figcaption>
+          </figure>
+          {s.templates.items.map((item, i) => (
+            <figure class:list={['app-print template', i === 0 ? 'app-print--polaroid' : 'app-print--instax']}><div class="print-front">
+              <div class="print-photo"><Image src={templatePhotos[i + 1]} alt="" widths={[240, 480]} sizes="(max-width: 860px) 36vw, 180px" format="webp" loading="lazy" /></div>
+              <figcaption class="print-row"><span class="print-caption">{item.place}<small>{item.date}</small></span><span class="print-brand">Recap<img src={withBase('/app-icon.png')} width="42" height="42" alt="" loading="lazy" /></span></figcaption>
+            </div></figure>
+          ))}
+        </div>
+        <div><h3 class="bento-title"><span>{s.templates.title[0]}</span></h3><p class="bento-text">{s.templates.body}</p></div>
+      </article>
+    </div>
+  </div>
+</section>
