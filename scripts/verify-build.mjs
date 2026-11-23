@@ -136,7 +136,7 @@ assert.equal(vercel.rewrites, undefined, '/v2/ must not be rewritten as duplicat
 const redirects = vercel.redirects ?? [];
 assert(redirects.some((rule) => rule.source === '/v2' && rule.destination === '/' && rule.permanent === true), 'permanent /v2 -> /');
 assert(redirects.some((rule) => rule.source === '/v2/' && rule.destination === '/' && rule.permanent === true), 'permanent /v2/ -> /');
-assert(redirects.some((rule) => rule.source === '/v2/:path*' && rule.destination === '/:path*' && rule.permanent === true), 'permanent /v2/:path* -> /:path*');
+assert(redirects.some((rule) => rule.source === '/v2/:path(.*)' && rule.destination === '/:path' && rule.permanent === true), 'permanent /v2/:path(.*) -> /:path');
 assert(!redirects.some((rule) => String(rule.destination).includes('/v2')), 'v2 redirects must not loop back to /v2/');
 
 const hostedRedirects = readFileSync(distFile('_redirects'), 'utf8');

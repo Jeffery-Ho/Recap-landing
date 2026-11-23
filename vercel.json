@@ -2,6 +2,6 @@
   "redirects": [
     { "source": "/v2", "destination": "/", "permanent": true },
     { "source": "/v2/", "destination": "/", "permanent": true },
-    { "source": "/v2/:path*", "destination": "/:path*", "permanent": true }
+    { "source": "/v2/:path(.*)", "destination": "/:path", "permanent": true }
   ]
 }
