@@ -6,4 +6,4 @@ import { withBase } from '../data/site';
 const { name } = Astro.props;
 const base = withBase(`/onboarding/${name}`);
 ---
-<video class="onboarding-video" src={`${base}.mp4`} poster={`${base}.jpg`} muted loop playsinline preload="metadata" aria-hidden="true" data-loop-video></video>
+<video class="onboarding-video" src={`${base}.mp4`} poster={`${base}.jpg`} muted loop playsinline preload="metadata" aria-hidden="true" data-loop-video data-nosnippet></video>

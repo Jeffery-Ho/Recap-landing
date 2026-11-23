@@ -35,13 +35,13 @@ npm run verify
 
 ## 当前生产部署
 
-GitHub 仓库 `Jeffery-Ho/Recap-landing` 的 `main` 分支连接 Vercel 项目 `recap-landing`，推送到 `main` 后自动部署生产环境。构建命令为 `npm run build`，输出目录为 `dist`。线上地址为 `https://www.recapmoments.app/`，根域名会重定向到 www。原 `/v2/` 预览已退役，由 `vercel.json` 与 `public/_redirects` 永久跳转到对应根路径。发布后需核对 Vercel 部署状态、根路径页面，以及 `/v2/` 的 301 跳转。
+GitHub 仓库 `Jeffery-Ho/Recap-landing` 的 `main` 分支连接 Vercel 项目 `recap-landing`，推送到 `main` 后自动部署生产环境。构建命令为 `npm run build`，输出目录为 `dist`。线上地址为 `https://www.recapmoments.app/`，根域名会 308 到 www。canonical、Open Graph、hreflang、sitemap 与 robots 一律使用 www。搜索引擎应提交 `https://www.recapmoments.app/sitemap.xml`。原 `/v2/` 预览已退役，由 `vercel.json` 与 `public/_redirects` 永久跳转到对应根路径。发布后需核对 Vercel 部署状态、根路径页面，以及 `/v2/` 的 301 跳转。
 
 ## Cloudflare Pages（备选部署）
 
 使用 Git 集成，项目根目录为本目录，构建命令 `npm run build`，输出目录 `dist`。使用 Node 24。生产环境填写上述配置并将 `RECAP_RELEASE=true`；分支预览保留 `RECAP_RELEASE=false`。
 
-资料检查通过且邀请可用后，在 Pages 关联 `recapmoments.app` 和 `www.recapmoments.app`。`public/_redirects` 已提供 www 到根域名的 301 规则。配置域名后仍需检查 DNS、HTTPS、重定向及实际安装入口。
+资料检查通过且邀请可用后，在 Pages 关联 `recapmoments.app` 和 `www.recapmoments.app`。`public/_redirects` 已提供 apex 到 www 的 301 规则，与当前 Vercel 生产跳转一致。配置域名后仍需检查 DNS、HTTPS、重定向及实际安装入口。
 
 参考：[Astro 部署](https://developers.cloudflare.com/pages/framework-guides/deploy-an-astro-site/)、[自定义域名](https://developers.cloudflare.com/pages/configuration/custom-domains/)、[重定向](https://developers.cloudflare.com/pages/configuration/redirects/)。本项目尚未部署至 Cloudflare。
 

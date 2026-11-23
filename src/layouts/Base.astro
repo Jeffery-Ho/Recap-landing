@@ -3,6 +3,7 @@ import '../styles/global.css';
 import zhTitleFont from '../assets/fonts/noto-serif-sc-500.woff2';
 import BetaButton from '../components/BetaButton.astro';
 import { copy, isPreviewBuild, localPath, site, sitePath, withBase, type Locale } from '../data/site';
+import { HREFLANG, shareImage, structuredData } from '../data/seo';
 interface Props { locale: Locale; page?: string; title?: string; description?: string; noindex?: boolean; }
 const { locale, page = '', title, description, noindex = false } = Astro.props;
 const t = copy[locale];
@@ -12,6 +13,8 @@ const contactHref = localPath(locale, 'contact');
 const pageTitle = title ?? t.title;
 const pageDescription = description ?? t.description;
 const isHome = page === '';
+const ogImage = shareImage(locale);
+const jsonLd = !(noindex || isPreviewBuild) ? structuredData(locale, page, pageTitle, pageDescription, canonical) : null;
 const navLinks = [
   { href: `${home}#features`, label: t.nav.features },
   { href: `${home}#pricing`, label: t.nav.pricing },
@@ -48,9 +51,9 @@ const navLinks = [
     <meta name="description" content={pageDescription} />
     {(noindex || isPreviewBuild) && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonical} />
-    <link rel="alternate" hreflang="en" href={new URL(sitePath('en', page), site.origin).href} />
-    <link rel="alternate" hreflang="zh-Hans" href={new URL(sitePath('zh', page), site.origin).href} />
-    <link rel="alternate" hreflang="x-default" href={new URL(sitePath('en', page), site.origin).href} />
+    <link rel="alternate" hreflang={HREFLANG.en} href={new URL(sitePath('en', page), site.origin).href} />
+    <link rel="alternate" hreflang={HREFLANG.zh} href={new URL(sitePath('zh', page), site.origin).href} />
+    <link rel="alternate" hreflang={HREFLANG.xDefault} href={new URL(sitePath('en', page), site.origin).href} />
     {locale === 'zh' && isHome && <link rel="preload" href={zhTitleFont} as="font" type="font/woff2" crossorigin />}
     <link rel="icon" type="image/png" href={withBase('/app-icon.png')} />
     <link rel="apple-touch-icon" href={withBase('/app-icon.png')} />
@@ -61,21 +64,23 @@ const navLinks = [
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content={locale === 'en' ? 'en_US' : 'zh_CN'} />
     <meta property="og:locale:alternate" content={locale === 'en' ? 'zh_CN' : 'en_US'} />
-    <meta property="og:image" content={`${site.origin}/app-icon.png`} />
-    <meta property="og:image:width" content="1024" />
-    <meta property="og:image:height" content="1024" />
-    <meta property="og:image:alt" content="Recap — a white fish on a black app icon" />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={t.ogImageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={pageDescription} />
-    <meta name="twitter:image" content={`${site.origin}/app-icon.png`} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={t.ogImageAlt} />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
   <body class:list={[{ 'locale-zh': locale === 'zh' }]}>
     <a class="skip-link" href="#main">{t.skip}</a>
     <header class="site-header">
       <div class="nav-pill">
         <a class="brand" href={home} aria-label="Recap">
-          <img src={withBase('/app-icon.png')} width="34" height="34" alt="" />
+          <img src={withBase('/app-icon.png')} width="34" height="34" alt="Recap" />
           <span class="brand-name">Recap</span>
         </a>
         <nav class="header-links" aria-label={t.nav.menu}>
@@ -104,7 +109,7 @@ const navLinks = [
     <footer class="site-footer">
       <div class="container footer-grid">
         <div>
-          <a class="footer-brand" href={home}><img src={withBase('/app-icon.png')} width="34" height="34" alt="" loading="lazy" />Recap</a>
+          <a class="footer-brand" href={home}><img src={withBase('/app-icon.png')} width="34" height="34" alt="Recap" loading="lazy" />Recap</a>
           <p class="footer-tagline">{t.footer.tagline}</p>
         </div>
         <nav class="footer-col" aria-labelledby="footer-product">
@@ -143,8 +148,8 @@ const navLinks = [
               <svg class="language-toggle-chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
             </summary>
             <div class="language-menu">
-              <a href={localPath('en', page)} lang="en" hreflang="en" aria-current={locale === 'en' ? 'true' : undefined} data-language-switch={locale === 'en' ? undefined : true}>English</a>
-              <a href={localPath('zh', page)} lang="zh-Hans" hreflang="zh-Hans" aria-current={locale === 'zh' ? 'true' : undefined} data-language-switch={locale === 'zh' ? undefined : true}>简体中文</a>
+              <a href={localPath('en', page)} lang={HREFLANG.en} hreflang={HREFLANG.en} aria-current={locale === 'en' ? 'true' : undefined} data-language-switch={locale === 'en' ? undefined : true}>English</a>
+              <a href={localPath('zh', page)} lang={HREFLANG.zh} hreflang={HREFLANG.zh} aria-current={locale === 'zh' ? 'true' : undefined} data-language-switch={locale === 'zh' ? undefined : true}>简体中文</a>
             </div>
           </details>
         </div>

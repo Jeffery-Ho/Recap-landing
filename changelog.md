@@ -2,6 +2,7 @@
 
 ## 2026-11-23
 
+- 按 Polaris 官网的 SEO 约定整理 Recap：canonical / Open Graph / hreflang / sitemap / robots 与线上一致使用 `https://www.recapmoments.app`（apex 已 308 到 www），提供 `/sitemap.xml`（含 lastmod 与 hreflang），robots 禁止 `/v2/`，首页 JSON-LD 只写页面上已有的产品事实，不编造评分或 App Store 上架。
 - 将原先 `/v2/` 的官网提升为正式根路径：首页与各语言页沿用 v2 的内容、版式与交互，不做改版。`/v2/` 及其深层路径、查询参数以 301 永久跳转到对应根路径，并避免循环跳转。隐私政策、服务条款、联系页等对外链接继续可用。canonical、hreflang、Open Graph、sitemap 与 robots 不再把 `/v2/` 当作正式地址。
 
 ## 2026-11-17

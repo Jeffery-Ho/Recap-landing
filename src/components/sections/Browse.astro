@@ -16,7 +16,7 @@ const b = t.browse;
   <div class="container">
     <ChapterHeader id="browse-title" number={2} label={t.chapters.browse} title={b.title} body={b.body} />
   </div>
-  <div class="feature-gallery" data-feature-gallery data-enter aria-roledescription="carousel" aria-label={b.title[0]}>
+  <div class="feature-gallery" data-feature-gallery data-enter aria-roledescription="carousel" aria-label={b.title[0]} data-nosnippet>
     <div class="feature-track" data-feature-track tabindex="0">
       {b.items.map((item, i) => (
         <article id={`browse-${item.id}`} class:list={['feature-slide', { 'is-active': i === 0 }]} data-feature-slide

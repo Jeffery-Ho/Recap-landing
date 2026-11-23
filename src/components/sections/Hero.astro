@@ -39,6 +39,6 @@ const parts = (line: string) => line.split(/(\{\d\})/).filter(Boolean);
     <p class="hero-description" data-hero-line style="--i:2">{t.heroDescription}</p>
     <div class="hero-actions" data-hero-line style="--i:3"><BetaButton locale={locale} size="hero" /></div>
   </div>
-  <div class="hero-visual"><HeroStage locale={locale} /></div>
+  <div class="hero-visual" data-nosnippet><HeroStage locale={locale} /></div>
   </div>
 </section>

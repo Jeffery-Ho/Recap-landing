@@ -1,0 +1,40 @@
+# Recap
+
+> Recap is an iPhone and iPad app that organizes the photos you already have into weekly recaps, city memories and themed collections. Categories, search and the assistant run on the device. There is no Recap account.
+
+The website is published at https://www.recapmoments.app/ (English) and https://www.recapmoments.app/zh/ (Simplified Chinese).
+
+## Features
+
+- Weekly recaps: every week gets a card of its own, newest first.
+- Place Memories: photos with location are gathered by city.
+- Smart Categories: pets, flowers, the sea, sunsets and similar themes, recognized on the device.
+- Clean up: similar shots are grouped so you can keep the best of each set.
+- Recap Assistant: describe what you are looking for in a few words. It needs an Apple Intelligence device on iOS 26 or later, with Apple Intelligence turned on; it is not available yet on devices sold in mainland China. You can still search photos with Siri.
+- Shuffle Mode, Live Photo sharing, this week two or more years back, and more share templates are part of Absolute.
+
+## Scope
+
+- Who it is for: people who want to look back at a large camera roll without building albums.
+- Devices: iPhone and iPad on iOS 18.6 or later. No account needed.
+- Photos: Recap reads only the library you allow. It does not upload your photos to a Recap server.
+- Network: iCloud photo downloads, maps and place names use Apple’s services.
+
+## Install
+
+- [Homepage](https://www.recapmoments.app/): Product overview, how it works, features, pricing and installation.
+- [TestFlight](https://testflight.apple.com/join/zhd3PaV4): Current public beta for iPhone and iPad. Recap is not on the App Store yet.
+
+## Pricing
+
+- Free: weekly recaps, Place Memories, Smart Categories and share cards. No payment details needed.
+- Absolute yearly or lifetime: more Smart Categories, Shuffle Mode, Live Photo sharing, this week two or more years back, and more share templates.
+- Current prices are listed on the [homepage](https://www.recapmoments.app/#pricing): US App Store $0 / $9.99 per year / $19.99 lifetime; Chinese App Store ¥0 / ¥68 per year / ¥128 lifetime. Other regions follow local App Store pricing. Monthly is not offered on this site.
+
+## Docs
+
+- [Release notes](https://www.recapmoments.app/changelog/): Every Recap build.
+- [Privacy policy](https://www.recapmoments.app/privacy/): Photos, on-device processing, permissions and purchases.
+- [Terms of service](https://www.recapmoments.app/terms/): License, memberships and TestFlight testing.
+- [Contact](https://www.recapmoments.app/contact/): Support channels.
+- [Photo credits](https://www.recapmoments.app/credits/): Unsplash sources for demo photographs.
