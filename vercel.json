@@ -1,6 +1,7 @@
 {
-  "rewrites": [
-    { "source": "/v2", "destination": "/" },
-    { "source": "/v2/(.*)", "destination": "/$1" }
+  "redirects": [
+    { "source": "/v2", "destination": "/", "permanent": true },
+    { "source": "/v2/", "destination": "/", "permanent": true },
+    { "source": "/v2/:path*", "destination": "/:path*", "permanent": true }
   ]
 }

@@ -1,2 +1,8 @@
+# Retired v2 preview paths permanently move to the equivalent root URL.
+# Query strings are preserved by the host. Relative destinations avoid host loops.
+/v2 / 301
+/v2/ / 301
+/v2/* /:splat 301
+
 # Both hostnames must first be attached in Cloudflare Pages.
 https://www.recapmoments.app/* https://recapmoments.app/:splat 301

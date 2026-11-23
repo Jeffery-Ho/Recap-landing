@@ -19,7 +19,7 @@ if (site.contactEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(site.contactEmail)) 
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
-/** True when the site is built under a sub-path (the /v2/ preview), which must stay out of search results. */
+/** True when the site is built under a sub-path, which must stay out of search results. */
 export const isPreviewBuild = base !== '';
 
 /** A root-relative path to a file in public/, prefixed with the build's base path. */
