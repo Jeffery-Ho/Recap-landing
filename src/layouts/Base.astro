@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import zhTitleFont from '../assets/fonts/noto-serif-sc-500.woff2';
 import BetaButton from '../components/BetaButton.astro';
-import { copy, isPreviewBuild, localPath, site, sitePath, withBase, type Locale } from '../data/site';
+import { aso, copy, isPreviewBuild, localPath, site, sitePath, withBase, type Locale } from '../data/site';
 import { HREFLANG, shareImage, structuredData } from '../data/seo';
 interface Props { locale: Locale; page?: string; title?: string; description?: string; noindex?: boolean; }
 const { locale, page = '', title, description, noindex = false } = Astro.props;
@@ -49,6 +49,7 @@ const navLinks = [
     </script>
     <title>{pageTitle}</title>
     <meta name="description" content={pageDescription} />
+    {isHome && <meta name="keywords" content={aso.keywords[locale].join(', ')} />}
     {(noindex || isPreviewBuild) && <meta name="robots" content="noindex, nofollow" />}
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang={HREFLANG.en} href={new URL(sitePath('en', page), site.origin).href} />

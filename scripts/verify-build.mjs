@@ -103,7 +103,7 @@ for (const route of ['/', '/zh/']) {
     assert(attr(image, 'srcset') && attr(image, 'sizes'), `${route}: responsive image`);
   }
 }
-for (const file of ['404.html', '_redirects', '_headers', 'robots.txt', 'sitemap.xml', 'llms.txt', 'og-home.jpg', 'og-home-zh.jpg']) assert(existsSync(join(root, file)), `Missing ${file}`);
+for (const file of ['404.html', '_redirects', '_headers', 'robots.txt', 'sitemap.xml', 'llms.txt', 'llms-full.txt', 'og-home.jpg', 'og-home-zh.jpg']) assert(existsSync(join(root, file)), `Missing ${file}`);
 for (const [route, nodes] of documents) {
   for (const node of nodes) {
     for (const name of ['href', 'src', 'srcset', 'content', 'action']) {
@@ -156,6 +156,8 @@ assert.doesNotMatch(robots, /Sitemap:.*\/v2/);
 assert(!mentionsApexHost(robots), 'robots.txt sitemap must use www');
 assert(existsSync(distFile('google30243403f461dda3.html')), 'Search Console verification file');
 
+const llmsFull = readFileSync(distFile('llms-full.txt'), 'utf8');
+assert(llmsFull.includes(`v${'0.1 (264)'}`) && llmsFull.includes('简体中文') && !mentionsApexHost(llmsFull), 'llms-full.txt has bilingual release notes on www');
 const llms = readFileSync(distFile('llms.txt'), 'utf8');
 assert.match(llms, /^# Recap$/m);
 assert.match(llms, /https:\/\/www\.recapmoments\.app\//);

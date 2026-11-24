@@ -379,6 +379,14 @@ a.release-row:hover { background: var(--surface); }
 .changelog-page .release-list { margin-top: 32px; }
 .changelog-page .release-row { scroll-margin-top: 110px; }
 .changelog-page .release-row:target { background: var(--accent-subtle); }
+.changelog-page .release-row { grid-template-areas: 'version title' 'version summary' 'version changes'; padding: 28px 8px; }
+.changelog-page .release-version { position: sticky; top: 110px; align-self: start; }
+.changelog-page .release-title { font-size: 20px; }
+.changelog-page .release-summary { margin-top: 4px; font-size: 15px; }
+.release-changes { grid-area: changes; display: grid; gap: 18px; margin-top: 18px; }
+.release-group h3 { margin: 0 0 8px; font-size: 14px; font-weight: 650; }
+.release-group ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; color: var(--muted); font-size: 14.5px; line-height: 1.55; }
+.release-group li::marker { color: var(--border-strong, var(--muted)); }
 
 /* Chinese */
 .locale-zh :is(#hero-title, .section-title, .feature-slide-title, #closing-title) {
@@ -425,6 +433,8 @@ a.release-row:hover { background: var(--surface); }
   .section-lead { font-size: 16px; }
   .price-card { padding: 24px; }
   .release-row { grid-template-columns: 1fr; grid-template-areas: 'version' 'title' 'summary'; }
+  .changelog-page .release-row { grid-template-areas: 'version' 'title' 'summary' 'changes'; }
+  .changelog-page .release-version { position: static; }
   .release-compact .release-summary { white-space: normal; }
   .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .footer-bottom { flex-direction: column; }

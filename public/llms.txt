@@ -2,7 +2,9 @@
 
 > Recap is an iPhone and iPad app that organizes the photos you already have into weekly recaps, city memories and themed collections. Categories, search and the assistant run on the device. There is no Recap account.
 
-The website is published at https://www.recapmoments.app/ (English) and https://www.recapmoments.app/zh/ (Simplified Chinese).
+App Store name: Recap – Photo Organizer. Subtitle: Organize, Explore, Share.
+
+The website is published at https://www.recapmoments.app/ (English) and https://www.recapmoments.app/zh/ (Simplified Chinese). The full text of both, with release notes, is at https://www.recapmoments.app/llms-full.txt.
 
 ## Features
 

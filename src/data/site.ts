@@ -37,6 +37,23 @@ export function localPath(locale: Locale, page = '') {
   return withBase(sitePath(locale, page));
 }
 
+/** ASO (draft, still being worked out): the App Store name and subtitle, then keywords grouped as
+ * Organize / Explore / Share. Page titles, meta keywords, structured data and llms files read from here. */
+export const aso = {
+  appName: 'Recap – Photo Organizer',
+  subtitle: 'Organize, Explore, Share',
+  keywords: {
+    en: [
+      // Organize
+      'photo organizer', 'weekly photo organizer', 'auto photo organizer',
+      // Explore
+      'photo memories', 'photo frame', 'photo shuffle',
+      // Share: to come
+    ],
+    zh: ['相册整理', '按周回顾', '自动整理'],
+  },
+} as const;
+
 /** Absolute prices: CNY for the Chinese page, as configured in `Recap.storekit` (China mainland App Store), and USD for
  * the English page, at the matching App Store price tiers ($1.99 / $9.99 / $19.99 for ¥12 / ¥68 / ¥128). */
 export const pricing = {
@@ -55,8 +72,8 @@ export const pricing = {
 export const copy = {
   en: {
     lang: 'en', otherLanguage: '简体中文', otherLanguageShort: '中', languageLabel: 'Switch to Simplified Chinese', languageMenuLabel: 'Language', themeLabel: 'Theme', themeDark: 'Dark theme', themeLight: 'Light theme',
-    title: 'Recap — Rediscover Your Photo Memories',
-    description: 'Rediscover the moments in your photo library with weekly recaps, city memories, and themed collections. Made for iPhone and iPad.',
+    title: 'Recap – Photo Organizer: Organize, Explore, Share',
+    description: 'Recap is a weekly photo organizer for iPhone and iPad: an auto photo organizer for your library, with photo memories, a photo shuffle frame and easy sharing.',
     ogImageAlt: 'Recap — Rediscover Your Photo Memories, with the Recap app icon',
     installFaqAnswer: 'Open the public invitation using a TestFlight button on this page. Install Apple’s TestFlight, accept the invitation, then install Recap. TestFlight availability is managed by Apple and the developer.',
     creditsDescription: 'Every travel, theme, and demo photograph on this site is sourced from Unsplash.',
@@ -65,20 +82,20 @@ export const copy = {
     join: 'Join TestFlight', pending: 'TestFlight invitations coming soon',
     heroLines: ['Your {0} memories,', 'week to {1} week.'],
     heroBadge: 'Recap now runs on iPhone Duo',
-    heroDescription: 'Sorted on its own, fun to browse, easy to share: every week of your photos finds its place.',
+    heroDescription: 'The photo organizer that sorts on its own: organize every week, explore your photo memories, share the best of them.',
     heroNote: 'For iPhone and iPad. Your photos stay on your device.',
-    chapters: { sort: 'Sort', browse: 'Browse', share: 'Share', stats: 'Stats' },
+    chapters: { sort: 'Organize', browse: 'Explore', share: 'Share', stats: 'Stats' },
     featuresIntro: {
-      title: ['Thousands of photos, and never the one you want.', 'Recap sorts them for you.'],
-      body: 'By week, by place and by what’s in them, the near-duplicates cleared out, and an assistant to ask. No albums to build.',
-      label: 'How Recap sorts your photos',
-      choose: 'Choose a way to sort',
+      title: ['Thousands of photos, and never the one you want.', 'Recap organizes them for you.'],
+      body: 'An auto photo organizer: by week, by place and by what’s in them, the near-duplicates cleared out, and an assistant to ask. No albums to build.',
+      label: 'How Recap organizes your photos',
+      choose: 'Choose a way to organize',
     },
     features: [
       {
-        id: 'week', label: 'By week', icon: 'calendar',
-        title: ['The camera roll only gets longer.', 'Recap files it week by week.'],
-        body: 'Every week gets a card of its own, newest first. Scroll back and every week is still there.',
+        id: 'week', label: 'Weekly recap', icon: 'calendar',
+        title: ['The camera roll only gets longer.', 'Recap organizes it week by week.'],
+        body: 'A weekly photo organizer: every week gets a card of its own, newest first. Scroll back and every week is still there.',
         states: ['This Week · 18 photos', 'Week 44 · 12 photos', 'Week 43 · 12 photos'],
       },
       {
@@ -116,14 +133,14 @@ export const copy = {
       },
     ],
     browse: {
-      title: ['Looking back should be fun.', 'Three new ways to browse.'],
-      body: 'Shuffle the whole library, turn photos into instant prints, and step back into the same week years ago.',
+      title: ['Looking back should be fun.', 'Three new ways to explore.'],
+      body: 'Explore your photo memories: shuffle the whole library in a photo frame, turn photos into instant prints, and step back into the same week years ago.',
       absolute: 'Part of Absolute',
       shuffleBar: { label: 'On the road', change: 'Show Another Set' },
       items: [
-        { id: 'random', label: 'Shuffle Mode', title: 'Turn your iPhone into a photo frame.', body: 'Tap Shuffle Mode and turn your iPhone sideways. Photos lay themselves out and keep turning up moments you’d almost forgotten.', absolute: true },
+        { id: 'random', label: 'Shuffle Mode', title: 'Turn your iPhone into a photo frame.', body: 'Tap Shuffle Mode and turn your iPhone sideways. A photo shuffle of your whole library lays itself out and keeps turning up moments you’d almost forgotten.', absolute: true },
         { id: 'print', label: 'Instant prints', title: 'Turn photos into instant prints.', body: 'Pick a frame color, write a line, then flip it over for the time and place. Try it right here.', absolute: false },
-        { id: 'past', label: 'This week in past years', title: 'Back to this week, last year.', body: 'Turn the year wheel back to the same week one, two or three years ago.', absolute: true },
+        { id: 'past', label: 'This week in past years', title: 'Back to this week, last year.', body: 'Turn the year wheel back to the same week one, two or three years ago, and the photo memories from that week come back.', absolute: true },
       ],
       print: {
         colors: 'Paper color', flip: 'Flip',
@@ -210,10 +227,11 @@ export const copy = {
     updates: {
       title: 'Release notes', sectionTitle: 'What’s new.', seeAll: 'See all release notes',
       pageTitle: 'Release notes — Recap', pageDescription: 'What’s new in each Recap build.',
+      groups: { added: 'New', improved: 'Improvements', fixed: 'Fixes' },
     },
     closingTitle: ['For every day', 'worth a second look.'],
     footer: {
-      tagline: 'Every day worth a second look.',
+      tagline: 'Organize, explore and share every week of photos.',
       product: 'Product', support: 'Install & help', legal: 'Legal', install: 'Install', made: 'Made with', love: 'love',
     },
     privacy: 'Privacy Policy', terms: 'Terms of Service', contact: 'Contact', credits: 'Photo credits',
@@ -231,8 +249,8 @@ export const copy = {
   },
   zh: {
     lang: 'zh-CN', otherLanguage: 'English', otherLanguageShort: 'EN', languageLabel: '切换为英文', languageMenuLabel: '语言', themeLabel: '主题', themeDark: '深色', themeLight: '浅色',
-    title: 'Recap — 重温照片里的生活',
-    description: '用 Recap 按周回看照片，重温城市回忆，通过主题发现值得记住的瞬间。适用于 iPhone 和 iPad。',
+    title: 'Recap – 相册整理：按周回顾，自动整理照片',
+    description: 'Recap 相册整理 App：按周回顾，按地点和内容自动整理照片，重温照片回忆，把手机变成随机播放的相框，一键分享。全程在设备上完成，适用于 iPhone 与 iPad。',
     ogImageAlt: 'Recap — 重温照片里的生活，配 Recap 应用图标',
     installFaqAnswer: '点击页面上的 TestFlight 按钮，打开公开邀请。安装 Apple TestFlight、接受邀请后，即可安装 Recap。名额和可用性由 Apple 与开发者管理。',
     creditsDescription: '本站旅行、主题和演示照片均来自 Unsplash。',
@@ -241,18 +259,18 @@ export const copy = {
     join: '在 TestFlight 体验', pending: 'TestFlight 邀请准备中',
     heroLines: ['你的{0}回忆，', '一周又{1}一周。'],
     heroBadge: 'Recap 现已适配 iPhone Duo',
-    heroDescription: '自动整理，好好浏览，轻松分享，每一周的照片都有去处。',
+    heroDescription: '相册自动整理，按周回顾照片，轻松分享，每一周的照片都有去处。',
     heroNote: '适用于 iPhone 与 iPad，照片只留在你的设备上。',
     chapters: { sort: '整理', browse: '浏览', share: '分享', stats: '统计' },
     featuresIntro: {
       title: ['几万张照片，找不到想要的那张。', 'Recap 自动帮你整理好。'],
-      body: '按周、按地点、按内容自动归类，清掉重复的照片，想找哪张直接问助手，不用自己建相册。',
+      body: '相册整理交给 Recap：按周、按地点、按内容自动整理，清掉重复的照片，想找哪张直接问助手，不用自己建相册。',
       label: 'Recap 如何整理照片',
       choose: '选择一种整理方式',
     },
     features: [
       {
-        id: 'week', label: '按周分类', icon: 'calendar',
+        id: 'week', label: '按周回顾', icon: 'calendar',
         title: ['照片越拍越多，越翻越乱。', 'Recap 按周帮你收好。'],
         body: '每一周一张卡片，最新的在最上面。往下翻，每一周都还在。',
         states: ['本周 · 18 张', '第 44 周 · 12 张', '第 43 周 · 12 张'],
@@ -293,11 +311,11 @@ export const copy = {
     ],
     browse: {
       title: ['回看照片，也可以很好玩。', '三种新的翻相册方式。'],
-      body: '随机铺满整个相册，把照片做成拍立得，再回到往年的同一周。',
+      body: '把整个相册随机播放成相框，把照片做成拍立得，再回到往年的同一周，重温照片回忆。',
       absolute: 'Absolute 功能',
       shuffleBar: { label: '旅途风景', change: '换一组' },
       items: [
-        { id: 'random', label: '随机模式', title: '把手机变成相框。', body: '点一下随机模式，把手机横过来。照片自己铺开、自己翻页，翻出那些差点忘记的瞬间。', absolute: true },
+        { id: 'random', label: '随机模式', title: '把手机变成相框。', body: '点一下随机模式，把手机横过来。整个相册随机播放，照片自己铺开、自己翻页，翻出那些差点忘记的瞬间。', absolute: true },
         { id: 'print', label: '拍立得', title: '把照片变成拍立得。', body: '换一种边框颜色，写一句话，再翻到背面看时间和地点。就在这里试试。', absolute: false },
         { id: 'past', label: '往年同周', title: '回到去年的这一周。', body: '拨动年份，回到一年前、两年前、三年前的同一周。', absolute: true },
       ],
@@ -386,10 +404,11 @@ export const copy = {
     updates: {
       title: '更新日志', sectionTitle: '最近更新了什么。', seeAll: '查看全部更新',
       pageTitle: '更新日志 — Recap', pageDescription: 'Recap 每个版本的新变化。',
+      groups: { added: '新增内容', improved: '优化', fixed: '修复内容' },
     },
     closingTitle: ['为每一个', '想再看一眼的日子。'],
     footer: {
-      tagline: '每一个，想再看一眼的日子。',
+      tagline: '整理、浏览、分享，每一周的照片。',
       product: '产品', support: '安装与帮助', legal: '法律', install: '安装', made: 'Made with', love: 'love',
     },
     privacy: '隐私政策', terms: '服务条款', contact: '联系', credits: '照片来源',

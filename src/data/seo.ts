@@ -1,4 +1,4 @@
-import { copy, faqItems, pricing, site, sitePath, type Locale } from './site';
+import { aso, copy, faqItems, pricing, site, sitePath, type Locale } from './site';
 import { releases } from './releases';
 
 export const CANONICAL_ORIGIN = 'https://www.recapmoments.app';
@@ -73,7 +73,10 @@ export function structuredData(locale: Locale, page: string, title: string, desc
   const app = {
     '@type': ['SoftwareApplication', 'MobileApplication'],
     '@id': `${origin}/#application`,
-    name: 'Recap',
+    name: aso.appName,
+    alternateName: 'Recap',
+    slogan: aso.subtitle,
+    keywords: aso.keywords[locale].join(', '),
     description: t.description,
     url: `${origin}/`,
     applicationCategory: 'PhotoApplication',
