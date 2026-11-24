@@ -75,7 +75,7 @@ export function structuredData(locale: Locale, page: string, title: string, desc
     '@id': `${origin}/#application`,
     name: aso.appName,
     alternateName: 'Recap',
-    slogan: aso.subtitle,
+    slogan: aso.subtitle[locale],
     keywords: aso.keywords[locale].join(', '),
     description: t.description,
     url: `${origin}/`,

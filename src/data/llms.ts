@@ -89,7 +89,7 @@ export function llmsFull() {
     '',
     `> ${copy.en.description}`,
     '',
-    `App Store subtitle: ${aso.subtitle}. Keywords: ${aso.keywords.en.join(', ')}; ${aso.keywords.zh.join('、')}.`,
+    `App Store subtitle: ${aso.subtitle.en} (${aso.subtitle.zh}). Keywords: ${aso.keywords.en.join(', ')}; ${aso.keywords.zh.join('、')}.`,
     '',
     `Developer: ${site.developer.name} (${site.developer.url}). Support: ${site.contactEmail}.`,
     '',

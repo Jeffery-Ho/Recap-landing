@@ -6,7 +6,7 @@ import sharp from 'sharp';
 
 // Keep in step with `aso` in src/data/site.ts.
 const name = { brand: 'Recap', product: { en: 'Photo Organizer', zh: '相册整理' } };
-const subtitle = { en: 'Organize, Explore, Share', zh: '整理 · 浏览 · 分享' };
+const subtitle = { en: 'Organize, Explore, Share', zh: '整理、浏览、分享' };
 
 const width = 1200;
 const height = 630;

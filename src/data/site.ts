@@ -41,7 +41,7 @@ export function localPath(locale: Locale, page = '') {
  * Organize / Explore / Share. Page titles, meta keywords, structured data and llms files read from here. */
 export const aso = {
   appName: 'Recap – Photo Organizer',
-  subtitle: 'Organize, Explore, Share',
+  subtitle: { en: 'Organize, Explore, Share', zh: '整理、浏览、分享' },
   keywords: {
     en: [
       // Organize
@@ -251,7 +251,7 @@ export const copy = {
     lang: 'zh-CN', otherLanguage: 'English', otherLanguageShort: 'EN', languageLabel: '切换为英文', languageMenuLabel: '语言', themeLabel: '主题', themeDark: '深色', themeLight: '浅色',
     title: 'Recap – 相册整理：按周回顾，自动整理照片',
     description: 'Recap 相册整理 App：按周回顾，按地点和内容自动整理照片，重温照片回忆，把手机变成随机播放的相框，一键分享。全程在设备上完成，适用于 iPhone 与 iPad。',
-    ogImageAlt: 'Recap 相册整理：整理 · 浏览 · 分享，配 Recap 应用图标',
+    ogImageAlt: 'Recap 相册整理：整理、浏览、分享，配 Recap 应用图标',
     installFaqAnswer: '点击页面上的 TestFlight 按钮，打开公开邀请。安装 Apple TestFlight、接受邀请后，即可安装 Recap。名额和可用性由 Apple 与开发者管理。',
     creditsDescription: '本站旅行、主题和演示照片均来自 Unsplash。',
     skip: '跳到正文',
