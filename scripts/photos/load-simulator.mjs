@@ -6,7 +6,7 @@
 // exists, then overwrites each cached file with the photo photos/manifest.json assigns to that slot, clears the
 // thumbnail caches and relaunches. The Recap repository is not changed. The fixture's own slot order is mirrored below.
 import { execFileSync } from 'node:child_process';
-import { copyFileSync, existsSync, readFileSync, rmSync } from 'node:fs';
+import { copyFileSync, existsSync, readFileSync, readdirSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 
 const [udid, language = 'zh-Hans'] = process.argv.slice(2);
@@ -59,6 +59,14 @@ for (const [slot, names] of Object.entries(fixture)) {
   if (ids?.length !== names.length) throw new Error(`photos/manifest.json app.${slot} needs ${names.length} photos`);
   names.forEach((name, i) => { copyFileSync(`src/assets/photos/${ids[i]}.jpg`, join(images, `bundled-${name}.jpg`)); count += 1; });
 }
+// Newer builds also mix the unsplash-lite set (fixture-*.jpg), a Live Photo still and the Place Memories city cover into
+// the demo library. Overwrite those with the same photos too, so no old picture is left in a capture.
+const pool = [...new Set(Object.values(app).flat())];
+const written = new Set(Object.values(fixture).flat().map((name) => `bundled-${name}.jpg`));
+readdirSync(images).filter((file) => file.endsWith('.jpg') && !written.has(file)).sort().forEach((file, i) => {
+  copyFileSync(`src/assets/photos/${pool[i % pool.length]}.jpg`, join(images, file));
+  count += 1;
+});
 for (const cache of ['RecapHomeIndex/GridThumbnails', 'RecapHomeIndex/ClassificationThumbnails']) rmSync(join(support, cache), { recursive: true, force: true });
 rmSync(join(container, 'Library/Caches', bundle), { recursive: true, force: true });
 simctl('launch', udid, bundle, ...args);

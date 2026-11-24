@@ -1,5 +1,5 @@
 ---
-// Shuffle Mode, built in CSS on a real iPhone Air bezel: the phone shows Recap's Home (a simulator capture), the
+// Shuffle Mode, built in CSS on a real iPhone Air bezel: the phone shows Recap's Home (a simulator capture of the latest build, iPhone 18 Pro Max scaled to the Air screen), the
 // Shuffle Mode button is tapped, the phone turns sideways and photos lay themselves out in the app's staggered grid,
 // the controls show and fade, and for about 20 seconds the photo columns scroll upward at an even pace, as Shuffle
 // Mode plays, then the phone turns back. One 24-second loop, played only while on screen (interactive.ts adds .is-playing). Without JavaScript, or under reduced motion, it rests on the
@@ -16,10 +16,16 @@ const photos = slot('shuffle');
 // Five columns that each scroll up at their own steady pace, as Shuffle Mode plays; every column is repeated once so
 // the loop is seamless. Tile heights vary like the app's masonry.
 const columnCount = 5;
-const columns = Array.from({ length: columnCount }, (_, c) => photos.filter((_, i) => i % columnCount === c));
+// Three tiles per column keep each track taller than the screen. When the pool is short of 15, the pool wraps and the
+// repeats are marked as loop copies, like the second pass of every column.
+const perColumn = 3;
+const columns = Array.from({ length: columnCount }, (_, c) => Array.from({ length: perColumn }, (_, k) => {
+  const i = k * columnCount + c;
+  return { photo: photos[i % photos.length], repeat: i >= photos.length };
+}));
 const ratios = [1.25, 0.8, 1, 1.33, 0.75];
 // The Shuffle Mode button on each capture, as a share of the screen.
-const tap = locale === 'zh' ? { x: 82, y: 9.6 } : { x: 78.5, y: 9.6 };
+const tap = locale === 'zh' ? { x: 83.3, y: 8.7 } : { x: 79.5, y: 8.7 };
 ---
 <div class="shuffle-demo" data-shuffle aria-hidden="true">
   <div class="shuffle-device">
@@ -31,9 +37,9 @@ const tap = locale === 'zh' ? { x: 82, y: 9.6 } : { x: 78.5, y: 9.6 };
           {columns.map((column, c) => (
             <div class="shuffle-col" style={`--c:${c}`}>
               <div class="shuffle-track">
-                {[false, true].map((copy) => column.map((photo, k) => (
+                {[false, true].map((copy) => column.map(({ photo, repeat }, k) => (
                   <div class="shuffle-tile" style={`--h:${ratios[(c + k) % ratios.length]}`}>
-                    <Image src={photo} alt="" widths={[240, 480]} sizes="140px" format="webp" loading="lazy" data-loop-copy={copy ? '' : undefined} />
+                    <Image src={photo} alt="" widths={[240, 480]} sizes="140px" format="webp" loading="lazy" data-loop-copy={copy || repeat ? '' : undefined} />
                   </div>
                 )))}
               </div>
