@@ -8,6 +8,7 @@
 - 页面文案配合关键词：英文四章标签改为 Organize / Explore / Share / Stats（中文本就是 整理 / 浏览 / 分享 / 统计）；首屏说明改为「The photo organizer that sorts on its own: organize every week, explore your photo memories, share the best of them.」/「相册自动整理，按周回顾照片，轻松分享，每一周的照片都有去处。」；整理章节导语加入 auto photo organizer / 相册整理，第一张卡标签改为 Weekly recap / 按周回顾、正文加入 weekly photo organizer；浏览章节标题改为 Three new ways to explore，导语与随机模式、往年同周的正文加入 photo frame、photo shuffle、photo memories（中文：相框、随机播放、照片回忆）；页脚标语改为副标题的意思（Organize, explore and share every week of photos. / 整理、浏览、分享，每一周的照片。）。首屏大标题、FAQ 与定价未改。验证：构建与 verify 通过，本地预览确认中英文首屏说明仍为两行、整理章节导语显示正常。
 - LLM 与爬虫：新增 `/llms-full.txt`（中英文完整功能、隐私、定价、安装、常见问题与分组更新日志），由 `src/data/llms.ts` 从页面文案与 `releases.ts` 构建时生成；手写的 `/llms.txt` 指向它。`robots.txt` 保留 www 站点地图与 `Disallow: /v2/`，另外明确放行 GPTBot、OAI-SearchBot、ChatGPT-User、ClaudeBot、Claude-SearchBot、Claude-User、PerplexityBot、Perplexity-User、Google-Extended、Applebot-Extended、CCBot。`npm run verify` 检查 llms-full.txt 存在、含双语更新日志且只用 www。
 - 分享图 `og-home.jpg` / `og-home-zh.jpg` 按新名称与副标题重做（1200×630，版式不变：左侧 App 图标，右侧三行）：英文「Recap / Photo Organizer / Organize, Explore, Share」，中文「Recap / 相册整理 / 整理、浏览、分享」；`og:image:alt` 同步。新增 `scripts/og-images.mjs`，用 sharp 按 macOS 系统字体渲染，改 `aso` 后重跑即可。验证：构建与 verify 通过，目视检查两张图。
+- 深色模式下 App 图标（黑底）加一圈 1px 浅色描边（白色 22% 不透明度，新 token `--icon-ring`），导航、页脚和安装区的图标边缘不再和深色背景混在一起；浅色模式不显示描边。拍立得署名里的小图标在白色相纸上，未加。验证：构建与 verify 通过，本地预览深色模式确认导航与安装区图标描边。
 - 以上改动原在 v2 分支开发，v2 已提升为正式根路径，改为直接提交到 main。
 
 ## 2026-11-23

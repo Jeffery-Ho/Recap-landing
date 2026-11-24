@@ -23,6 +23,8 @@
   --surface-strong: #eae8e3;
   --border: #e2dfd9;
   --border-strong: #cbc7c0;
+  /* Hairline drawn over the black app icon so its edge reads on dark paper; invisible on light paper. */
+  --icon-ring: transparent;
   --hairline: rgb(47 91 69 / .14);
   --line: rgb(28 27 26 / .08);
   --print: #1f2a29;
@@ -87,6 +89,7 @@
    lifted cards, and a lighter forest for text so it keeps contrast. */
 :root[data-theme="dark"] {
   color-scheme: dark;
+  --icon-ring: rgb(255 255 255 / .22);
   --paper: #121211;
   --paper-deep: #1b1a18;
   --card: #1f1e1c;

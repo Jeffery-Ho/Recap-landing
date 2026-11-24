@@ -67,6 +67,8 @@ a.button-neutral:hover { background: var(--surface); }
 .nav-pill { pointer-events: auto; display: flex; align-items: center; gap: 6px; height: 50px; padding: 0 8px 0 10px; background: var(--glass); backdrop-filter: blur(16px) saturate(1.3); -webkit-backdrop-filter: blur(16px) saturate(1.3); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 8px 24px -14px rgb(28 27 26 / .25); }
 .brand { display: flex; align-items: center; gap: 8px; padding-right: 6px; }
 .brand img { width: 30px; height: 30px; border-radius: 8px; }
+/* The app icon is black: outline it on dark paper (header, footer, install). */
+.brand img, .footer-brand img, .install-icon { outline: 1px solid var(--icon-ring); outline-offset: -1px; }
 .brand-name { font-family: var(--font-serif); font-size: 20px; font-weight: 600; font-style: italic; letter-spacing: -.035em; }
 .header-links { display: flex; align-items: center; }
 .header-link { display: inline-flex; align-items: center; min-height: 36px; padding: 8px 12px; border-radius: 10px; font-size: 15px; font-weight: 550; letter-spacing: -.02em; transition: background-color var(--dur-fast); }
