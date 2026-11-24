@@ -162,12 +162,12 @@
   },
   "web": {
     "hero:chips": [
-      "flower-hydrangea-pink",
-      "sunset-still",
-      "party-daruma",
-      "kyoto-wooden-street",
-      "mountain-fuji-boat",
-      "party-gion-lanterns"
+      "island-horizon-clouds",
+      "island-cliff-sunset",
+      "island-clouds-hill",
+      "island-window-sunset",
+      "island-hills-sea",
+      "island-boats-bay"
     ],
     "hero:wall": [
       "kyoto-ninenzaka",
@@ -336,9 +336,7 @@
       "app": [
         "plantsFlowers"
       ],
-      "web": [
-        "hero:chips"
-      ]
+      "web": []
     },
     {
       "id": "flower-hydrangea-sea",
@@ -560,9 +558,7 @@
       "app": [
         "week"
       ],
-      "web": [
-        "hero:chips"
-      ]
+      "web": []
     },
     {
       "id": "kyoto-yasaka-pagoda",
@@ -602,9 +598,7 @@
       "app": [
         "mountain"
       ],
-      "web": [
-        "hero:chips"
-      ]
+      "web": []
     },
     {
       "id": "mountain-fuji-calm",
@@ -910,9 +904,7 @@
       "app": [
         "partyMaster"
       ],
-      "web": [
-        "hero:chips"
-      ]
+      "web": []
     },
     {
       "id": "party-evening-street",
@@ -938,9 +930,7 @@
       "app": [
         "partyMaster"
       ],
-      "web": [
-        "hero:chips"
-      ]
+      "web": []
     },
     {
       "id": "party-lantern-night",
@@ -1176,9 +1166,7 @@
       "app": [
         "sunsetBeach"
       ],
-      "web": [
-        "hero:chips"
-      ]
+      "web": []
     },
     {
       "id": "sunset-sun",
@@ -1751,6 +1739,78 @@
         "avatar"
       ],
       "web": []
+    },
+    {
+      "id": "island-horizon-clouds",
+      "name": "Clouds along the sea horizon",
+      "nameZh": "海平线上的云",
+      "source": null,
+      "city": null,
+      "category": "sea",
+      "app": [],
+      "web": [
+        "hero:chips"
+      ]
+    },
+    {
+      "id": "island-cliff-sunset",
+      "name": "Sunset between the cliffs",
+      "nameZh": "山崖间的日落",
+      "source": null,
+      "city": null,
+      "category": "sunset",
+      "app": [],
+      "web": [
+        "hero:chips"
+      ]
+    },
+    {
+      "id": "island-clouds-hill",
+      "name": "Clouds over a green hill",
+      "nameZh": "绿色山头上的云",
+      "source": null,
+      "city": null,
+      "category": "sea",
+      "app": [],
+      "web": [
+        "hero:chips"
+      ]
+    },
+    {
+      "id": "island-window-sunset",
+      "name": "Sunset through a window",
+      "nameZh": "窗外的晚霞",
+      "source": null,
+      "city": null,
+      "category": "sunset",
+      "app": [],
+      "web": [
+        "hero:chips"
+      ]
+    },
+    {
+      "id": "island-hills-sea",
+      "name": "Hills running into the sea",
+      "nameZh": "入海的山",
+      "source": null,
+      "city": null,
+      "category": "sea",
+      "app": [],
+      "web": [
+        "hero:chips"
+      ]
+    },
+    {
+      "id": "island-boats-bay",
+      "name": "Boats in a quiet bay",
+      "nameZh": "安静海湾里的船",
+      "source": null,
+      "city": null,
+      "category": "sea",
+      "app": [],
+      "web": [
+        "hero:chips"
+      ]
     }
   ]
 }
