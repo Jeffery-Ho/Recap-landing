@@ -16,8 +16,8 @@ interface Props { locale: Locale; }
 const { locale } = Astro.props;
 const s = copy[locale].heroStage;
 const en = locale === 'en';
-// The cards use the shared, graded travel set (photos/manifest.json, web slot hero:wall): quiet, faceless streets, rivers
-// and coast, none of them used further down the page.
+// The cards use the shared, graded set (photos/manifest.json, web slot hero:wall): island and sea photos from the Recap
+// repo's local/ folder, none of them used further down the page.
 const pool: ImageMetadata[] = slot('hero:wall');
 // [x offset from the page centre in px, y % of the hero, size, band]. Offsets keep the cards a fixed distance from the
 // hands (the hand image is 880px wide) instead of drifting outward on wide screens. Outer columns portrait, inner square.

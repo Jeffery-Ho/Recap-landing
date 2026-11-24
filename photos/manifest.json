@@ -170,14 +170,14 @@
       "island-boats-bay"
     ],
     "hero:wall": [
-      "kyoto-ninenzaka",
-      "okinawa-calm-sea",
-      "street-quiet-town",
-      "river-boats-morning",
-      "kyoto-stone-path",
-      "riverside-hills",
-      "street-long-shadows",
-      "pagoda-autumn-dusk"
+      "island-summer-clouds",
+      "island-palm",
+      "island-harbor",
+      "island-sunset-clouds",
+      "island-pink-cloud",
+      "island-boat",
+      "island-hillside-house",
+      "island-cliff-sea"
     ],
     "places:kyoto": [
       "kyoto-kamo-green",
@@ -530,9 +530,7 @@
       "app": [
         "week"
       ],
-      "web": [
-        "hero:wall"
-      ]
+      "web": []
     },
     {
       "id": "kyoto-stone-path",
@@ -544,9 +542,7 @@
       "app": [
         "week"
       ],
-      "web": [
-        "hero:wall"
-      ]
+      "web": []
     },
     {
       "id": "kyoto-wooden-street",
@@ -1276,9 +1272,7 @@
       "app": [
         "week"
       ],
-      "web": [
-        "hero:wall"
-      ]
+      "web": []
     },
     {
       "id": "street-long-shadows",
@@ -1290,9 +1284,7 @@
       "app": [
         "week"
       ],
-      "web": [
-        "hero:wall"
-      ]
+      "web": []
     },
     {
       "id": "river-boats-morning",
@@ -1304,9 +1296,7 @@
       "app": [
         "week"
       ],
-      "web": [
-        "hero:wall"
-      ]
+      "web": []
     },
     {
       "id": "riverside-hills",
@@ -1318,9 +1308,7 @@
       "app": [
         "week"
       ],
-      "web": [
-        "hero:wall"
-      ]
+      "web": []
     },
     {
       "id": "okinawa-calm-sea",
@@ -1332,9 +1320,7 @@
       "app": [
         "tripOkinawa"
       ],
-      "web": [
-        "hero:wall"
-      ]
+      "web": []
     },
     {
       "id": "pagoda-autumn-dusk",
@@ -1346,9 +1332,7 @@
       "app": [
         "week"
       ],
-      "web": [
-        "hero:wall"
-      ]
+      "web": []
     },
     {
       "id": "okinawa-kokusai-street",
@@ -1810,6 +1794,102 @@
       "app": [],
       "web": [
         "hero:chips"
+      ]
+    },
+    {
+      "id": "island-summer-clouds",
+      "name": "Summer clouds over the island",
+      "nameZh": "海岛上空的夏日云",
+      "source": null,
+      "city": null,
+      "category": "sea",
+      "app": [],
+      "web": [
+        "hero:wall"
+      ]
+    },
+    {
+      "id": "island-palm",
+      "name": "Palm tree against a blue sky",
+      "nameZh": "蓝天下的椰子树",
+      "source": null,
+      "city": null,
+      "category": "sea",
+      "app": [],
+      "web": [
+        "hero:wall"
+      ]
+    },
+    {
+      "id": "island-harbor",
+      "name": "Island harbor on a clear day",
+      "nameZh": "晴天的海岛港湾",
+      "source": null,
+      "city": null,
+      "category": "sea",
+      "app": [],
+      "web": [
+        "hero:wall"
+      ]
+    },
+    {
+      "id": "island-sunset-clouds",
+      "name": "Sunset clouds over the sea",
+      "nameZh": "海上的晚霞",
+      "source": null,
+      "city": null,
+      "category": "sunset",
+      "app": [],
+      "web": [
+        "hero:wall"
+      ]
+    },
+    {
+      "id": "island-pink-cloud",
+      "name": "Pink cloud at dusk",
+      "nameZh": "暮色里的粉色云",
+      "source": null,
+      "city": null,
+      "category": "sunset",
+      "app": [],
+      "web": [
+        "hero:wall"
+      ]
+    },
+    {
+      "id": "island-boat",
+      "name": "A boat off a green island",
+      "nameZh": "绿岛旁的小船",
+      "source": null,
+      "city": null,
+      "category": "sea",
+      "app": [],
+      "web": [
+        "hero:wall"
+      ]
+    },
+    {
+      "id": "island-hillside-house",
+      "name": "A house on a green hillside",
+      "nameZh": "绿色山坡上的房子",
+      "source": null,
+      "city": null,
+      "category": "sea",
+      "app": [],
+      "web": [
+        "hero:wall"
+      ]
+    },
+    {
+      "id": "island-cliff-sea",
+      "name": "Open sea beyond a cliff",
+      "nameZh": "山崖外的海",
+      "source": null,
+      "city": null,
+      "category": "sea",
+      "app": [],
+      "web": [
+        "hero:wall"
       ]
     }
   ]

@@ -7,7 +7,7 @@ interface Props { locale: Locale; }
 const { locale } = Astro.props;
 const t = copy[locale];
 // The shared photo library first (no photographer recorded), then the hero's older registered photos. Library photos
-// without a source (the hero headline's island photos) are not from Unsplash and are not listed.
+// without a source (the hero's island photos) are not from Unsplash and are not listed.
 const photos = [...library.photos, ...legacy].filter((photo): photo is typeof photo & { source: string } => Boolean(photo.source)) as { name: string; nameZh: string; source: string; photographer?: string }[];
 ---
 <Base locale={locale} page="credits" title={`${t.credits} — Recap`} description={t.creditsDescription}>

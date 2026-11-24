@@ -2,7 +2,7 @@
 
 官网、App 截图与录屏共用这一套照片，只在这里维护。
 
-- `originals/`：Unsplash 原图（长边 1200px），只登记原始链接，不登记摄影师。首屏标题小图 `island-*` 取自 Recap 仓库 `local/` 的本地照片，`source` 为 `null`、不列入照片来源页，导入时已去掉 EXIF（含定位）。
+- `originals/`：Unsplash 原图（长边 1200px），只登记原始链接，不登记摄影师。首屏的标题小图与两侧照片卡（`island-*`）取自 Recap 仓库 `local/` 的本地照片，`source` 为 `null`、不列入照片来源页，导入时已去掉 EXIF（含定位）。
 - `manifest.json`：唯一登记表。`photos` 列出每张照片的名称、链接、城市与分类；`web` 是官网各位置用哪几张；`app` 是 Recap 演示图库（`-recap-website-photos`）68 个位置用哪几张（本周 18、去年本周 8、六个分类各 7）；`grade` 是统一色调参数。
 - 选图标准：自然光、旅途感，不露人脸或人物很小，不用棚拍和纯色背景。
 
