@@ -8,7 +8,7 @@ import { releaseEnvironment } from './scripts/environment.mjs';
 const env = releaseEnvironment();
 const base = env.SITE_BASE || '/';
 const origin = 'https://www.recapmoments.app';
-const sitemapLastmod = '2026-11-23';
+const sitemapLastmod = '2026-11-25';
 
 function recapSitemapXml() {
   return {

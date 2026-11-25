@@ -3,7 +3,7 @@ import { releases } from './releases';
 
 export const CANONICAL_ORIGIN = 'https://www.recapmoments.app';
 export const HREFLANG = { en: 'en', zh: 'zh-CN', xDefault: 'x-default' } as const;
-export const SITEMAP_LASTMOD = '2026-11-23';
+export const SITEMAP_LASTMOD = '2026-11-25';
 export const INDEXABLE_PAGES = ['', 'privacy', 'terms', 'credits', 'changelog', 'contact'] as const;
 
 export function absoluteUrl(locale: Locale, page = '') {
