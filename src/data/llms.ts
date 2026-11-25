@@ -85,11 +85,11 @@ function section(locale: Locale) {
 
 export function llmsFull() {
   return [
-    `# ${aso.appName}`,
+    `# ${aso.appName.en}`,
     '',
     `> ${copy.en.description}`,
     '',
-    `App Store subtitle: ${aso.subtitle.en} (${aso.subtitle.zh}). Keywords: ${aso.keywords.en.join(', ')}; ${aso.keywords.zh.join('、')}.`,
+    `App Store name: ${aso.appName.en} (${aso.appName.zh}). Subtitle: ${aso.subtitle.en} (${aso.subtitle.zh}). Keywords: ${aso.keywords.en.join(', ')}; ${aso.keywords.zh.join('、')}.`,
     '',
     `Developer: ${site.developer.name} (${site.developer.url}). Support: ${site.contactEmail}.`,
     '',

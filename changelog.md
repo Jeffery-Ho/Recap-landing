@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-11-25
+
+- 页脚标语改为直接显示副标题（英文「Organize, Explore, Share」、中文「整理，发现，美化」，读取 `aso.subtitle`）；网站描述改为 App 名称（英文「Recap – Your Weekly Photos」、中文「Recap - 相册整理与回顾」），meta description、Open Graph / Twitter 描述、JSON-LD `description` 与 `llms-full.txt` 摘要随之变化；其他页面（更新日志、联系、法律页）的描述不变。`docs/aso.md` 同步。
+- App Store 名称、副标题与关键词定稿并同步到官网：名称英文「Recap – Your Weekly Photos」、中文「Recap - 相册整理与回顾」；副标题英文「Organize, Explore, Share」、中文「整理，发现，美化」；关键词按 Organize（photo organizer / 相册整理、weekly photo organizer / 每周照片回顾、auto photo organizer / 自动整理）、Explore（photo memories / 回忆相册、photo shuffle / 随机看照片）、Frame（photo frame / 拍立得相框）分组。`site.ts` 的 `aso` 改为中英文名称各一份，首页标题、meta description、meta keywords、JSON-LD（`name` 按语言）、`llms.txt` / `llms-full.txt` 与中英文分享图同步；新增 `docs/aso.md` 记录定稿与用到的位置，README 加链接。
+- 页面文案配合：photo frame 改为指拍立得，英文发现章节导语与拍立得说明加入 photo frame，随机模式保留 photo shuffle；中文章节「浏览」改为「发现」，第一张卡标签「按周回顾」改为「每周回顾」，首屏说明用「每周照片回顾」，发现章节导语、随机模式与拍立得说明改用「随机看照片」「拍立得相框」「回忆相册」；页脚标语改为新副标题。验证：`astro check` 0 错误，构建与 verify 通过，目视检查两张分享图。
+
 ## 2026-11-24
 
 - 更新日志新增 v0.1 (264)「Recap 助手、清理与全新引导」（中英文），按 Recap 主仓库 11-03 之后的提交整理：助手按日期、季节、节日、时段、地点搜索并支持 Siri，清理相似照片，实时活动显示整理进度，往年同周切换年份，Duo 与 iPad 分栏照片详情，首次打开可先浏览示例图库。中间的 TestFlight 构建号未在仓库中留痕，合并为一条。

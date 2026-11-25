@@ -52,4 +52,5 @@ GitHub 仓库 `Jeffery-Ho/Recap-landing` 的 `main` 分支连接 Vercel 项目 `
 - [实施 TODO](docs/landing-page-todo.md)
 - [素材来源与功能证据](docs/asset-sources.md)
 - [验收记录](docs/validation.md)
+- [App Store 名称、副标题与关键词](docs/aso.md)
 - [更新记录](changelog.md)

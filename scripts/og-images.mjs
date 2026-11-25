@@ -5,8 +5,8 @@ import { readFileSync } from 'node:fs';
 import sharp from 'sharp';
 
 // Keep in step with `aso` in src/data/site.ts.
-const name = { brand: 'Recap', product: { en: 'Photo Organizer', zh: '相册整理' } };
-const subtitle = { en: 'Organize, Explore, Share', zh: '整理、浏览、分享' };
+const name = { brand: 'Recap', product: { en: 'Your Weekly Photos', zh: '相册整理与回顾' } };
+const subtitle = { en: 'Organize, Explore, Share', zh: '整理，发现，美化' };
 
 const width = 1200;
 const height = 630;

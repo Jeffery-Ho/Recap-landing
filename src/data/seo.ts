@@ -73,7 +73,7 @@ export function structuredData(locale: Locale, page: string, title: string, desc
   const app = {
     '@type': ['SoftwareApplication', 'MobileApplication'],
     '@id': `${origin}/#application`,
-    name: aso.appName,
+    name: aso.appName[locale],
     alternateName: 'Recap',
     slogan: aso.subtitle[locale],
     keywords: aso.keywords[locale].join(', '),
